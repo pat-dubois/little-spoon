@@ -4,7 +4,7 @@ Updated: 2026-09-05. Coordinating agent: tili. Host: pdhome.
 
 ## Current state
 
-The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). Local verification is complete: 209 tests and 42 browser checks pass. The review handoff is being saved; see [verification report](docs/verification.md) for the actual passing evidence and limits.
+The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). The implementation commit is `e410494`; GitHub repeats the build and browser checks on the pull request. Local verification is complete: 209 tests and 42 browser checks pass. The review build is saved in [draft pull request #2](https://github.com/pat-dubois/little-spoon/pull/2); see [verification report](docs/verification.md) for the actual passing evidence and limits.
 
 The app includes the shared patient card, Nutrition landing tab, Z-score charts, DRI / RDA table, light/dark themes, source links and complete calculation steps. The build emits a self-contained offline HTML file. Patient fields remain in memory only. Original legacy snapshots and private transcripts were left unchanged.
 
