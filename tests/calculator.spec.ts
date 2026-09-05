@@ -3,6 +3,14 @@ import AxeBuilder from '@axe-core/playwright';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+function nutrientItems(page: Page) {
+  return page.locator('.dri-table tbody tr:visible, .dri-nutrient-card:visible');
+}
+
+function nutrient(page: Page, name: string) {
+  return nutrientItems(page).filter({ has: page.getByRole('heading', { name, exact: true }).or(page.getByRole('rowheader', { name: new RegExp(`^${name}\\b`) })) });
+}
+
 async function enterChild(page: Page) {
   await page.locator('#weight').fill('25');
   await page.locator('#height').fill('122');
@@ -51,14 +59,14 @@ test('DRI lookup needs only age and sex, and preserves sex-specific reference va
   await page.getByRole('radio', { name: 'Female', exact: true }).check();
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
-  const manganese = page.getByRole('row').filter({ has: page.getByRole('rowheader', { name: /^Manganese/ }) });
+  const manganese = nutrient(page, 'Manganese');
   await expect(manganese).toContainText('1.6');
-  const chromium = page.getByRole('row').filter({ has: page.getByRole('rowheader', { name: /^Chromium/ }) });
+  const chromium = nutrient(page, 'Chromium');
   await expect(chromium).toContainText('21');
   await expect(chromium).toContainText('Not established');
   await page.getByRole('searchbox', { name: 'Find a nutrient' }).fill('Vitamin D');
-  await expect(page.locator('tbody tr')).toHaveCount(1);
-  await expect(page.locator('tbody tr')).toContainText('15');
+  await expect(nutrientItems(page)).toHaveCount(1);
+  await expect(nutrientItems(page)).toContainText('15');
 });
 
 test('growth supports a single measurement and shows its work and actual chart', async ({ page }) => {
@@ -87,12 +95,12 @@ test('reset clears all patient values and calculations across tools', async ({ p
   await calculate(page);
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
-  await expect(page.locator('tbody tr')).toHaveCount(26);
+  await expect(nutrientItems(page)).toHaveCount(26);
   await page.getByRole('button', { name: 'Reset all', exact: true }).click();
   await expect(page.locator('#weight')).toHaveValue('');
   await expect(page.locator('#height')).toHaveValue('');
   await expect(page.getByRole('radio', { name: 'Male', exact: true })).not.toBeChecked();
-  await expect(page.locator('tbody tr')).toHaveCount(0);
+  await expect(nutrientItems(page)).toHaveCount(0);
   await page.getByRole('tab', { name: 'Nutrition', exact: true }).click();
   await expect(page.getByLabel('Nutrition results')).toHaveCount(0);
 });
@@ -114,10 +122,10 @@ test('unfinished age input cannot silently select an infant reference', async ({
   await expect(page.locator('#age-years')).toHaveAttribute('aria-invalid', 'true');
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
-  await expect(page.locator('tbody tr')).toHaveCount(0);
+  await expect(nutrientItems(page)).toHaveCount(0);
   await expect(page.getByRole('alert').first()).toBeVisible();
   await page.locator('#age-years').fill('7');
-  await expect(page.locator('tbody tr')).toHaveCount(26);
+  await expect(nutrientItems(page)).toHaveCount(26);
 });
 
 test('production makes no runtime requests or storage writes while calculating', async ({ page, context }) => {
@@ -133,7 +141,7 @@ test('production makes no runtime requests or storage writes while calculating',
   await expect(page.getByLabel('Nutrition results')).toContainText('1,709');
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
-  await expect(page.locator('tbody tr')).toHaveCount(26);
+  await expect(nutrientItems(page)).toHaveCount(26);
   expect(runtimeRequests).toEqual([]);
   expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length, cookies: document.cookie }))).toEqual({ local: 0, session: 0, cookies: '' });
 });
@@ -204,11 +212,11 @@ test('six-month infant exception and upper-limit units are visible where needed'
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
   await expect(page.getByText(/Calcium and vitamin D use the older-infant values/)).toBeVisible();
-  const calcium = page.getByRole('row').filter({ has: page.getByRole('rowheader', { name: /^Calcium/ }) });
+  const calcium = nutrient(page, 'Calcium');
   await expect(calcium).toContainText('260');
   await page.locator('#age-years').fill('7');
   await page.locator('#age-months').fill('0');
-  const folate = page.getByRole('row').filter({ has: page.getByRole('rowheader', { name: /^Folate/ }) });
+  const folate = nutrient(page, 'Folate');
   await expect(folate).toContainText('DFE');
   await expect(folate).toContainText('folic acid');
 });
@@ -248,7 +256,7 @@ test('downloaded HTML starts with networking blocked, calculates in all tabs, an
   await expect(page.getByLabel('Nutrition results')).toContainText('1,709');
   await page.getByRole('tab', { name: /DRI/ }).click();
   await page.getByRole('button', { name: 'View reference', exact: true }).click();
-  await expect(page.locator('tbody tr')).toHaveCount(26);
+  await expect(nutrientItems(page)).toHaveCount(26);
   await page.getByRole('tab', { name: /Z.score/i }).click();
   await page.locator('#dob').fill('2019-02-11');
   await page.locator('#measurement-date').fill('2026-02-11');
@@ -264,4 +272,75 @@ test('downloaded HTML starts with networking blocked, calculates in all tabs, an
   await expect(page.getByLabel('Nutrition results')).toHaveCount(0);
   expect(requests).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+
+test('phone date controls remain separate and keep entered dates when resized and focused', async ({ page }) => {
+  await page.getByRole('button', { name: 'Use dates', exact: true }).click();
+  await page.locator('#dob').fill('2019-12-31');
+  await page.locator('#measurement-date').fill('2026-02-11');
+  for (const width of [320, 360, 390, 430]) {
+    await page.setViewportSize({ width, height: 720 });
+    for (const id of ['dob', 'measurement-date']) {
+      const field = page.locator(`#${id}`);
+      await field.focus();
+      await expect(field).toBeFocused();
+      const geometry = await field.evaluate((input) => {
+        const rect = input.getBoundingClientRect();
+        const parent = input.parentElement!.getBoundingClientRect();
+        return { left: rect.left, right: rect.right, width: rect.width, height: rect.height,
+          parentLeft: parent.left, parentRight: parent.right,
+          fontSize: parseFloat(getComputedStyle(input).fontSize) };
+      });
+      expect(geometry.left).toBeGreaterThanOrEqual(geometry.parentLeft - 1);
+      expect(geometry.right).toBeLessThanOrEqual(geometry.parentRight + 1);
+      expect(geometry.height).toBeGreaterThanOrEqual(44);
+      expect(geometry.fontSize).toBeGreaterThanOrEqual(16);
+    }
+    const birth = (await page.locator('#dob').boundingBox())!;
+    const measurement = (await page.locator('#measurement-date').boundingBox())!;
+    expect(birth.y + birth.height).toBeLessThanOrEqual(measurement.y);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    await expect(page.locator('#dob')).toHaveValue('2019-12-31');
+    await expect(page.locator('#measurement-date')).toHaveValue('2026-02-11');
+    await expect(page.locator('.age-calculated')).toHaveText('6 yr 1 mo (2,234 days)');
+  }
+});
+
+test('phone nutrient references show complete values and notes without sideways scrolling', async ({ page }) => {
+  await page.locator('#age-years').fill('7');
+  await page.getByRole('radio', { name: 'Female', exact: true }).check();
+  await page.getByRole('tab', { name: /DRI/ }).click();
+  await page.getByRole('button', { name: 'View reference', exact: true }).click();
+  for (const width of [320, 360, 390, 430]) {
+    await page.setViewportSize({ width, height: 720 });
+    await expect(nutrientItems(page)).toHaveCount(26);
+    await expect(page.getByRole('table')).toHaveCount(0);
+    const folate = page.getByRole('article', { name: 'Folate', exact: true });
+    await expect(folate).toBeVisible();
+    await expect(folate.locator('dd').nth(0)).toContainText('200');
+    await expect(folate.locator('dd').nth(0)).toContainText('µg DFE');
+    await expect(folate.locator('dd').nth(1)).toContainText('400');
+    await expect(folate.locator('dd').nth(1)).toContainText('µg folic acid');
+    await folate.locator('summary').click();
+    await expect(folate.getByRole('link', { name: /Health Canada/ })).toBeVisible();
+    const overflow = await page.locator('.dri-panel').evaluate((panel) =>
+      [panel, ...panel.querySelectorAll('*')].filter((element) =>
+        element.getClientRects().length && !element.classList.contains('sr-only') &&
+        element.clientWidth > 0 && element.scrollWidth > element.clientWidth + 1
+      ).map((element) => element.className));
+    expect(overflow).toEqual([]);
+    await folate.locator('summary').click();
+    await page.getByRole('searchbox', { name: 'Find a nutrient' }).fill('Folate');
+    await expect(nutrientItems(page)).toHaveCount(1);
+    await page.getByRole('combobox', { name: 'Nutrient group' }).selectOption('Mineral');
+    await expect(nutrientItems(page)).toHaveCount(0);
+    await expect(page.getByText('No nutrients match', { exact: false })).toBeVisible();
+    await page.getByRole('searchbox', { name: 'Find a nutrient' }).fill('');
+    await page.getByRole('combobox', { name: 'Nutrient group' }).selectOption('all');
+  }
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await expect(page.getByRole('table')).toBeVisible();
+  await expect(nutrientItems(page)).toHaveCount(26);
+  await expect(page.getByRole('article', { name: 'Folate', exact: true })).toHaveCount(0);
 });

@@ -4,7 +4,7 @@ Updated: 2026-09-05. Coordinating agent: tili. Host: pdhome.
 
 ## Current state
 
-The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). The implementation commit is `e410494`; GitHub repeats the build and browser checks on the pull request. Local verification is complete: 209 tests and 42 browser checks pass. The review build is saved in [draft pull request #2](https://github.com/pat-dubois/little-spoon/pull/2); see [verification report](docs/verification.md) for the actual passing evidence and limits.
+The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). The implementation commit is `e410494`; GitHub repeats the build and browser checks on the pull request. Local verification is complete: 209 tests and 48 browser checks pass. The review build is saved in [draft pull request #2](https://github.com/pat-dubois/little-spoon/pull/2); see [verification report](docs/verification.md) for the actual passing evidence and limits.
 
 The app includes the shared patient card, Nutrition landing tab, Z-score charts, DRI / RDA table, light/dark themes, source links and complete calculation steps. The build emits a self-contained offline HTML file. Patient fields remain in memory only. Original legacy snapshots and private transcripts were left unchanged.
 
@@ -47,3 +47,20 @@ The complete requested T3 thread `a547969e-401f-4233-a0a7-5db6cbb1b9a7` was read
 If the originals are needed, query that thread only in the local T3 state database, read-only. Attachment records are under the same thread ID in T3's userdata attachments. Do not search archives again. The relevant AnthroCalc listing is [Canadian App Store](https://apps.apple.com/ca/app/anthrocalc/id1521729239).
 
 The repository began this rebuild at `5186df0`. The three legacy snapshots and historical audit remain untouched. The older handoff files are under `legacy/`; this root NEXT.md is the current state. This file records task decisions and evidence, not new standing rules for Pat.
+
+## Crystal review sheet
+
+A standalone, fillable review sheet is saved at `artifacts/crystal-review.html` and copied to `dist/crystal-review.html`. It is open in T3 preview tab `tab_13` at `http://100.68.234.84:4174/crystal-review.html`. It asks only for a reproducible AnthroCalc comparison and the infant age convention/source. Copy, text download, print preparation, both themes and 320/390px layout were checked in Chromium and WebKit. Responses remain in page memory unless the user explicitly copies or downloads them; no clinical answer is preselected.
+
+Pat briefly reported the activity selector missing, then immediately said they could see it. No calculator change was made in response.
+
+## Hosted calculator publication
+
+Pat requested the calculator itself online for Crystal outside Tailscale. A Sites project was created once: `appgprj_6a9c9ce4776c8191ba2e17eed377cfff`. Its dedicated static source checkout and hosting manifest are at `artifacts/sites/little-spoon/`. Sites confirmed successful private publication at `https://little-spoon.patdubois.chatgpt.site`. The initial expected origin redirected to this canonical address. Saved Sites version: `appgprj_6a9c9ce4776c8191ba2e17eed377cfff~appgver_9abcc59688408191b92ba024452d193f`; deployment: `appgdep_6a9c9d572bb88191a83a66b5db0259be`. Sites source commit: `3fc1f3f58de87fc2b7c6bcc42a39e1f698a22df6`. Access remains the new site's default owner-only ChatGPT sign-in. Reuse this project ID for subsequent updates. Only the two validated calculator HTML files are staged; the Crystal review sheet is excluded.
+
+
+## Phone follow-up
+
+Pat identified Arc on their phone and the DOB fields as the overlap location. Date controls now have bounded native sizing and separate phone rows. Nutrient references use stacked phone cards with complete daily/UL units and notes; the desktop table is retained. Clinical functions and reference data did not change. The production build, 209 tests and 48 browser checks pass. Additional independent mobile evidence is saved at `artifacts/mobile-fix-2026-09-05/`. See the phone follow-up in `docs/verification.md`. Actual Arc native picker behavior remains unverified.
+
+Pat confirmed Crystal uses the Gmail-based ChatGPT account that owns the Site. T3's browser was signed into Pat's work account, which correctly received Access Denied after normal ChatGPT consent; a successful owner-account browser session has not been verified. Do not claim the shared site was exercised under the owner login. Publication of the tested phone update is in progress using the existing owner-only Site.

@@ -62,7 +62,7 @@
 }
 
 @layer base {
-  html { min-width: 320px; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 15px; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+  html { min-width: 320px; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 15px; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body { min-height: 100dvh; }
   button, input, select, a, summary { -webkit-tap-highlight-color: transparent; }
   h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -.035em; }
@@ -79,6 +79,9 @@
   input[type='number'] { -moz-appearance: textfield; }
   input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
   input[type='radio'], input[type='checkbox'] { accent-color: var(--berry); }
+  input[type='date'] { appearance: none; -webkit-appearance: none; box-sizing: border-box; display: block; width: 100%; max-width: 100%; min-width: 0; min-inline-size: 0; min-height: 48px; }
+  input[type='date']::-webkit-datetime-edit { min-width: 0; padding: 0; }
+  input[type='date']::-webkit-date-and-time-value { min-height: 1.4em; text-align: left; }
   select { padding-right: 32px; }
   summary { cursor: pointer; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -263,6 +266,22 @@
   .search-field input { padding-left: 38px; font-size: 13px; }
   .category-filter select { font-size: 12px; }
   .dri-table-wrap { position: relative; isolation: isolate; width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+  .dri-cards { display: none; }
+  .dri-nutrient-card { position: relative; min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: var(--surface); }
+  .dri-nutrient-card h3 { font-family: var(--sans); font-size: 17px; font-weight: 600; line-height: 1.4; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .dri-card-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9em), 1fr)); gap: 18px 16px; margin: 18px 0; }
+  .dri-card-values > div { min-width: 0; }
+  .dri-card-values dt { color: var(--muted); font-size: 12px; line-height: 1.5; margin-bottom: 8px; }
+  .dri-card-values dd { margin: 0; }
+  .dri-card-values dd strong { display: block; font-size: 25px; font-weight: 550; line-height: 1.25; letter-spacing: -.04em; }
+  .dri-card-unit { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  .dri-nutrient-card .intake-tag { margin-left: 3px; font-size: 10px; }
+  .dri-nutrient-card .not-established { font-size: 13px; }
+  .dri-nutrient-card .nutrient-details { padding-top: 6px; border-top: 1px solid var(--line); font-size: 13px; }
+  .dri-nutrient-card .nutrient-details summary { display: flex; align-items: center; min-height: 44px; width: 100%; font-size: 13px; }
+  .dri-nutrient-card .nutrient-details summary::before { content: '+'; width: 18px; font-size: 17px; }
+  .dri-nutrient-card .nutrient-details[open] summary::before { content: '-'; }
+  .dri-nutrient-card .nutrient-details .source-links a { max-width: 100%; font-size: 12px; overflow-wrap: anywhere; }
   .dri-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
   .dri-table th, .dri-table td { padding: 17px 21px; vertical-align: top; }
   .dri-table thead { background: var(--tray); font-size: 11px; color: var(--muted); }
@@ -314,6 +333,7 @@
     .growth-metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
   }
   @media (max-width: 767px) {
+    input, select, .search-field input, .category-filter select { font-size: 16px; }
     .app-shell { padding: 0 17px; }
     .app-header { padding: 25px 1px 23px; }
     .brand h1 { font-size: 26px; }
@@ -328,16 +348,19 @@
     .patient-header p { font-size: 11px; }
     .reset-button { font-size: 11px; padding: 8px 6px; }
     .patient-grid { gap: 21px 14px; }
+    .sex-field, .age-field { grid-column: 1 / -1; }
     .field > label, .field > legend, .field-label-line > label { font-size: 12px; }
     .sex-field > legend { white-space: normal; }
     .segment-control label { padding: 8px; font-size: 12px; }
-    .field-link { font-size: 10px; gap: 3px; }
+    .field-label-line { flex-wrap: wrap; min-width: 0; }
+    .field-link { font-size: 12px; gap: 5px; min-height: 44px; padding: 8px 0 8px 8px; margin: 0; }
     .age-inputs { gap: 6px; }
     .input-unit input { padding-left: 10px; padding-right: 29px; }
     .input-unit > span { right: 10px; font-size: 11px; }
-    .date-row { grid-template-columns: 1fr; gap: 17px; }
+    .date-row { grid-template-columns: minmax(0, 1fr); gap: 20px; min-width: 0; }
+    .date-row .field { min-width: 0; max-width: 100%; }
     .date-row > p { grid-column: auto; }
-    .date-row input { min-width: 100%; }
+    .date-row input { width: 100%; max-width: 100%; min-width: 0; min-inline-size: 0; }
     .age-calculated { font-size: 11px; }
     .tools-header { display: block; margin-top: 18px; }
     .tool-tabs { gap: 0; width: 100%; flex-wrap: wrap; }
@@ -403,10 +426,13 @@
     .dri-key { display: grid; gap: 8px; margin: 17px 0 21px; }
     .table-tools { gap: 9px; flex-wrap: wrap; }
     .search-field { flex: 1; min-width: min(100%, 10em); }
-    .search-field input { font-size: 12px; padding-left: 34px; }
+    .search-field input { font-size: 16px; padding-left: 34px; }
     .search-field svg { width: 16px; }
-    .category-filter { width: max(121px, 8em); }
-    .category-filter select { font-size: 11px; padding-left: 9px; }
+    .category-filter { width: max(148px, 10em); max-width: 100%; }
+    .category-filter select { font-size: 16px; padding-left: 9px; }
+    .dri-table-wrap { display: none; }
+    .dri-cards { display: grid; gap: 14px; list-style: none; padding: 0; margin: 0; }
+    .dri-cards > li { min-width: 0; }
     .dri-table th, .dri-table td { padding: 15px 14px; }
     .dri-table { font-size: 12px; }
     .dri-table tbody th { min-width: 133px; }
@@ -445,5 +471,7 @@
     .tool-tabs button:not([aria-selected='true']) { display: none; }
     .nutrition-workspace { grid-template-columns: 190px 1fr; }
     .nutrition-result, .growth-metric { break-inside: avoid; }
+    .dri-cards { display: none; }
+    .dri-table-wrap { display: block; overflow: visible; }
   }
 }

@@ -1,9 +1,25 @@
 import { ArrowRightIcon, MagnifyingGlassIcon } from '@phosphor-icons/react'
 import { useState } from 'react'
-import type { DriResult } from '../clinical/dri'
+import type { DriResult, DriRow } from '../clinical/dri'
 import { EmptyState, Errors, formatNumber, SourceLinks } from './ui'
 
 type Props = { result?: DriResult; errors: string[] }
+
+function NutrientNotes({ row }: { row: DriRow }) {
+  return <details className="nutrient-details">
+    <summary><span className="sr-only">{row.name} </span>Notes</summary>
+    <div>
+      <p>Reference group: {row.ageGroupLabel}.</p>
+      {row.ulNote && <p>{row.ulNote}</p>}
+      {row.notes.map((note, index) => <p key={index}>{note}</p>)}
+      <SourceLinks sources={[row.source]} />
+    </div>
+  </details>
+}
+
+function IntakeTag({ type }: { type: DriRow['intakeType'] }) {
+  return <span className={`intake-tag${type === 'AI' ? ' intake-ai' : ''}`}>{type}</span>
+}
 
 export function DriPanel({ result, errors }: Props) {
   const [filter, setFilter] = useState('')
@@ -17,7 +33,31 @@ export function DriPanel({ result, errors }: Props) {
       <div className="dri-key"><p><strong>RDA</strong> Recommended Dietary Allowance</p><p><strong>AI</strong> Adequate Intake, used when no RDA is set</p><p><strong>UL</strong> Tolerable Upper Intake Level</p></div>
       <div className="dri-reference-notes">{result.notes.map((note, index) => <p key={index}>{note}</p>)}</div>
       <div className="table-tools"><div className="search-field"><MagnifyingGlassIcon size={18} aria-hidden="true" /><input type="search" value={filter} onChange={(event) => setFilter(event.target.value)} aria-label="Find a nutrient" placeholder="Find a nutrient" /></div><div className="field category-filter"><label className="sr-only" htmlFor="nutrient-category">Nutrient group</label><select id="nutrient-category" value={category} onChange={(event) => setCategory(event.target.value as 'all' | 'Vitamin' | 'Mineral')}><option value="all">All nutrients</option><option value="Vitamin">Vitamins</option><option value="Mineral">Minerals</option></select></div></div>
-      <div className="dri-table-wrap" role="region" aria-label="Nutrient reference table" tabIndex={0}><table className="dri-table"><caption className="sr-only">Daily vitamin and mineral references for {result.ageGroupLabel}</caption><thead><tr><th scope="col">Nutrient</th><th scope="col">Daily reference</th><th scope="col">Upper limit</th><th scope="col">Details</th></tr></thead><tbody>{rows.map((row) => <tr key={row.id}><th scope="row"><span>{row.name}</span><small>{row.unit}</small></th><td>{row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><span className={`intake-tag${row.intakeType === 'AI' ? ' intake-ai' : ''}`}>{row.intakeType}</span></>}</td><td>{row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong>{row.ulUnit !== row.unit && <small className="ul-unit">{row.ulUnit}</small>}</>}</td><td><details className="nutrient-details"><summary><span className="sr-only">{row.name} </span>Notes</summary><div><p>Reference group: {row.ageGroupLabel}.</p>{row.ulNote && <p>{row.ulNote}</p>}{row.notes.map((note, index) => <p key={index}>{note}</p>)}<SourceLinks sources={[row.source]} /></div></details></td></tr>)}</tbody></table>{!rows.length && <p className="no-matches">No nutrients match “{filter}”. Try a different name or group.</p>}</div>
+      <div className="dri-table-wrap" role="region" aria-label="Nutrient reference table" tabIndex={0}>
+        <table className="dri-table">
+          <caption className="sr-only">Daily vitamin and mineral references for {result.ageGroupLabel}</caption>
+          <thead><tr><th scope="col">Nutrient</th><th scope="col">Daily reference</th><th scope="col">Upper limit</th><th scope="col">Details</th></tr></thead>
+          <tbody>{rows.map((row) => <tr key={row.id}>
+            <th scope="row"><span>{row.name}</span><small>{row.unit}</small></th>
+            <td>{row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><IntakeTag type={row.intakeType} /></>}</td>
+            <td>{row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong>{row.ulUnit !== row.unit && <small className="ul-unit">{row.ulUnit}</small>}</>}</td>
+            <td><NutrientNotes row={row} /></td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <ul className="dri-cards" role="list" aria-label="Nutrient references">
+        {rows.map((row) => <li key={row.id}>
+          <article className="dri-nutrient-card" aria-labelledby={`nutrient-${row.id}`} data-nutrient-id={row.id}>
+            <h3 id={`nutrient-${row.id}`}>{row.name}</h3>
+            <dl className="dri-card-values">
+              <div><dt>Daily reference {row.intake !== null && <IntakeTag type={row.intakeType} />}</dt><dd>{row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><span className="dri-card-unit">{row.unit}</span></>}</dd></div>
+              <div><dt>Upper limit (UL)</dt><dd>{row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong><span className="dri-card-unit">{row.ulUnit}</span></>}</dd></div>
+            </dl>
+            <NutrientNotes row={row} />
+          </article>
+        </li>)}
+      </ul>
+      {!rows.length && <p className="no-matches">No nutrients match “{filter}”. Try a different name or group.</p>}
       <p className="dri-caution">An upper limit is not a target. “Not established” does not mean unlimited intake is safe. Read nutrient notes for which forms and sources count toward the limit.</p>
       <SourceLinks sources={result.rows.map((row) => ({ ...row.source, url: row.source.url.split('#')[0] }))} />
     </> : <EmptyState title="The right reference for this age">Enter age and sex in Patient details, then view the reference. Weight and height are not needed for this table.</EmptyState>}
