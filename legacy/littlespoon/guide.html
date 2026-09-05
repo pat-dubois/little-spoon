@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Spoon — Quick Start Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: letter;
+            margin: 0.7in 0.8in;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Flexoki Light palette */
+            --bg:         #FFFCF0;
+            --bg-2:       #F2F0E5;
+            --bg-3:       #E6E4D9;
+            --text:       #100F0F;
+            --text-2:     #343331;
+            --text-muted:  #6F6E69;
+            --border:     #D6D4C8;
+
+            /* Flexoki accent colors */
+            --red:     #AF3029;
+            --orange:  #BC5215;
+            --yellow:  #AD8301;
+            --green:   #66800B;
+            --cyan:    #24837B;
+            --blue:    #205EA6;
+            --purple:  #5E409D;
+            --magenta: #A02F6F;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 10.5pt;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding: 0 0 24px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 2px;
+        }
+
+        .header h1 .little {
+            font-weight: 700;
+        }
+
+        /* Per-letter rainbow that survives PDF rendering */
+        .r1 { color: #AF3029; } /* red */
+        .r2 { color: #BC5215; } /* orange */
+        .r3 { color: #AD8301; } /* yellow */
+        .r4 { color: #66800B; } /* green */
+        .r5 { color: #24837B; } /* cyan */
+        .r6 { color: #205EA6; } /* blue */
+        .r7 { color: #5E409D; } /* purple */
+        .r8 { color: #A02F6F; } /* magenta */
+
+        .header .subtitle {
+            font-size: 11pt;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .header .tagline {
+            font-size: 9pt;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* ── URL bar ── */
+        .url-bar {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            text-align: center;
+            font-size: 10pt;
+            color: var(--text-2);
+            margin-bottom: 28px;
+        }
+
+        .url-bar strong {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        /* ── Section headings ── */
+        h2 {
+            font-size: 14pt;
+            font-weight: 700;
+            color: var(--text);
+            margin: 28px 0 10px;
+            padding-bottom: 4px;
+            border-bottom: 1.5px solid var(--border);
+            page-break-after: avoid;
+        }
+
+        h2 .tab-badge {
+            display: inline-block;
+            background: var(--cyan);
+            color: white;
+            font-size: 8.5pt;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 100px;
+            margin-right: 6px;
+            vertical-align: middle;
+            letter-spacing: 0.03em;
+        }
+
+        h2 .tab-badge.t2 { background: var(--purple); }
+        h2 .tab-badge.t3 { background: var(--blue); }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: 600;
+            color: var(--text-2);
+            margin: 16px 0 6px;
+        }
+
+        /* ── Body text ── */
+        p {
+            margin-bottom: 8px;
+            color: var(--text-2);
+        }
+
+        strong { color: var(--text); }
+
+        /* ── Steps / info boxes ── */
+        .steps {
+            background: var(--bg-2);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 10px 0 14px;
+        }
+
+        .steps p {
+            margin-bottom: 4px;
+        }
+
+        .steps .step-label {
+            font-weight: 600;
+            color: var(--cyan);
+            font-size: 9.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .steps ul {
+            margin: 4px 0 0 18px;
+            color: var(--text-2);
+        }
+
+        .steps li {
+            margin-bottom: 3px;
+        }
+
+        /* ── Result preview boxes ── */
+        .result-preview {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0 14px;
+        }
+
+        .result-chip {
+            flex: 1;
+            background: var(--bg-2);
+            border-left: 3px solid var(--cyan);
+            border-radius: 6px;
+            padding: 8px 12px;
+        }
+
+        .result-chip .chip-label {
+            font-size: 8pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .result-chip .chip-value {
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .result-chip .chip-unit {
+            font-size: 8.5pt;
+            color: var(--text-muted);
+        }
+
+        /* ── Color legend ── */
+        .color-legend {
+            display: flex;
+            gap: 14px;
+            margin: 10px 0 14px;
+            flex-wrap: wrap;
+        }
+
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 9.5pt;
+        }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .color-dot.green { background: #66800B; }
+        .color-dot.gold { background: #AD8301; }
+        .color-dot.orange { background: #BC5215; }
+        .color-dot.red { background: #AF3029; }
+        .color-dot.teal { background: #24837B; }
+        .color-dot.blue { background: #205EA6; }
+
+        /* ── DRI legend ── */
+        .dri-legend {
+            background: var(--bg-2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-size: 9.5pt;
+        }
+
+        .dri-legend-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .dri-legend-row:last-child { margin-bottom: 0; }
+
+        /* ── Tip boxes ── */
+        .tip {
+            background: var(--bg-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin: 12px 0;
+            font-size: 9.5pt;
+            color: var(--text-2);
+        }
+
+        .tip strong {
+            color: var(--yellow);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 32px;
+            padding-top: 14px;
+            border-top: 1.5px solid var(--border);
+            text-align: center;
+            font-size: 8.5pt;
+            color: var(--text-muted);
+        }
+
+        .footer .brand {
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .footer .brand .rainbow {
+            font-weight: 700;
+        }
+
+        .footer .sources {
+            margin-top: 6px;
+            font-size: 8pt;
+            line-height: 1.5;
+        }
+
+        /* ── Print helpers ── */
+        .page-break { page-break-before: always; }
+
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .url-bar { border-color: #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1><span class="little"><span class="r1">l</span><span class="r2">i</span><span class="r3">t</span><span class="r4">t</span><span class="r5">l</span><span class="r6">e</span></span> spoon</h1>
+        <div class="subtitle">Quick Start Guide</div>
+        <div class="tagline">Pediatric Nutrition Tools</div>
+    </div>
+
+    <!-- URL -->
+    <div class="url-bar">
+        Open in any browser: <strong>pat-dubois.github.io/peds-nutrition-calc/index-v2.html</strong>
+    </div>
+
+    <p>Little Spoon is a pediatric nutrition calculator with three tools in one page. It works on your phone, tablet, or computer. Bookmark it for quick access between patients.</p>
+
+    <div class="tip">
+        <strong>Privacy:</strong> No patient data is ever saved or sent anywhere. When you close the page, everything is gone. It also works offline once loaded.
+    </div>
+
+    <p>All three tabs share the <strong>Patient</strong> section at the top (weight, height, gender). Fill that in first, then pick your tab. The <strong>Reset</strong> button clears everything across all three tabs at once.</p>
+
+    <!-- ═══ TAB 1 ═══ -->
+    <h2><span class="tab-badge">Tab 1</span> Nutrition</h2>
+
+    <p>Calculates daily energy, protein, and fluid requirements.</p>
+
+    <div class="steps">
+        <div class="step-label">What to enter</div>
+        <ul>
+            <li><strong>Weight</strong> (kg) and <strong>Height</strong> (cm) in the Patient section</li>
+            <li><strong>Gender</strong> - tap Male or Female</li>
+            <li><strong>Age</strong> in years and months</li>
+            <li><strong>Activity level</strong> - only needed for children 3 years and older</li>
+        </ul>
+    </div>
+
+    <p>Tap <strong>Calculate</strong> and you'll get three results:</p>
+
+    <div class="result-preview">
+        <div class="result-chip">
+            <div class="chip-label">Energy</div>
+            <div class="chip-value">1,245 <span class="chip-unit">kcal/day</span></div>
+        </div>
+        <div class="result-chip">
+            <div class="chip-label">Protein</div>
+            <div class="chip-value">23.8 <span class="chip-unit">g/day</span></div>
+        </div>
+        <div class="result-chip">
+            <div class="chip-label">Fluid</div>
+            <div class="chip-value">1,500 <span class="chip-unit">mL/day</span></div>
+        </div>
+    </div>
+
+    <p>Each result shows the per-kg rate in brackets. Tap <strong>Show calculation</strong> under any result to see the full formula and step-by-step math.</p>
+
+    <!-- ═══ TAB 2 ═══ -->
+    <h2><span class="tab-badge t2">Tab 2</span> Growth Charts</h2>
+
+    <p>WHO growth chart Z-scores and percentiles for children 0 to 5 years.</p>
+
+    <div class="steps">
+        <div class="step-label">What to enter</div>
+        <ul>
+            <li><strong>Weight</strong>, <strong>Height</strong>, and <strong>Gender</strong> in the Patient section</li>
+            <li><strong>Date of Birth</strong> and <strong>Date of Measurement</strong> (defaults to today)</li>
+            <li><strong>Head circumference</strong> - optional, only shows results if entered</li>
+            <li><strong>BMI or Weight-for-Length</strong> - toggle between the two</li>
+        </ul>
+    </div>
+
+    <p>Tap <strong>Calculate</strong> to get Z-scores and percentiles for:</p>
+    <ul style="margin: 4px 0 10px 18px; color: var(--text-2);">
+        <li>Weight-for-Age</li>
+        <li>Length-for-Age (under 2) or Height-for-Age (2 and up)</li>
+        <li>BMI-for-Age or Weight-for-Length (your choice)</li>
+        <li>Head Circumference-for-Age (when entered)</li>
+    </ul>
+
+    <h3>Z-Score Color Coding</h3>
+
+    <div class="color-legend">
+        <div class="color-item"><span class="color-dot green"></span> <strong>Green</strong> - Normal range</div>
+        <div class="color-item"><span class="color-dot gold"></span> <strong>Gold</strong> - Mild concern (Z ±1 to ±2)</div>
+        <div class="color-item"><span class="color-dot orange"></span> <strong>Orange</strong> - Moderate (Z ±2 to ±3)</div>
+        <div class="color-item"><span class="color-dot red"></span> <strong>Red</strong> - Severe (Z beyond ±3)</div>
+    </div>
+
+    <div class="tip">
+        <strong>Note:</strong> The Growth tab covers ages 0-5 years (0-60 months), which is the range of the WHO Child Growth Standards.
+    </div>
+
+    <!-- ═══ TAB 3 ═══ -->
+    <h2><span class="tab-badge t3">Tab 3</span> DRI Reference</h2>
+
+    <p>Quick-reference table of daily vitamin and mineral requirements by age group. Covers 14 vitamins and 12 minerals across all pediatric age ranges.</p>
+
+    <div class="steps">
+        <div class="step-label">What to enter</div>
+        <ul>
+            <li><strong>Gender</strong> in the Patient section</li>
+            <li><strong>Age group</strong> from the dropdown (0-6 months through 14-18 years)</li>
+        </ul>
+    </div>
+
+    <div class="tip">
+        <strong>Important:</strong> For the <strong>9-13 years</strong> and <strong>14-18 years</strong> age groups, you must select Male or Female first. Some nutrient needs differ by gender at those ages. The table won't load without a gender selected.
+    </div>
+
+    <h3>Reading the Table</h3>
+
+    <div class="dri-legend">
+        <div class="dri-legend-row">
+            <span class="color-dot teal"></span>
+            <span><strong>Teal values</strong> = RDA (Recommended Dietary Allowance) - backed by strong research evidence. Set to meet the needs of 97-98% of healthy children in that age group.</span>
+        </div>
+        <div class="dri-legend-row">
+            <span class="color-dot blue"></span>
+            <span><strong>Blue values with asterisk (*)</strong> = AI (Adequate Intake) - best available estimate when research isn't conclusive enough to set an RDA. Still the official recommendation.</span>
+        </div>
+        <div class="dri-legend-row">
+            <span style="width:12px; text-align:center; font-weight:600; color: var(--text-muted); flex-shrink:0;">UL</span>
+            <span><strong>UL column</strong> = Tolerable Upper Intake Level - the maximum daily amount unlikely to cause harm. A dash means no upper limit has been established.</span>
+        </div>
+    </div>
+
+    <!-- ═══ Footer ═══ -->
+    <div class="footer">
+        <div class="brand">a <span class="rainbow"><span class="r1">z</span><span class="r2">h</span><span class="r3">u</span><span class="r4">z</span><span class="r5">h</span> <span class="r6">l</span><span class="r7">a</span><span class="r8">b</span><span class="r1">s</span></span> joint</div>
+        <p>For clinical use. Always verify calculations with clinical judgment.</p>
+        <div class="sources">
+            Sources: Health Canada 2023 DRI Equations · Holliday-Segar (1957) · WHO Child Growth Standards · IOM Dietary Reference Intakes (1997-2011)
+        </div>
+    </div>
+
+</body>
+</html>

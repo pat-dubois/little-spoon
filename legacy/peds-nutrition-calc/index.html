@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Nutrition Calculator</title>
+    <style>
+        /* Reset and Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #0077B6;
+            --primary-light: #00B4D8;
+            --background: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --success: #059669;
+            --border: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --input-bg: #FFFFFF;
+        }
+
+        [data-theme="dark"] {
+            --primary: #38BDF8;
+            --primary-light: #7DD3FC;
+            --background: #0F172A;
+            --card-bg: #1E293B;
+            --text: #F1F5F9;
+            --text-light: #94A3B8;
+            --success: #34D399;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+            --input-bg: #0F172A;
+        }
+
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.1);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 44px;
+        }
+
+        /* Age Input Group */
+        .age-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .age-group .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .age-group input {
+            text-align: center;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 16px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #006298;
+        }
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #CBD5E1;
+        }
+
+        /* Results */
+        .results {
+            display: none;
+        }
+
+        .results.visible {
+            display: block;
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--success);
+            /* Staggered reveal animation */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .results.visible .result-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .results.visible .result-card:nth-child(2) {
+            transition-delay: 0s;
+        }
+
+        .results.visible .result-card:nth-child(3) {
+            transition-delay: 0.5s;
+        }
+
+        .results.visible .result-card:nth-child(4) {
+            transition-delay: 0.75s;
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .result-unit {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .result-secondary {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Show Work Toggle */
+        .show-work-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 0;
+            font-size: 0.8125rem;
+            color: var(--primary);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .show-work-toggle:hover {
+            text-decoration: underline;
+        }
+
+        .show-work-toggle svg {
+            transition: transform 0.2s;
+        }
+
+        .show-work-toggle.open svg {
+            transform: rotate(180deg);
+        }
+
+        .calculation-details {
+            display: none;
+            margin-top: 12px;
+            padding: 16px;
+            background: var(--background);
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.8125rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .calculation-details.visible {
+            display: block;
+        }
+
+        .calc-formula {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .calc-step {
+            color: var(--text-light);
+        }
+
+        .calc-result {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Patient Summary */
+        .patient-summary {
+            background: var(--primary);
+            color: white;
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            font-size: 0.875rem;
+        }
+
+        .patient-summary strong {
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .result-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Accessibility: Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .result-card {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Activity Note */
+        .activity-note {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Header */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-top: 8px;
+        }
+
+        .header-content {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Row with Title and Theme Toggle -->
+        <div class="header-row">
+            <div class="header-content">
+                <h1>Pediatric Nutrition Calculator</h1>
+                <p class="subtitle">Energy, Protein & Fluid Requirements</p>
+            </div>
+        </div>
+
+        <!-- Input Form -->
+        <div class="card">
+            <h2 class="card-title">Patient Information</h2>
+
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" placeholder="e.g., 25" step="0.1" min="0.5" max="150">
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" placeholder="e.g., 120" step="0.1" min="30" max="220">
+            </div>
+
+            <label>Age</label>
+            <div class="age-group">
+                <div class="form-group">
+                    <input type="number" id="ageYears" placeholder="Years" min="0" max="18">
+                </div>
+                <div class="form-group">
+                    <input type="number" id="ageMonths" placeholder="Months" min="0" max="11">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="activityGroup">
+                <label for="activity">Activity Level</label>
+                <select id="activity">
+                    <option value="">Select activity level</option>
+                    <option value="sedentary">Sedentary (little or no exercise)</option>
+                    <option value="low">Low Active (light exercise 1-3 days/week)</option>
+                    <option value="active">Active (moderate exercise 3-5 days/week)</option>
+                    <option value="very">Very Active (hard exercise 6-7 days/week)</option>
+                </select>
+                <p class="activity-note" id="activityNote"></p>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-primary" onclick="calculate()">Calculate</button>
+                <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results" id="results">
+            <div class="patient-summary" id="patientSummary"></div>
+
+            <!-- Energy Result -->
+            <div class="result-card">
+                <div class="result-label">Energy Requirement</div>
+                <div class="result-value"><span id="energyValue">--</span> <span class="result-unit">kcal/day</span></div>
+                <div class="result-secondary" id="energyPerKg"></div>
+                <button class="show-work-toggle" onclick="toggleWork('energy')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    Show calculation
+                </button>
+                <div class="calculation-details" id="energyWork"></div>
+            </div>
+
+            <!-- Protein Result -->
+            <div class="result-card">
+                <div class="result-label">Protein Requirement</div>
+                <div class="result-value"><span id="proteinValue">--</span> <span class="result-unit">g/day</span></div>
+                <div class="result-secondary" id="proteinPerKg"></div>
+                <button class="show-work-toggle" onclick="toggleWork('protein')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    Show calculation
+                </button>
+                <div class="calculation-details" id="proteinWork"></div>
+            </div>
+
+            <!-- Fluid Result -->
+            <div class="result-card">
+                <div class="result-label">Fluid Requirement</div>
+                <div class="result-value"><span id="fluidValue">--</span> <span class="result-unit">mL/day</span></div>
+                <div class="result-secondary" id="fluidPerKg"></div>
+                <button class="show-work-toggle" onclick="toggleWork('fluid')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    Show calculation
+                </button>
+                <div class="calculation-details" id="fluidWork"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Sources: <a href="https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/equations-estimate-energy-requirement.html" target="_blank">Health Canada DRI Energy Equations</a> | Holliday-Segar (1957)</p>
+            <p style="margin-top: 8px;">For clinical use. Always verify calculations.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animated number counter - rolls up from 0 to final value
+        function animateValue(element, end, duration) {
+            // Respect reduced motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                element.textContent = typeof end === 'number' && !Number.isInteger(end)
+                    ? end.toFixed(1)
+                    : Math.round(end).toLocaleString();
+                return;
+            }
+
+            const startTime = performance.now();
+            const isDecimal = typeof end === 'number' && !Number.isInteger(end);
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease-out cubic for satisfying deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = end * eased;
+
+                element.textContent = isDecimal
+                    ? current.toFixed(1)
+                    : Math.round(current).toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // NEW Health Canada 2023 EER Equations
+        // Note: These replace the old IOM 2002 PA coefficient approach
+        // Each activity level now has a completely different equation
+
+        // Males 3-18 years - coefficients for each activity level
+        const MALE_EER_3_18 = {
+            sedentary: { intercept: -447.51, age: 3.68, height: 13.01, weight: 13.15 },
+            low:       { intercept: 19.12,   age: 3.68, height: 8.62,  weight: 20.28 },
+            active:    { intercept: -388.19, age: 3.68, height: 12.66, weight: 20.46 },
+            very:      { intercept: -671.75, age: 3.68, height: 15.38, weight: 23.25 }
+        };
+
+        // Females 3-18 years - coefficients for each activity level
+        const FEMALE_EER_3_18 = {
+            sedentary: { intercept: 55.59,   age: -22.25, height: 8.43,  weight: 17.07 },
+            low:       { intercept: -297.54, age: -22.25, height: 12.77, weight: 14.73 },
+            active:    { intercept: -189.55, age: -22.25, height: 11.74, weight: 18.34 },
+            very:      { intercept: -709.59, age: -22.25, height: 18.22, weight: 14.25 }
+        };
+
+        // 0-3 years base equations (different for males vs females)
+        const INFANT_EER = {
+            male:   { intercept: -716.45, age: -1.00, height: 17.82, weight: 15.06 },
+            female: { intercept: -69.15,  age: 80.0,  height: 2.65,  weight: 54.15 }
+        };
+
+        // Energy deposition by age range (kcal/day)
+        const ENERGY_DEPOSITION = {
+            male: [
+                { maxMonths: 3, value: 200 },
+                { maxMonths: 6, value: 50 },
+                { maxMonths: 12, value: 20 },
+                { maxMonths: 36, value: 20 }
+            ],
+            female: [
+                { maxMonths: 3, value: 180 },
+                { maxMonths: 6, value: 60 },
+                { maxMonths: 12, value: 20 },
+                { maxMonths: 36, value: 15 }
+            ]
+        };
+
+        // Growth allowances for 3-18 years
+        function getGrowthAllowance(ageYears) {
+            if (ageYears < 9) return 20;      // 3-8 years
+            if (ageYears < 14) return 25;     // 9-13 years
+            return 20;                         // 14-18 years
+        }
+
+        // Protein requirements (g/kg/day) by age
+        const PROTEIN_BY_AGE = [
+            { maxMonths: 6, gPerKg: 1.52 },
+            { maxMonths: 12, gPerKg: 1.2 },
+            { maxMonths: 36, gPerKg: 1.05 },   // 1-3 years
+            { maxMonths: 96, gPerKg: 0.95 },   // 4-8 years
+            { maxMonths: 156, gPerKg: 0.95 },  // 9-13 years
+            { maxMonths: 216, gPerKg: 0.85 }   // 14-18 years
+        ];
+
+        // Get age in months from inputs
+        function getAgeInMonths() {
+            const years = parseInt(document.getElementById('ageYears').value) || 0;
+            const months = parseInt(document.getElementById('ageMonths').value) || 0;
+            return (years * 12) + months;
+        }
+
+        // Get age in years (decimal)
+        function getAgeInYears() {
+            return getAgeInMonths() / 12;
+        }
+
+        // Update activity note based on age
+        function updateActivityNote() {
+            const ageMonths = getAgeInMonths();
+            const note = document.getElementById('activityNote');
+            const activityGroup = document.getElementById('activityGroup');
+
+            if (ageMonths < 36) {
+                note.textContent = 'Activity level is not used for children under 3 years.';
+                activityGroup.querySelector('select').disabled = true;
+            } else {
+                note.textContent = '';
+                activityGroup.querySelector('select').disabled = false;
+            }
+        }
+
+        // Add event listeners for age changes
+        document.getElementById('ageYears').addEventListener('input', updateActivityNote);
+        document.getElementById('ageMonths').addEventListener('input', updateActivityNote);
+
+        // Calculate Energy (EER) - Health Canada 2023 Equations
+        function calculateEnergy(weight, heightCm, ageMonths, gender, activity) {
+            const ageYears = ageMonths / 12;
+            let eer = 0;
+            let formula = '';
+            let steps = [];
+
+            // Children 0-3 years (gender-specific equations, no PA)
+            if (ageMonths < 36) {
+                const coeffs = gender === 'male' ? INFANT_EER.male : INFANT_EER.female;
+                const genderKey = gender === 'male' ? 'male' : 'female';
+
+                // Get energy deposition for this age range
+                let energyDep = 20;
+                let ageRangeLabel = '1-3 years';
+                for (const range of ENERGY_DEPOSITION[genderKey]) {
+                    if (ageMonths < range.maxMonths) {
+                        energyDep = range.value;
+                        if (range.maxMonths === 3) ageRangeLabel = '0-3 months';
+                        else if (range.maxMonths === 6) ageRangeLabel = '3-6 months';
+                        else if (range.maxMonths === 12) ageRangeLabel = '6-12 months';
+                        else ageRangeLabel = '1-3 years';
+                        break;
+                    }
+                }
+
+                // Calculate EER
+                const interceptPart = coeffs.intercept;
+                const agePart = coeffs.age * ageYears;
+                const heightPart = coeffs.height * heightCm;
+                const weightPart = coeffs.weight * weight;
+                eer = interceptPart + agePart + heightPart + weightPart + energyDep;
+
+                // Build formula display
+                const sign = (v) => v >= 0 ? '+' : '–';
+                const abs = (v) => Math.abs(v);
+
+                if (gender === 'male') {
+                    formula = `EER = –716.45 – (1.00 × age) + (17.82 × height) + (15.06 × weight) + ${energyDep}`;
+                } else {
+                    formula = `EER = –69.15 + (80.0 × age) + (2.65 × height) + (54.15 × weight) + ${energyDep}`;
+                }
+
+                steps = [
+                    `Age range: ${ageRangeLabel} (energy deposition: +${energyDep} kcal)`,
+                    `= ${coeffs.intercept.toFixed(2)} ${sign(agePart)} (${abs(coeffs.age).toFixed(2)} × ${ageYears.toFixed(3)}) + (${coeffs.height.toFixed(2)} × ${heightCm}) + (${coeffs.weight.toFixed(2)} × ${weight}) + ${energyDep}`,
+                    `= ${coeffs.intercept.toFixed(2)} ${sign(agePart)} ${abs(agePart).toFixed(2)} + ${heightPart.toFixed(2)} + ${weightPart.toFixed(2)} + ${energyDep}`,
+                    `= ${eer.toFixed(0)} kcal/day`
+                ];
+            }
+            // Children 3-18 years (activity-specific equations)
+            else {
+                const coeffs = gender === 'male' ? MALE_EER_3_18[activity] : FEMALE_EER_3_18[activity];
+                const growthAllowance = getGrowthAllowance(ageYears);
+
+                // Calculate EER using the specific equation for this activity level
+                const interceptPart = coeffs.intercept;
+                const agePart = coeffs.age * ageYears;
+                const heightPart = coeffs.height * heightCm;
+                const weightPart = coeffs.weight * weight;
+                eer = interceptPart + agePart + heightPart + weightPart + growthAllowance;
+
+                // Activity level label
+                const activityLabels = {
+                    sedentary: 'Inactive',
+                    low: 'Low Active',
+                    active: 'Active',
+                    very: 'Very Active'
+                };
+
+                // Growth allowance label
+                let growthLabel = '3-8 years';
+                if (ageYears >= 9 && ageYears < 14) growthLabel = '9-13 years';
+                else if (ageYears >= 14) growthLabel = '14-18 years';
+
+                // Build formula
+                const sign = (v) => v >= 0 ? '+' : '–';
+                const abs = (v) => Math.abs(v);
+
+                formula = `EER (${activityLabels[activity]}) = ${coeffs.intercept.toFixed(2)} ${sign(coeffs.age)} (${abs(coeffs.age).toFixed(2)} × age) + (${coeffs.height.toFixed(2)} × height) + (${coeffs.weight.toFixed(2)} × weight) + ${growthAllowance}`;
+
+                steps = [
+                    `Activity: ${activityLabels[activity]}`,
+                    `Growth allowance (${growthLabel}): +${growthAllowance} kcal`,
+                    `= ${coeffs.intercept.toFixed(2)} ${sign(agePart)} (${abs(coeffs.age).toFixed(2)} × ${ageYears.toFixed(2)}) + (${coeffs.height.toFixed(2)} × ${heightCm}) + (${coeffs.weight.toFixed(2)} × ${weight}) + ${growthAllowance}`,
+                    `= ${coeffs.intercept.toFixed(2)} ${sign(agePart)} ${abs(agePart).toFixed(2)} + ${heightPart.toFixed(2)} + ${weightPart.toFixed(2)} + ${growthAllowance}`,
+                    `= ${eer.toFixed(0)} kcal/day`
+                ];
+            }
+
+            return {
+                value: Math.round(eer),
+                work: `<div class="calc-formula">${formula}</div>` +
+                      steps.map(s => `<div class="calc-step">${s}</div>`).join('') +
+                      `<div class="calc-result">= ${Math.round(eer)} kcal/day</div>`
+            };
+        }
+
+        // Calculate Protein
+        function calculateProtein(weight, ageMonths) {
+            let gPerKg = 0.85; // default for older teens
+            let ageRange = '14-18 years';
+
+            for (const range of PROTEIN_BY_AGE) {
+                if (ageMonths <= range.maxMonths) {
+                    gPerKg = range.gPerKg;
+                    if (range.maxMonths === 6) ageRange = '0-6 months';
+                    else if (range.maxMonths === 12) ageRange = '7-12 months';
+                    else if (range.maxMonths === 36) ageRange = '1-3 years';
+                    else if (range.maxMonths === 96) ageRange = '4-8 years';
+                    else if (range.maxMonths === 156) ageRange = '9-13 years';
+                    else if (range.maxMonths === 216) ageRange = '14-18 years';
+                    break;
+                }
+            }
+
+            const protein = weight * gPerKg;
+
+            return {
+                value: protein.toFixed(1),
+                gPerKg: gPerKg,
+                work: `<div class="calc-formula">Protein = weight × DRI (g/kg/day)</div>` +
+                      `<div class="calc-step">DRI for ${ageRange}: ${gPerKg} g/kg/day</div>` +
+                      `<div class="calc-step">= ${weight} kg × ${gPerKg} g/kg/day</div>` +
+                      `<div class="calc-result">= ${protein.toFixed(1)} g/day</div>`
+            };
+        }
+
+        // Calculate Fluid (Holliday-Segar)
+        function calculateFluid(weight) {
+            let fluid = 0;
+            let steps = [];
+
+            if (weight <= 10) {
+                fluid = weight * 100;
+                steps = [
+                    `First 10 kg: ${weight} × 100 mL/kg = ${fluid} mL`
+                ];
+            } else if (weight <= 20) {
+                const first10 = 10 * 100;
+                const next = (weight - 10) * 50;
+                fluid = first10 + next;
+                steps = [
+                    `First 10 kg: 10 × 100 mL/kg = ${first10} mL`,
+                    `Next ${(weight - 10).toFixed(1)} kg: ${(weight - 10).toFixed(1)} × 50 mL/kg = ${next.toFixed(0)} mL`,
+                    `Total: ${first10} + ${next.toFixed(0)} = ${fluid.toFixed(0)} mL`
+                ];
+            } else {
+                const first10 = 10 * 100;
+                const next10 = 10 * 50;
+                const remaining = (weight - 20) * 20;
+                fluid = first10 + next10 + remaining;
+                steps = [
+                    `First 10 kg: 10 × 100 mL/kg = ${first10} mL`,
+                    `Next 10 kg: 10 × 50 mL/kg = ${next10} mL`,
+                    `Remaining ${(weight - 20).toFixed(1)} kg: ${(weight - 20).toFixed(1)} × 20 mL/kg = ${remaining.toFixed(0)} mL`,
+                    `Total: ${first10} + ${next10} + ${remaining.toFixed(0)} = ${fluid.toFixed(0)} mL`
+                ];
+            }
+
+            const perKg = fluid / weight;
+
+            return {
+                value: Math.round(fluid),
+                perKg: perKg.toFixed(1),
+                work: `<div class="calc-formula">Holliday-Segar Formula:</div>` +
+                      `<div class="calc-step">• First 10 kg: 100 mL/kg/day</div>` +
+                      `<div class="calc-step">• 11-20 kg: 50 mL/kg/day</div>` +
+                      `<div class="calc-step">• >20 kg: 20 mL/kg/day</div>` +
+                      `<div class="calc-step" style="margin-top: 8px;">Calculation:</div>` +
+                      steps.map(s => `<div class="calc-step">${s}</div>`).join('') +
+                      `<div class="calc-result">= ${Math.round(fluid)} mL/day (${perKg.toFixed(1)} mL/kg/day)</div>`
+            };
+        }
+
+        // Main calculate function
+        function calculate() {
+            // Get inputs
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const ageMonths = getAgeInMonths();
+            const gender = document.getElementById('gender').value;
+            const activity = document.getElementById('activity').value;
+
+            // Validate
+            if (!weight || weight <= 0) {
+                alert('Please enter a valid weight.');
+                return;
+            }
+            if (!height || height <= 0) {
+                alert('Please enter a valid height.');
+                return;
+            }
+            if (ageMonths < 0 || ageMonths > 216) {
+                alert('Please enter a valid age (0-18 years).');
+                return;
+            }
+            if (!gender) {
+                alert('Please select a gender.');
+                return;
+            }
+            if (ageMonths >= 36 && !activity) {
+                alert('Please select an activity level for children 3 years and older.');
+                return;
+            }
+
+            // Calculate
+            const energy = calculateEnergy(weight, height, ageMonths, gender, activity);
+            const protein = calculateProtein(weight, ageMonths);
+            const fluid = calculateFluid(weight);
+
+            // Display results with animated counters
+            animateValue(document.getElementById('energyValue'), energy.value, 2200);
+            document.getElementById('energyPerKg').textContent = `(${(energy.value / weight).toFixed(1)} kcal/kg/day)`;
+            document.getElementById('energyWork').innerHTML = energy.work;
+
+            animateValue(document.getElementById('proteinValue'), parseFloat(protein.value), 1800);
+            document.getElementById('proteinPerKg').textContent = `(${protein.gPerKg} g/kg/day)`;
+            document.getElementById('proteinWork').innerHTML = protein.work;
+
+            animateValue(document.getElementById('fluidValue'), fluid.value, 2000);
+            document.getElementById('fluidPerKg').textContent = `(${fluid.perKg} mL/kg/day)`;
+            document.getElementById('fluidWork').innerHTML = fluid.work;
+
+            // Patient summary
+            const years = Math.floor(ageMonths / 12);
+            const months = ageMonths % 12;
+            let ageStr = '';
+            if (years > 0) ageStr += `${years} year${years > 1 ? 's' : ''}`;
+            if (months > 0) ageStr += `${years > 0 ? ', ' : ''}${months} month${months > 1 ? 's' : ''}`;
+            if (!ageStr) ageStr = '0 months';
+
+            const genderStr = gender === 'male' ? 'Male' : 'Female';
+            document.getElementById('patientSummary').innerHTML =
+                `<strong>Patient:</strong> ${weight} kg, ${height} cm, ${ageStr}, ${genderStr}` +
+                (ageMonths >= 36 ? `, ${activity.charAt(0).toUpperCase() + activity.slice(1)} activity` : '');
+
+            // Show results
+            document.getElementById('results').classList.add('visible');
+
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle show work
+        function toggleWork(type) {
+            const details = document.getElementById(type + 'Work');
+            const toggle = details.previousElementSibling;
+
+            details.classList.toggle('visible');
+            toggle.classList.toggle('open');
+
+            // Update button text
+            if (details.classList.contains('visible')) {
+                toggle.innerHTML = toggle.innerHTML.replace('Show', 'Hide');
+            } else {
+                toggle.innerHTML = toggle.innerHTML.replace('Hide', 'Show');
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('weight').value = '';
+            document.getElementById('height').value = '';
+            document.getElementById('ageYears').value = '';
+            document.getElementById('ageMonths').value = '';
+            document.getElementById('gender').value = '';
+            document.getElementById('activity').value = '';
+            document.getElementById('results').classList.remove('visible');
+
+            // Close all work details
+            document.querySelectorAll('.calculation-details').forEach(el => {
+                el.classList.remove('visible');
+            });
+            document.querySelectorAll('.show-work-toggle').forEach(el => {
+                el.classList.remove('open');
+                el.innerHTML = el.innerHTML.replace('Hide', 'Show');
+            });
+
+            // Reset activity note
+            document.getElementById('activityNote').textContent = '';
+            document.getElementById('activity').disabled = false;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+    </script>
+</body>
+</html>

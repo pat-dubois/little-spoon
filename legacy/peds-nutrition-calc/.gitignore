@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Granola transcripts (not needed in repo)
+*via granola*
+*transcript*
