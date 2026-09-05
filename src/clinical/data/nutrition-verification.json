@@ -1,0 +1,956 @@
+{
+  "verifiedAt": "2026-09-05T22:24:24.123Z",
+  "sources": [
+    {
+      "url": "https://health-infobase.canada.ca/src/js/nutrition/dietary-reference-intakes-calculator/constants.js",
+      "sha256": "f37b144a2455228cb92452ffc5031a062e3fa55c686363b44f92503c44f70a1d"
+    },
+    {
+      "url": "https://health-infobase.canada.ca/src/js/nutrition/dietary-reference-intakes-calculator/EER_Equations.js",
+      "sha256": "ef21042f7f446fd6c4a84ee590c4c7ae0901c4fbadeff587be8ef86e1571fccc"
+    }
+  ],
+  "reference": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/equations-estimate-energy-requirement.html",
+  "totalCases": 372,
+  "matchingCases": 300,
+  "explainedDiscrepancies": 72,
+  "unexplainedDiscrepancies": 0,
+  "discrepancies": [
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1356,
+      "healthCanadaRounded": 1366,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1552,
+      "healthCanadaRounded": 1562,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1747,
+      "healthCanadaRounded": 1757,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1490,
+      "healthCanadaRounded": 1500,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1648,
+      "healthCanadaRounded": 1658,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1807,
+      "healthCanadaRounded": 1817,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1541,
+      "healthCanadaRounded": 1551,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1750,
+      "healthCanadaRounded": 1760,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1960,
+      "healthCanadaRounded": 1970,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1626,
+      "healthCanadaRounded": 1636,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1876,
+      "healthCanadaRounded": 1886,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2127,
+      "healthCanadaRounded": 2137,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1225,
+      "healthCanadaRounded": 1240,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1373,
+      "healthCanadaRounded": 1388,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1521,
+      "healthCanadaRounded": 1536,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1307,
+      "healthCanadaRounded": 1322,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1504,
+      "healthCanadaRounded": 1519,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1700,
+      "healthCanadaRounded": 1715,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1381,
+      "healthCanadaRounded": 1396,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1573,
+      "healthCanadaRounded": 1588,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1766,
+      "healthCanadaRounded": 1781,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1498,
+      "healthCanadaRounded": 1513,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1761,
+      "healthCanadaRounded": 1776,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 96.1,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2024,
+      "healthCanadaRounded": 2039,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1358,
+      "healthCanadaRounded": 1368,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1554,
+      "healthCanadaRounded": 1564,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1749,
+      "healthCanadaRounded": 1759,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1491,
+      "healthCanadaRounded": 1501,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1650,
+      "healthCanadaRounded": 1660,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1808,
+      "healthCanadaRounded": 1818,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1543,
+      "healthCanadaRounded": 1553,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1752,
+      "healthCanadaRounded": 1762,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1961,
+      "healthCanadaRounded": 1971,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1628,
+      "healthCanadaRounded": 1638,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1878,
+      "healthCanadaRounded": 1888,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2129,
+      "healthCanadaRounded": 2139,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1214,
+      "healthCanadaRounded": 1229,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1362,
+      "healthCanadaRounded": 1377,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1510,
+      "healthCanadaRounded": 1525,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1296,
+      "healthCanadaRounded": 1311,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1493,
+      "healthCanadaRounded": 1508,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1689,
+      "healthCanadaRounded": 1704,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1370,
+      "healthCanadaRounded": 1385,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1562,
+      "healthCanadaRounded": 1577,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1755,
+      "healthCanadaRounded": 1770,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1487,
+      "healthCanadaRounded": 1502,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1750,
+      "healthCanadaRounded": 1765,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 102,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2013,
+      "healthCanadaRounded": 2028,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1360,
+      "healthCanadaRounded": 1370,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1556,
+      "healthCanadaRounded": 1566,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1751,
+      "healthCanadaRounded": 1761,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1493,
+      "healthCanadaRounded": 1503,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1652,
+      "healthCanadaRounded": 1662,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1810,
+      "healthCanadaRounded": 1820,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1545,
+      "healthCanadaRounded": 1555,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1754,
+      "healthCanadaRounded": 1764,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1963,
+      "healthCanadaRounded": 1973,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1630,
+      "healthCanadaRounded": 1640,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1880,
+      "healthCanadaRounded": 1890,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "male",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2130,
+      "healthCanadaRounded": 2140,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1203,
+      "healthCanadaRounded": 1218,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1351,
+      "healthCanadaRounded": 1366,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "inactive"
+      },
+      "littleSpoonRounded": 1499,
+      "healthCanadaRounded": 1514,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1285,
+      "healthCanadaRounded": 1300,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1482,
+      "healthCanadaRounded": 1497,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "low-active"
+      },
+      "littleSpoonRounded": 1678,
+      "healthCanadaRounded": 1693,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1359,
+      "healthCanadaRounded": 1374,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1551,
+      "healthCanadaRounded": 1566,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "active"
+      },
+      "littleSpoonRounded": 1744,
+      "healthCanadaRounded": 1759,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 22.5,
+        "heightCm": 112.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1476,
+      "healthCanadaRounded": 1491,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 25,
+        "heightCm": 125,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 1739,
+      "healthCanadaRounded": 1754,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    },
+    {
+      "input": {
+        "ageMonths": 107.999,
+        "sex": "female",
+        "weightKg": 27.500000000000004,
+        "heightCm": 137.5,
+        "activity": "very-active"
+      },
+      "littleSpoonRounded": 2002,
+      "healthCanadaRounded": 2017,
+      "explainedByPublishedTableBoundary": true,
+      "explanation": "Published table switches at age 9; official calculator source uses age >8."
+    }
+  ]
+}

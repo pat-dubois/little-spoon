@@ -1,0 +1,8 @@
+{
+  "verifiedAt": "2026-09-05T22:25:08.505581+00:00",
+  "source": "https://health-infobase.canada.ca/src/data/nutrition/dietary-reference-intakes-calculator/Micronutrients_table-en.csv",
+  "sha256": "8606992bea28fa988b7584ca6301ab6142980ac2a1e19fad02f6163336be03d3",
+  "nutrientGroups": 208,
+  "checkedFields": 624,
+  "differences": []
+}
