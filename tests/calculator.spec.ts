@@ -346,3 +346,66 @@ test('phone nutrient references show complete values and notes without sideways 
   await expect(nutrientItems(page)).toHaveCount(26);
   await expect(page.getByRole('article', { name: 'Folate', exact: true })).toHaveCount(0);
 });
+
+test('vitamin A and D show published dual units and qualified upper limits', async ({ page }) => {
+  await page.locator('#age-years').fill('5');
+  await page.getByRole('radio', { name: 'Female', exact: true }).check();
+  await page.getByRole('tab', { name: /DRI/ }).click();
+  await page.getByRole('button', { name: 'View reference', exact: true }).click();
+  const vitaminA = nutrient(page, 'Vitamin A');
+  const vitaminD = nutrient(page, 'Vitamin D');
+  const aAmounts = vitaminA.locator('.dri-dual-amount');
+  const dAmounts = vitaminD.locator('.dri-dual-amount');
+  await expect(aAmounts.nth(0).locator('.dri-amount-primary')).toContainText('400');
+  await expect(aAmounts.nth(0).locator('.dri-amount-primary')).toContainText('µg RAE/day');
+  await expect(aAmounts.nth(0).locator('.dri-amount-secondary')).toContainText('1,333');
+  await expect(aAmounts.nth(0).locator('.dri-amount-secondary')).toContainText('IU/day as retinol');
+  await expect(aAmounts.nth(1)).toContainText('900');
+  await expect(aAmounts.nth(1)).toContainText('3,000');
+  await expect(aAmounts.nth(1)).toContainText('preformed vitamin A');
+  await expect(dAmounts.nth(0).locator('.dri-amount-primary')).toContainText('600');
+  await expect(dAmounts.nth(0).locator('.dri-amount-primary')).toContainText('IU/day');
+  await expect(dAmounts.nth(0).locator('.dri-amount-secondary')).toContainText('15');
+  await expect(dAmounts.nth(0).locator('.dri-amount-secondary')).toContainText('µg/day');
+  await expect(dAmounts.nth(1)).toContainText('3,000');
+  await expect(dAmounts.nth(1)).toContainText('75');
+  await vitaminA.locator('summary').click();
+  await expect(vitaminA.getByRole('link', { name: /NIH: vitamin A units/ })).toBeVisible();
+  await expect(vitaminA).toContainText('carotenoids depends on their form and source');
+
+  await page.getByRole('searchbox', { name: 'Find a nutrient' }).fill('Vitamin D');
+  for (const [years, months, iu, micrograms, exactMicrograms] of [
+    ['0', '6', '1,500', '38', '37.5'],
+    ['2', '0', '2,500', '63', '62.5'],
+  ]) {
+    await page.locator('#age-years').fill(years);
+    await page.locator('#age-months').fill(months);
+    const ul = vitaminD.locator('.dri-dual-amount').nth(1);
+    await expect(ul.locator('.dri-amount-primary')).toContainText(iu);
+    await expect(ul.locator('.dri-amount-secondary')).toContainText(micrograms);
+    await expect(ul.locator('.dri-amount-secondary')).toContainText('rounded');
+    await expect(ul).not.toContainText('1,520');
+    await expect(ul).not.toContainText('2,520');
+    if (!(await vitaminD.locator('details').evaluate((element: HTMLDetailsElement) => element.open))) await vitaminD.locator('summary').click();
+    await expect(vitaminD).toContainText(exactMicrograms);
+    await expect(vitaminD.getByRole('link', { name: /NIH: vitamin D units/ })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
+  }
+});
+
+test('fifth-birthday growth example keeps WHO daily precision through display rounding', async ({ page }) => {
+  await page.getByRole('tab', { name: /Z.score/i }).click();
+  await page.locator('#dob').fill('2021-09-05');
+  await page.locator('#measurement-date').fill('2026-09-05');
+  await page.locator('#weight').fill('25');
+  await page.locator('#height').fill('120');
+  await page.locator('#measurement-type').selectOption('height');
+  await page.getByRole('radio', { name: 'Female', exact: true }).check();
+  await calculate(page);
+  const height = page.locator('.growth-metric').filter({ hasText: 'Height for age' });
+  const bmi = page.locator('.growth-metric').filter({ hasText: 'BMI for age' });
+  await expect(height).toContainText('2.23');
+  await expect(height).toContainText('98.7');
+  await expect(bmi).toContainText('1.26');
+  await expect(bmi).toContainText('89.6');
+});

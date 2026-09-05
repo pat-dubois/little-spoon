@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-09-05T22:19:03.916951+00:00",
+  "retrievedAt": "2026-09-05T23:26:41.450269+00:00",
   "groupOrder": [
     "infant-young",
     "infant-older",
@@ -13,7 +13,7 @@
   "sources": [
     {
       "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-vitamins.html",
-      "sha256": "fbb9906710e527eff90be933c65e83b67598aafa6f38730c12e214c0941bf348",
+      "sha256": "951ac2a75130b1df66ca515cde2abafc722f16c459c4da75d445879b2db0135d",
       "tables": [
         {
           "id": "tbl1",
@@ -1586,7 +1586,7 @@
     },
     {
       "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-elements.html",
-      "sha256": "ac038bd3c229646ded10d973955960000f4e9bdeae00bc3933f57fbbee9b889b",
+      "sha256": "a7f82fa4ca230a371c249c72c426ec8d9ce466b510caaaba2a9162d2dd1f8700",
       "tables": [
         {
           "id": "tbl1",

@@ -4,7 +4,7 @@ Updated: 2026-09-05. Coordinating agent: tili. Host: pdhome.
 
 ## Current state
 
-The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). The original implementation commit is `e410494`; phone fixes are in `afaaaaf`. GitHub repeats the build and browser checks on the pull request. Local verification is complete: 209 tests and 48 browser checks pass. The review build is saved in [draft pull request #2](https://github.com/pat-dubois/little-spoon/pull/2); see [verification report](docs/verification.md) for the actual passing evidence and limits.
+The rebuild is implemented on `feat/verified-clinical-rebuild`. Work is tracked in [GitHub issue #1](https://github.com/pat-dubois/little-spoon/issues/1). The original implementation commit is `e410494`; phone fixes are in `afaaaaf`. GitHub repeats the build and browser checks on the pull request. Latest local verification is complete: 232 tests and 54 browser checks pass. The review build is saved in [draft pull request #2](https://github.com/pat-dubois/little-spoon/pull/2); see [verification report](docs/verification.md) for the actual passing evidence and limits.
 
 The app includes the shared patient card, Nutrition landing tab, Z-score charts, DRI / RDA table, light/dark themes, source links and complete calculation steps. The build emits a self-contained offline HTML file. Patient fields remain in memory only. Original legacy snapshots and private transcripts were left unchanged.
 
@@ -70,3 +70,20 @@ Latest publication: version 2, saved version `appgprj_6a9c9ce4776c8191ba2e17eed3
 
 
 Pat then supplied IMG_3496/IMG_3497 showing portrait date boxes extending beyond the card and landscape boxes touching. Their portrait sex/age layout is from before the published phone fix. Independent visual review confirmed that distinction. The unchanged published build passed 48 additional focused geometry checks in Chromium/WebKit across portrait, landscape and 767/768/1023/1024px boundaries, with retained dates and at least 20px vertical or 23px horizontal spacing. Evidence: `artifacts/date-orientations/2026-09-05T23-05-32-272Z/report.json`. The existing date regression now covers rotation and both breakpoints; it passes in all three configured browser profiles. No app code or published asset changed in this follow-up. Actual Arc/iOS confirmation requires refreshing the phone's older page.
+
+
+Pat confirmed Crystal successfully opened the private hosted app using the shared Gmail ChatGPT account. She will review it and Pat will relay feedback; clinical review is still pending. Pat requested the existing Crystal review sheet again, covering an AnthroCalc mismatch and the six-to-under-seven-month reference convention.
+
+
+Pat canceled the broad Ped's history request as an old message; do not resume that investigation. Pat then supplied IMG_6700/IMG_6701 with a specific same-input comparison of the current Sites build and original blue Ped's calculator. That narrow case was verified in both browser UIs, including blank additional months. Original Ped's shows 1,512 kcal/day and 60.5 kcal/kg/day; the exact published rebuild shows 1,507 and 60.27. Independent review confirms the applicable Health Canada growth term is +15, whereas original Ped's uses +20. Both treat blank months as zero; no date conversion contributes to this case. Local evidence is `artifacts/peds-energy-investigation/crystal-exact-case.json`. No calculator code or deployment changed.
+
+
+## Crystal vitamin units and fifth-birthday feedback
+
+Crystal reported the other tools looked good, requested vitamin A and D in IU as well as micrograms, and supplied a five-year WHO-mode AnthroCalc comparison. This is useful review feedback, not a blanket clinical sign-off. Work is tracked in [issue #3](https://github.com/pat-dubois/little-spoon/issues/3).
+
+Both vitamin units are implemented using Health Canada's published paired columns. D uses IU first; A keeps µg RAE first and labels IU as retinol. Preformed-only A UL scope remains explicit. Rounded D ULs 38/63 µg retain the correct 1,500/2,500 IU values and visible rounding labels. All canonical values and classifications for all 26 nutrients are unchanged. Clinical details are in docs/nutrition-validation.md.
+
+For the female fifth-birthday example, unmodified WHO R returns height 2.23, weight 2.02 and BMI 1.26; independent R probabilities confirm height percentile 98.7 and BMI 89.6. Monthly WHO height interpolation can reproduce AnthroCalc's 2.22 because the raw values straddle a rounding boundary. It does not explain AnthroCalc's BMI 89.7. Its internal implementation remains unconfirmed; no growth algorithm/data was altered to match it. Evidence is retained in artifacts/anthrocalc-five-year/ and summarized in docs/growth-validation.md.
+
+The latest source passes 232 tests, the production build and 54 browser tests. A separate interface agent passed 58 focused phone/desktop/print checks. Local evidence is retained in artifacts/vitamin-units/. Publishing the tested bundle to the existing private Site is the remaining step. Pat also asked for a plain explanation of the earlier energy finding after the current work.

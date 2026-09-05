@@ -12,13 +12,34 @@ function NutrientNotes({ row }: { row: DriRow }) {
       <p>Reference group: {row.ageGroupLabel}.</p>
       {row.ulNote && <p>{row.ulNote}</p>}
       {row.notes.map((note, index) => <p key={index}>{note}</p>)}
-      <SourceLinks sources={[row.source]} />
+      <SourceLinks sources={[row.source, ...(row.unitSource ? [row.unitSource] : [])]} />
     </div>
   </details>
 }
 
 function IntakeTag({ type }: { type: DriRow['intakeType'] }) {
   return <span className={`intake-tag${type === 'AI' ? ' intake-ai' : ''}`}>{type}</span>
+}
+
+function DualUnitAmount({ row, kind, showType = false }: { row: DriRow; kind: 'intake' | 'ul'; showType?: boolean }) {
+  const value = row[kind]
+  if (value === null) return <span className="not-established">Not established</span>
+  const canonical = { value, unit: kind === 'intake' ? row.unit : row.ulUnit }
+  const international = row.internationalUnits
+  const internationalValue = international?.[kind]
+  const alternative = international && internationalValue !== null && internationalValue !== undefined
+    ? { value: internationalValue, unit: kind === 'intake' ? international.unit : international.ulUnit }
+    : undefined
+  const primary = alternative && international?.preferred ? alternative : canonical
+  const secondary = alternative ? international?.preferred ? canonical : alternative : undefined
+  const secondaryRounded = kind === 'ul' && international?.preferred && international.ulMicrogramsRounded
+  return <div className="dri-dual-amount">
+    <div className="dri-amount-primary">
+      <div className="dri-amount-topline"><strong className="dri-number">{formatNumber(primary.value, 3)}</strong>{showType && <IntakeTag type={row.intakeType} />}</div>
+      <span className="dri-unit-label">{primary.unit}</span>
+    </div>
+    {secondary && <div className="dri-amount-secondary"><span className="dri-number">{formatNumber(secondary.value, 3)}</span><span className="dri-unit-label">{secondary.unit}{secondaryRounded ? ' (rounded)' : ''}</span></div>}
+  </div>
 }
 
 export function DriPanel({ result, errors }: Props) {
@@ -38,9 +59,9 @@ export function DriPanel({ result, errors }: Props) {
           <caption className="sr-only">Daily vitamin and mineral references for {result.ageGroupLabel}</caption>
           <thead><tr><th scope="col">Nutrient</th><th scope="col">Daily reference</th><th scope="col">Upper limit</th><th scope="col">Details</th></tr></thead>
           <tbody>{rows.map((row) => <tr key={row.id}>
-            <th scope="row"><span>{row.name}</span><small>{row.unit}</small></th>
-            <td>{row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><IntakeTag type={row.intakeType} /></>}</td>
-            <td>{row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong>{row.ulUnit !== row.unit && <small className="ul-unit">{row.ulUnit}</small>}</>}</td>
+            <th scope="row"><span>{row.name}</span>{!row.internationalUnits && <small>{row.unit}</small>}</th>
+            <td>{row.internationalUnits ? <DualUnitAmount row={row} kind="intake" showType /> : row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><IntakeTag type={row.intakeType} /></>}</td>
+            <td>{row.internationalUnits ? <DualUnitAmount row={row} kind="ul" /> : row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong>{row.ulUnit !== row.unit && <small className="ul-unit">{row.ulUnit}</small>}</>}</td>
             <td><NutrientNotes row={row} /></td>
           </tr>)}</tbody>
         </table>
@@ -50,8 +71,8 @@ export function DriPanel({ result, errors }: Props) {
           <article className="dri-nutrient-card" aria-labelledby={`nutrient-${row.id}`} data-nutrient-id={row.id}>
             <h3 id={`nutrient-${row.id}`}>{row.name}</h3>
             <dl className="dri-card-values">
-              <div><dt>Daily reference {row.intake !== null && <IntakeTag type={row.intakeType} />}</dt><dd>{row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><span className="dri-card-unit">{row.unit}</span></>}</dd></div>
-              <div><dt>Upper limit (UL)</dt><dd>{row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong><span className="dri-card-unit">{row.ulUnit}</span></>}</dd></div>
+              <div><dt>Daily reference {row.intake !== null && <IntakeTag type={row.intakeType} />}</dt><dd>{row.internationalUnits ? <DualUnitAmount row={row} kind="intake" /> : row.intake === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.intake, 3)}</strong><span className="dri-card-unit">{row.unit}</span></>}</dd></div>
+              <div><dt>Upper limit (UL)</dt><dd>{row.internationalUnits ? <DualUnitAmount row={row} kind="ul" /> : row.ul === null ? <span className="not-established">Not established</span> : <><strong>{formatNumber(row.ul, 3)}</strong><span className="dri-card-unit">{row.ulUnit}</span></>}</dd></div>
             </dl>
             <NutrientNotes row={row} />
           </article>

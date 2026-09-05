@@ -6,7 +6,7 @@ Verified 2026-09-05. This documents implementation checks, source conflicts and 
 
 The rebuilt reference engine uses the current Health Canada 2023 energy equations, the published protein g/kg/day values and daily Holliday-Segar maintenance arithmetic. It includes all 26 vitamins and minerals in the previous calculator. Calculations return unrounded numbers, substituted work, source links and scope notes. Invalid ages, categories, nonfinite numbers, nonpositive measurements and nonpositive energy predictions fail explicitly.
 
-144 targeted automated tests pass. The DRI tests independently transcribe and check all 208 age/sex/nutrient intake values, their AI/RDA classifications, and all 208 UL values or explicit nulls. A separate online comparison checks 624 fields against the Health Canada calculator's CSV with **zero differences**. The energy comparator runs **372 synthetic cases** through both this engine and the current Health Canada calculator code: **300 match**, and **72 differ only because the official calculator switches growth deposition before the ninth birthday, contrary to its published equation table**. There are **zero unexplained energy differences** in that comparison. TypeScript checking also passes.
+166 targeted automated tests pass. The DRI tests independently transcribe and check all 208 age/sex/nutrient intake values, their AI/RDA classifications, and all 208 UL values or explicit nulls. They also check all 32 published vitamin A/D IU values and the affected age boundaries. A separate online comparison checks 624 fields against the Health Canada calculator's CSV with **zero differences**. The energy comparator runs **372 synthetic cases** through both this engine and the current Health Canada calculator code: **300 match**, and **72 differ only because the official calculator switches growth deposition before the ninth birthday, contrary to its published equation table**. There are **zero unexplained energy differences** in that comparison. TypeScript checking also passes.
 
 ## Sources and provenance
 
@@ -79,6 +79,16 @@ The nutrient display must preserve these distinctions:
 3. Folate intake uses µg DFE; its UL uses µg folic acid from supplements/fortified foods. Vitamin A's UL covers preformed vitamin A only. Niacin and vitamin E ULs are limited to their specified synthetic sources.
 4. Younger-infant niacin is measured as preformed niacin, not NE. Vitamin D and calcium use the source's reported rounded numeric values, including vitamin D ULs of 38 and 63 µg/day; they are not silently changed to 37.5 or 62.5.
 5. Source notes retain iron/zinc diet modifiers and the iron table's menstruation assumption for girls. The numbers are baseline reference values; those adjustments are not silently applied without the relevant inputs.
+
+## Vitamin A and D dual units
+
+The September 5 follow-up imports the existing IU intake and UL columns directly from [Health Canada's vitamin table 1](https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-vitamins.html#tbl1). These paired values supplement the canonical microgram values. Reimporting the sources left every canonical value, AI/RDA classification and nutrient source URL unchanged across all 26 nutrients.
+
+Vitamin D displays IU/day first and µg/day second. Its published intake pairs are 400 IU with 10 µg and 600 IU with 15 µg. The UL pairs are 1,000/25, 1,500/38, 2,500/63, 3,000/75 and 4,000/100 IU/µg. The 38 and 63 µg ULs visibly say “rounded”; their notes give the exact 37.5 and 62.5 µg equivalents. Multiplying the rounded source values by 40 would incorrectly display 1,520 and 2,520 IU. The display uses the published IU columns instead. The [NIH vitamin D reference](https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/) supports the 40 IU per µg conversion and published UL pairs.
+
+Vitamin A keeps µg RAE/day first and adds the published “IU/day as retinol” value. Its UL separately labels both units as preformed vitamin A. Notes explain that carotenoid conversions depend on form and source; the display does not imply that one conversion applies to every food or supplement. It also retains the note excluding beta-carotene from the preformed-vitamin-A UL. The [NIH vitamin A reference](https://ods.od.nih.gov/factsheets/VitaminA-HealthProfessional/) explains these distinctions. RAE has not been relabeled RE.
+
+The additional 22 DRI tests check the eight source groups, the separate vitamin D infant boundary, rounded UL pairs, retinol/preformed scope, source links and unchanged behavior for other nutrients. Desktop tables, phone cards and print tables all show the paired units. Browser regressions include both rounded vitamin D ULs and the five-year vitamin A/D references.
 
 ## Fluid scope
 

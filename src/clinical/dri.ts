@@ -16,6 +16,16 @@ export interface DriRow {
   ageGroupLabel: string;
   notes: string[];
   source: ClinicalSource;
+  /** Paired IU values from the source table, not recomputed from rounded µg. */
+  internationalUnits?: {
+    intake: number | null;
+    ul: number | null;
+    unit: string;
+    ulUnit: string;
+    preferred: boolean;
+    ulMicrogramsRounded?: boolean;
+  };
+  unitSource?: ClinicalSource;
 }
 export interface DriResult {
   ageGroupLabel: string;
@@ -99,6 +109,15 @@ export function getDri(ageMonths: number, sex: Sex): DriResult {
       ? 'This reference assumes girls younger than 14 years do not menstruate.'
       : 'This reference assumes girls 14 years and older menstruate.');
     if (specialInfantBand) rowNotes.push('The calcium and vitamin D table footnotes define the infant groups as 0 to <6 and 6 to <12 months.');
+    const iu = 'internationalUnits' in row ? row.internationalUnits[index] : undefined;
+    if (definition.id === 'vitamin-a') {
+      rowNotes.push('IU means international units. The IU values shown use retinol activity and are rounded as published by Health Canada. Conversion for carotenoids depends on their form and source.');
+    }
+    if (definition.id === 'vitamin-d') {
+      rowNotes.push('IU means international units. Both units are shown as published by Health Canada.');
+      if (ul === 38) rowNotes.push('The upper limit is 1,500 IU/day, equal to 37.5 µg/day; the source table rounds this to 38 µg/day.');
+      if (ul === 63) rowNotes.push('The upper limit is 2,500 IU/day, equal to 62.5 µg/day; the source table rounds this to 63 µg/day.');
+    }
     return {
       id: definition.id, name: definition.name, category: definition.category, unit,
       intake, intakeType: intake === null ? 'ND' : intakeType, ul, ulUnit: definition.ulUnit ?? definition.unit,
@@ -107,6 +126,19 @@ export function getDri(ageMonths: number, sex: Sex): DriResult {
       ageGroupLabel: specialInfantBand ? (ageMonths < 6 ? '0 to <6 months' : '6 to <12 months') : GROUP_LABELS[index]!,
       notes: rowNotes,
       source: { title: `Health Canada: ${definition.category === 'Vitamin' ? 'vitamin' : 'element'} reference values`, url: row.source },
+      ...(iu ? {
+        internationalUnits: {
+          intake: iu[0], ul: iu[1],
+          unit: definition.id === 'vitamin-a' ? 'IU/day as retinol' : 'IU/day',
+          ulUnit: definition.id === 'vitamin-a' ? 'IU/day preformed vitamin A' : 'IU/day',
+          preferred: definition.id === 'vitamin-d',
+          ...(definition.id === 'vitamin-d' && (ul === 38 || ul === 63) ? { ulMicrogramsRounded: true } : {}),
+        },
+        unitSource: {
+          title: definition.id === 'vitamin-a' ? 'NIH: vitamin A units and forms' : 'NIH: vitamin D units',
+          url: `https://ods.od.nih.gov/factsheets/${definition.id === 'vitamin-a' ? 'VitaminA' : 'VitaminD'}-HealthProfessional/`,
+        },
+      } : {}),
     };
   });
   return { ageGroupLabel: GROUP_LABELS[generalGroup]!, rows, notes };

@@ -36,6 +36,9 @@ MAP = {
 }
 GROUPS = ['infant-young', 'infant-older', 'child-1-3', 'child-4-8',
           'male-9-13', 'male-14-18', 'female-9-13', 'female-14-18']
+# Published IU intake and UL columns in vitamin table 1. Import the paired
+# values, not a conversion of rounded micrograms (38/63 µg have 1500/2500 IU ULs).
+IU_COLUMNS = {'vitamin-a': (5, 6), 'vitamin-d': (11, 12)}
 
 
 def group_key(section, age):
@@ -86,12 +89,19 @@ def main():
         evidence['sources'].append(source)
         for table, intake_col, ul_col, nutrient in mapping:
             values = []
+            international_units = []
             for key in GROUPS:
                 row = tables[table][key]
                 intake, ul = row[intake_col], row[ul_col]
                 parse = lambda cell: None if cell['text'] == 'ND' else float(cell['text'].replace(',', ''))
                 values.append([parse(intake), 'AI' if intake['ai'] else 'RDA', parse(ul)])
+                if nutrient in IU_COLUMNS:
+                    iu_intake_col, iu_ul_col = IU_COLUMNS[nutrient]
+                    assert row[iu_intake_col]['ai'] == intake['ai'], (nutrient, key, 'IU intake classification')
+                    international_units.append([parse(row[iu_intake_col]), parse(row[iu_ul_col])])
             output[nutrient] = {'source': url + '#tbl' + str(table + 1), 'values': values}
+            if international_units:
+                output[nutrient]['internationalUnits'] = international_units
     path = Path('src/clinical/data')
     path.mkdir(parents=True, exist_ok=True)
     (path / 'dri-provenance.json').write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + '\n')

@@ -86,6 +86,33 @@ describe('calendar dates and reference age', () => {
     expect(result.zScore).toBeCloseTo(-2.930912645903303, 12)
     expect(result.percentile).toBeCloseTo(0.16898390116251372, 12)
   })
+  it('matches unmodified WHO R for the five-year birthday screenshot near two rounding boundaries', () => {
+    // Independently executed WHO anthro_zscores and R pnorm, not AnthroCalc's display.
+    // Reproduction and source hashes: artifacts/anthrocalc-five-year/who-r-result.json.
+    const calculation = calculateGrowth({
+      sex: 'female', dateOfBirth: '2021-09-05', measurementDate: '2026-09-05',
+      weightKg: 25, heightCm: 120, measurementType: 'height',
+    })
+    expect(calculation.age!.days).toBe(1826)
+    expect(calculation.age!.months).toBeCloseTo(59.9917864476386, 12)
+    expect(calculation.age!.completedYears).toBe(5)
+    expect(calculation.adjustedHeightCm).toBe(120)
+    expect(calculation.bmi).toBeCloseTo(17.36111111111111, 12)
+    const expected = [
+      ['heightForAge', 2.225095996886071, 98.69626027835358, '2.23', '98.7'],
+      ['weightForAge', 2.0207145473147334, 97.83453384763192, '2.02', '97.8'],
+      ['bmiForAge', 1.2614870540516514, 89.64332893240542, '1.26', '89.6'],
+    ] as const
+    for (const [metric, z, percentile, displayedZ, displayedPercentile] of expected) {
+      const result = calculation.results.find(item => item.metric === metric)!
+      expect(result.status).toBe('ok')
+      expect(result.source!.title).toContain('daily LMS')
+      expect(result.zScore).toBeCloseTo(z, 12)
+      expect(result.percentile).toBeCloseTo(percentile, 12)
+      expect(result.zScore!.toFixed(2)).toBe(displayedZ)
+      expect(result.percentile!.toFixed(1)).toBe(displayedPercentile)
+    }
+  })
   it('handles leap days, month ends and same-day birth', () => {
     expect(calculateAge('2024-02-28', '2024-03-01').days).toBe(2)
     expect(calculateAge('2023-02-28', '2023-03-01').days).toBe(1)

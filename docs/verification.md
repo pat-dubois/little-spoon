@@ -6,17 +6,17 @@ Verified on pdhome on 2026-09-05. This report records engineering checks and the
 
 | Area | Evidence |
 | --- | --- |
-| Automated calculations and inputs | **209 tests pass** across five test files: 195 clinical tests and 14 shared-input/integration checks. Clinical coverage: 99.33% of lines, 94.91% of branches and 100% of functions. Nutrition has 100% line and branch coverage. |
+| Automated calculations and inputs | **232 tests pass** across five test files: 218 clinical tests and 14 shared-input/integration checks. Clinical coverage: 99.34% of lines, 95.17% of branches and 100% of functions. Nutrition has 100% line and branch coverage. |
 | WHO independent expectations | **3,576 numeric outputs** agree with WHO's R implementation or published fixtures at its public z-score precision; **733 unavailable results** agree. Also 413 independent normal-probability checks. A second agent checked 96 chart combinations and 1,248 inverse/tail calculations. See [growth validation](growth-validation.md). |
 | Health Canada comparisons | All **624 nutrient fields** agree with the independent official CSV. Of 372 energy examples, 300 match the official calculator and 72 expose its documented early age-nine switch; no unexplained differences. See [nutrition validation](nutrition-validation.md). |
-| Browser workflows | **48 tests pass, zero skipped or retried**, across desktop Chromium, Android-sized Chromium and iPhone-sized WebKit. All three tools, shown work, edited values, missing/invalid values, reset, reference boundaries, explicit posture, oedema, infant exceptions and different UL units are exercised. |
+| Browser workflows | **54 tests pass, zero skipped or retried**, across desktop Chromium, Android-sized Chromium and iPhone-sized WebKit. All three tools, shown work, edited values, missing/invalid values, reset, reference boundaries, explicit posture, oedema, infant exceptions and different UL units are exercised. |
 | Accessibility and phone layouts | Axe reports no WCAG 2 A/AA or 2.1 AA violations in populated Nutrition, Growth and DRI screens in both themes. Keyboard tabs pass. Additional visual checks at 320 and 390 CSS pixels confirm no page overflow, readable charts, stacked nutrient cards with distinct daily/UL units, expanded notes and doubled-text reflow. The September 5 phone follow-up below adds 320/360/390/430px checks. |
 
 Expected values were obtained independently where clinical correctness matters. The source reports identify the authority, retrieval record, precision and scope of each comparison. Coverage is a guide to exercised code, not proof of clinical suitability.
 
 ## Offline and patient-state checks
 
-Both `dist/index.html` and `dist/little-spoon.html` contain the complete application, WHO data, nutrient references, fonts, styles and software licences. The reviewed file is **947,988 bytes** with SHA-256 `5d8f7e4fa0dbae7da3dbe2a7debb834fae584d5798fe4def037499535a85097d`.
+Both `dist/index.html` and `dist/little-spoon.html` contain the complete application, WHO data, nutrient references, fonts, styles and software licences. The reviewed file is **951,212 bytes** with SHA-256 `9dc3f2c1db4613231d79e180575045aafbb793466bb7ebe224a32812f3cd41f9`.
 
 The actual `file:` artifact was opened in Chromium and WebKit with every HTTP(S) request blocked before navigation. All three calculators and a growth chart worked, with zero external requests or runtime errors. Reload cleared the patient fields and results. A separate test switches a loaded page into network-offline mode and rejects attempted storage/database writes while exercising calculations; it passes with no cookies, local storage or session storage entries.
 
@@ -43,15 +43,15 @@ These are local lab scores, not field measurements on Crystal's phone or hospita
 
 ## Evidence and reproduction
 
-The final browser report is `artifacts/e2e/2026-09-05T23-02-11-325Z/report.json`. The earlier rebuild report remains at `artifacts/e2e/2026-09-05T22-38-17-243Z/report.json`. The final Lighthouse JSON and HTML reports are in `artifacts/lighthouse/2026-09-05T22-38-38-439Z/`. Visual review screenshots are under `artifacts/visual-review-2026-09-05/`; the T3 observations are under `artifacts/t3/`. These generated artifacts are kept locally and excluded from Git. Source fixtures, provenance, tests and this summary are committed.
+The final browser report is `artifacts/e2e/2026-09-05T23-31-41-899Z/report.json`. The preceding phone-fix report remains at `artifacts/e2e/2026-09-05T23-02-11-325Z/report.json`. The earlier rebuild report remains at `artifacts/e2e/2026-09-05T22-38-17-243Z/report.json`. The final Lighthouse JSON and HTML reports are in `artifacts/lighthouse/2026-09-05T22-38-38-439Z/`. Visual review screenshots are under `artifacts/visual-review-2026-09-05/`; the T3 observations are under `artifacts/t3/`. These generated artifacts are kept locally and excluded from Git. Source fixtures, provenance, tests and this summary are committed.
 
 `npm run build` completed strict TypeScript checks. `npm run test:coverage` and `npm run test:e2e` completed successfully. The installed dependency audit reported zero vulnerabilities. GitHub's verification workflow repeats the locked install, calculation tests, production build and Chromium/WebKit browser tests, and retains the HTML and browser reports as run artifacts. Its outcome is recorded in the pull request checks; local results are not presented as a remote CI pass.
 
 ## What still needs review
 
-Crystal's actual discrepant AnthroCalc examples have not been entered into a fresh AnthroCalc session. The inherited example is reproduced, and demonstrated defects in the old code are documented, but complete application-to-application agreement is not claimed. The general infant age convention at six to under seven months needs agreement with the treating team; affected results show this explicitly.
+Crystal's supplied fifth-birthday screenshot has been compared with the exact date/measurement inputs and the unmodified WHO R calculation. WHO matches Little Spoon's height 2.23 and BMI percentile 89.6. WHO monthly height interpolation reproduces AnthroCalc's 2.22, but its internal method and BMI percentile 89.7 remain unconfirmed. A fresh AnthroCalc session and complete application-to-application agreement are not claimed. The general infant age convention at six to under seven months needs agreement with the treating team; affected results show this explicitly.
 
-Physical iPhone/Android devices, screen-reader listening, hospital-network behavior and a real browser-menu zoom operation have not been tested. Phone emulation, keyboard behavior, automated accessibility, narrow-width reflow and synthetic doubled-text checks passed. Print styles exist but printing was not independently verified. There is no new clinical sign-off. The app is published privately through ChatGPT Sites; deployment and account-access details live in NEXT.md.
+Physical iPhone/Android devices, screen-reader listening, hospital-network behavior and a real browser-menu zoom operation have not been tested. Phone emulation, keyboard behavior, automated accessibility, narrow-width reflow and synthetic doubled-text checks passed. Print-media checks confirm the semantic reference table retains both vitamin units in Chromium and WebKit; physical paper output has not been checked. There is no new clinical sign-off. The app is published privately through ChatGPT Sites; deployment and account-access details live in NEXT.md.
 
 
 ## September 5 mobile follow-up
@@ -64,3 +64,14 @@ An independent interface review passed 112 geometry/interaction checks in both e
 
 
 After the supplied portrait and landscape screenshots, date verification was extended to rotate back and forth and check both 767/768px and 1023/1024px layout boundaries. The updated date regression passes in all three configured browser profiles. A separate 48-case Chromium/WebKit focus-and-geometry run checked the exact published HTML, including the screenshot's same-day birth/measurement example; fields retained their values, remained within their containers and kept at least 20px vertical or 23px horizontal spacing. Evidence: `artifacts/date-orientations/2026-09-05T23-05-32-272Z/report.json`. The screenshots show the earlier portrait sex/age arrangement. No app change was needed after this comparison; physical Arc behavior still requires a refreshed-device check.
+
+
+## September 5 vitamin units and growth comparison
+
+Vitamin A and D now display both published Health Canada units for daily intake and UL. Vitamin D shows IU first. Vitamin A keeps µg RAE first and qualifies IU as retinol; its UL is explicitly preformed vitamin A. The two rounded vitamin D microgram ULs are labeled and explained. The importer reads the published IU columns, preserving every canonical nutrient value and classification. See [nutrition validation](nutrition-validation.md) for conversion scope and exact pairs.
+
+The 232-test coverage run and production build passed. The full 54-browser-test run passed with zero skipped, failed or retried checks across desktop Chromium, mobile Chromium and iPhone-sized WebKit. New cases exercise the A/D units, 38/63 µg rounded ULs and the fifth-birthday growth display. Existing all-tool accessibility, offline-file, input-state, reset and phone date/reference regressions still pass against this exact bundle.
+
+An independent interface agent passed 40 A/D display, source and layout cases across both engines, both themes and widths 320/360/390/430/1280px, plus 18 rounded-UL and print-media checks. No horizontal page overflow or page errors were reported. Reports and reviewed screenshots are retained in `artifacts/vitamin-units/interface-qa/`. The T3 browser independently confirmed the five-year vitamin A/D paired references and the exact-date height 2.23 / BMI percentile 89.6 displays against the local production build. Observations are retained in `artifacts/vitamin-units/t3-production-check.json`.
+
+The new growth regression follows unmodified WHO R output. No growth algorithm or reference table was changed. The height rounding comparison and the still-unconfirmed AnthroCalc BMI percentile are documented in [growth validation](growth-validation.md).

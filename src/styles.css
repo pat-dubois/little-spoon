@@ -275,6 +275,16 @@
   .dri-card-values dd { margin: 0; }
   .dri-card-values dd strong { display: block; font-size: 25px; font-weight: 550; line-height: 1.25; letter-spacing: -.04em; }
   .dri-card-unit { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+  .dri-dual-amount { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+  .dri-amount-primary { min-width: 0; }
+  .dri-amount-topline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .dri-unit-label { display: block; font-size: 11px; line-height: 1.5; color: var(--muted); overflow-wrap: anywhere; }
+  .dri-amount-primary > .dri-unit-label { margin-top: 5px; }
+  .dri-amount-secondary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 5px; min-width: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .dri-amount-secondary .dri-number { font-weight: 500; }
+  .dri-nutrient-card .dri-amount-secondary { font-size: 14px; }
+  .dri-nutrient-card .dri-unit-label { font-size: 12px; }
+  .dri-dual-amount .intake-tag { margin-left: 0; }
   .dri-nutrient-card .intake-tag { margin-left: 3px; font-size: 10px; }
   .dri-nutrient-card .not-established { font-size: 13px; }
   .dri-nutrient-card .nutrient-details { padding-top: 6px; border-top: 1px solid var(--line); font-size: 13px; }

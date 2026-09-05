@@ -39,6 +39,70 @@ const GROUPS: [number, Sex][] = [[3,'male'],[8,'female'],[24,'male'],[60,'female
 const ALWAYS_AI = new Set(['vitamin-k','pantothenic-acid','biotin','choline','manganese','chromium','fluoride']);
 const row = (id: string, months = 24, sex: Sex = 'female') => getDri(months, sex).rows.find((r) => r.id === id)!;
 
+describe('published vitamin A and D international units', () => {
+  // Independently read from Health Canada table 1 IU columns, not calculated
+  // from its rounded µg cells or imported from the production reference data.
+  it.each([
+    [3, 'male', 1333, 2000, 400, 1000],
+    [8, 'female', 1667, 2000, 400, 1500],
+    [24, 'male', 1000, 2000, 600, 2500],
+    [60, 'female', 1333, 3000, 600, 3000],
+    [120, 'male', 2000, 5667, 600, 4000],
+    [180, 'male', 3000, 9333, 600, 4000],
+    [120, 'female', 2000, 5667, 600, 4000],
+    [180, 'female', 2333, 9333, 600, 4000],
+  ] as const)('at %d months, %s: published A/D intake and UL pairs', (months, sex, aIntake, aUl, dIntake, dUl) => {
+    expect(row('vitamin-a', months, sex).internationalUnits).toEqual({
+      intake: aIntake, ul: aUl, unit: 'IU/day as retinol',
+      ulUnit: 'IU/day preformed vitamin A', preferred: false,
+    });
+    expect(row('vitamin-d', months, sex).internationalUnits).toEqual({
+      intake: dIntake, ul: dUl, unit: 'IU/day', ulUnit: 'IU/day', preferred: true,
+      ...(dUl === 1500 || dUl === 2500 ? { ulMicrogramsRounded: true } : {}),
+    });
+  });
+
+  it.each([[5.999,1000],[6,1500],[6.999,1500],[7,1500],[11.999,1500],[12,2500],[47.999,2500],[48,3000],[107.999,3000],[108,4000]])(
+    'vitamin D IU UL follows its own exact age boundaries at %d months', (months, expected) => {
+      expect(row('vitamin-d', months).internationalUnits!.ul).toBe(expected);
+    });
+
+  it('preserves the different A and D infant bands in both units', () => {
+    expect(row('vitamin-a', 6.5).internationalUnits!.intake).toBe(1333);
+    expect(row('vitamin-a', 7).internationalUnits!.intake).toBe(1667);
+    expect(row('vitamin-d', 6.5).internationalUnits!.ul).toBe(1500);
+  });
+
+  it('keeps rounded microgram ULs and their published IU pairs with an explanation', () => {
+    const infant = row('vitamin-d', 8);
+    expect(infant.ul).toBe(38);
+    expect(infant.internationalUnits!.ul).toBe(1500);
+    expect(infant.notes.join(' ')).toContain('37.5');
+    const child = row('vitamin-d', 24);
+    expect(child.ul).toBe(63);
+    expect(child.internationalUnits!.ul).toBe(2500);
+    expect(child.notes.join(' ')).toContain('62.5');
+  });
+
+  it('qualifies retinol IU, retains preformed-only UL scope and links conversion sources', () => {
+    const vitaminA = row('vitamin-a');
+    expect(vitaminA.unit).toBe('µg RAE/day');
+    expect(vitaminA.notes.join(' ')).toContain('carotenoids depends on their form and source');
+    expect(vitaminA.ulNote).toContain('Preformed vitamin A only');
+    expect(vitaminA.unitSource!.url).toBe('https://ods.od.nih.gov/factsheets/VitaminA-HealthProfessional/');
+    expect(row('vitamin-d').unitSource!.url).toBe('https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/');
+  });
+
+  it('adds IU only to A/D and returns fresh objects', () => {
+    expect(getDri(60, 'female').rows.filter((r) => r.internationalUnits).map((r) => r.id)).toEqual(['vitamin-a', 'vitamin-d']);
+    const vitaminD = row('vitamin-d');
+    vitaminD.internationalUnits!.ul = 999;
+    expect(row('vitamin-d').internationalUnits!.ul).toBe(2500);
+    expect(row('vitamin-k').internationalUnits).toBeUndefined();
+    expect(row('vitamin-k').ul).toBeNull();
+  });
+});
+
 describe('26 nutrient reference rows, both sexes and every pediatric age group', () => {
   for (const [id, intakes, limits] of EXPECTED) {
     it(`${id}: all 8 source groups match intake, type and UL`, () => {

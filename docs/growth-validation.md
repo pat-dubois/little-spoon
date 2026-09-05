@@ -1,6 +1,6 @@
 # Growth calculation validation
 
-Verified 2026-09-05. The rebuilt growth engine matches independently obtained WHO expectations in **3,576 numeric z-score cases**, and correctly withholds **733 unavailable results**. The underlying comparisons are 302 under-five cases across five metrics and 933 older-child cases across three metrics. The growth test file currently contains 51 tests, including these full-dataset comparisons, boundary checks, calendar age, measurement conversion, probabilities, derived-value overflow/underflow and chart behavior.
+Verified 2026-09-05. The rebuilt growth engine matches independently obtained WHO expectations in **3,576 numeric z-score cases**, and correctly withholds **733 unavailable results**. The underlying comparisons are 302 under-five cases across five metrics and 933 older-child cases across three metrics. The growth test file currently contains 52 tests, including these full-dataset comparisons, boundary checks, calendar age, measurement conversion, probabilities, derived-value overflow/underflow, chart behavior and a fifth-birthday display comparison.
 
 This verifies the implemented reference calculations. It does not establish agreement with every AnthroCalc setting or replace Crystal's clinical review. No new AnthroCalc measurements were entered during this work.
 
@@ -77,6 +77,24 @@ The inherited thread reports AnthroCalc at -2.93 and 0.2. The new result is cons
 | Day 123, 15 kg, weight for age | +7.12130 | +8.20500 | WHO extended-tail adjustment is absent in the old formula, alongside monthly reference differences |
 
 The old normal-probability function also mixed an error-function polynomial evaluated at `abs(z)` with the exponential for `z / sqrt(2)`. For z = -1 it gives percentile 12.9671 instead of 15.8655, and for z = -2 it gives 1.72825 instead of 2.27501. That is an implementation defect regardless of the reference table. These are demonstrated causes in the old code, not a claim to know which setting or example Crystal saw in AnthroCalc.
+
+## Fifth-birthday display comparison
+
+A supplied WHO-mode AnthroCalc screenshot shows height z 2.22 and BMI percentile 89.7, while Little Spoon shows 2.23 and 89.6. The reproducible inputs are female, birth 2021-09-05, measurement 2026-09-05, 25 kg and standing height 120 cm. Exact elapsed age is 1,826 days, or 59.9917864476386 WHO months. This is a fifth calendar birthday but remains below the WHO package's 60-month source boundary.
+
+The unmodified pinned WHO `anthro_zscores` function was executed again in R 4.6.0 for this case. It returns height 2.23, weight 2.02 and BMI 1.26. Independent R `pnorm` applied to the full-precision daily LMS scores confirms these displays:
+
+| Metric | Full-precision z | Percentile | Little Spoon display |
+| --- | ---: | ---: | --- |
+| Height for age | 2.225095996886071 | 98.69626027835358 | 2.23; 98.7 |
+| Weight for age | 2.0207145473147334 | 97.83453384763192 | 2.02; 97.8 |
+| BMI for age | 1.2614870540516514 | 89.64332893240542 | 1.26; 89.6 |
+
+The unrounded BMI is 17.36111111111111. The height daily reference has L = 1, M = 109.4189 and S = 0.04346. Interpolating the WHO [monthly height table](https://cdn.who.int/media/docs/default-source/child-growth/child-growth-standards/indicators/length-height-for-age/hfa_girls_2_5_zscores.pdf?sfvrsn=9d3a6c08_9) at the same fractional age produces z 2.224625135965279, which rounds to 2.22. The raw score difference is about 0.00047 and straddles the 2.225 rounding boundary. This reproduces the screenshot's height display without establishing AnthroCalc's internal method.
+
+Monthly BMI interpolation still gives percentile 89.6, so it does not explain the screenshot's 89.7. AnthroCalc's internal percentile method and exact stored inputs remain unconfirmed. No growth calculation or reference data was changed to force agreement. A regression checks all three WHO results, their unrounded percentiles and displayed rounding; the browser suite also checks the height and BMI displays.
+
+Local evidence, including the executed WHO source hashes and R output, is retained in `artifacts/anthrocalc-five-year/`. User screenshots and private investigation notes are excluded from Git. These findings verify this reference calculation, not every AnthroCalc version or clinical workflow.
 
 ## Chart meaning and remaining clinical comparison
 
