@@ -20,3 +20,6 @@ dist/
 
 # Local Claude settings
 .claude/settings.local.json
+
+# Private research (transcripts of Pat + Crystal). Never commit.
+_private/

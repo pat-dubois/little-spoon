@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-app="little-spoon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Little Spoon — Pediatric Nutrition Tools</title>
+
+    <!-- Geist Sans — Chrome font (nav, buttons, data numbers) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css">
+
+    <style>
+        /* ═══════════════════════════════════════
+           ZDS FONTS — Local font faces
+           ═══════════════════════════════════════ */
+
+        /* iA Writer Quattro S — Content font */
+        @font-face {
+            font-family: 'iA Writer Quattro S';
+            src: url('./fonts/iAWriterQuattroS-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'iA Writer Quattro S';
+            src: url('./fonts/iAWriterQuattroS-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'iA Writer Quattro S';
+            src: url('./fonts/iAWriterQuattroS-Italic.woff2') format('woff2');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'iA Writer Quattro S';
+            src: url('./fonts/iAWriterQuattroS-BoldItalic.woff2') format('woff2');
+            font-weight: 700;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        /* iA Writer Mono S — Calculation displays */
+        @font-face {
+            font-family: 'iA Writer Mono S';
+            src: url('./fonts/iAWriterMonoS-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Geist Pixel Circle — Brand accent font */
+        @font-face {
+            font-family: 'Geist Pixel';
+            src: url('./fonts/GeistPixel-Circle.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        /* ═══════════════════════════════════════
+           ZDS TOKENS — Inlined from tokens.css
+           ═══════════════════════════════════════ */
+
+        :root,
+        [data-theme="dark"] {
+            --zds-bg:              #100F0F;
+            --zds-bg-app:          #1C1B1A;
+            --zds-surface:         #282726;
+            --zds-surface-raised:  #343331;
+            --zds-surface-overlay: #403E3C;
+
+            --zds-text:            #CECDC3;
+            --zds-text-muted:      #878580;
+            --zds-text-faint:      #575653;
+
+            --zds-border:          rgba(255, 252, 240, 0.06);
+            --zds-border-strong:   rgba(255, 252, 240, 0.10);
+            --zds-border-active:   rgba(255, 252, 240, 0.15);
+
+            --zds-accent:          #3AA99F;
+            --zds-accent-hover:    #5ABDAC;
+            --zds-accent-soft:     rgba(58, 169, 159, 0.10);
+            --zds-accent-text:     #100F0F;
+
+            --zds-success:         #879A39;
+            --zds-success-soft:    rgba(135, 154, 57, 0.10);
+            --zds-warning:         #DA702C;
+            --zds-warning-soft:    rgba(218, 112, 44, 0.10);
+            --zds-error:           #D14D41;
+            --zds-error-soft:      rgba(209, 77, 65, 0.10);
+            --zds-info:            #4385BE;
+            --zds-info-soft:       rgba(67, 133, 190, 0.10);
+
+            --zds-rainbow: linear-gradient(90deg, #D14D41 0%, #DA702C 17%, #D0A215 33%, #879A39 50%, #3AA99F 67%, #4385BE 83%, #8B7EC8 100%);
+            --zds-purple:          #8B7EC8;
+            --zds-yellow:          #D0A215;
+
+            --zds-shadow-card:       0 0 0 1px rgba(255, 252, 240, 0.06);
+            --zds-shadow-card-hover: 0 0 0 1px rgba(255, 252, 240, 0.10), 0 8px 24px -4px rgba(58, 169, 159, 0.12);
+            --zds-shadow-modal:      0 0 0 1px rgba(255, 252, 240, 0.10), 0 24px 48px -8px rgba(0, 0, 0, 0.50);
+
+            --zds-input-focus-ring:   0 0 0 3px var(--zds-accent-soft);
+            --zds-input-disabled-bg:  rgba(255, 252, 240, 0.03);
+
+            --color-scheme: dark;
+        }
+
+        [data-theme="light"] {
+            --zds-bg:              #FFFCF0;
+            --zds-bg-app:          #FFFCF0;
+            --zds-surface:         #E6E4D9;
+            --zds-surface-raised:  #F2F0E5;
+            --zds-surface-overlay: #DAD8CE;
+
+            --zds-text:            #100F0F;
+            --zds-text-muted:      #6F6E69;
+            --zds-text-faint:      #B7B5AC;
+
+            --zds-border:          rgba(16, 15, 15, 0.06);
+            --zds-border-strong:   rgba(16, 15, 15, 0.10);
+            --zds-border-active:   rgba(16, 15, 15, 0.15);
+
+            --zds-accent-text:     #100F0F;
+
+            --zds-shadow-card:       0 0 0 1px rgba(16, 15, 15, 0.06);
+            --zds-shadow-card-hover: 0 0 0 1px rgba(16, 15, 15, 0.10), 0 4px 16px -4px rgba(16, 15, 15, 0.08);
+            --zds-shadow-modal:      0 0 0 1px rgba(16, 15, 15, 0.10), 0 16px 40px -8px rgba(16, 15, 15, 0.15);
+
+            --zds-input-focus-ring:   0 0 0 3px var(--zds-accent-soft);
+            --zds-input-disabled-bg:  rgba(16, 15, 15, 0.03);
+
+            --color-scheme: light;
+        }
+
+        :root {
+            --zds-font-content:    'iA Writer Quattro S', 'Georgia', serif;
+            --zds-font-chrome:     'Geist', 'Inter', system-ui, sans-serif;
+            --zds-font-brand:      'Geist Pixel', monospace;
+            --zds-font-mono:       'iA Writer Mono S', 'Geist Mono', monospace;
+
+            /* Spacing — compact values for 440px context */
+            --zds-gap-section:     1.75rem;
+            --zds-gap-card:        1rem;
+            --zds-gap-group:       0.5rem;
+            --zds-gap-button:      0.75rem;
+            --zds-gap-brand:       0.375rem;
+
+            --zds-padding-page-y:    1.75rem;
+            --zds-padding-page-x:    1.25rem;
+            --zds-padding-card-y:    1.25rem;
+            --zds-padding-card-x:    1.25rem;
+            --zds-padding-button-y:  0.75rem;
+            --zds-padding-button-x:  1.5rem;
+            --zds-padding-input-y:   0.75rem;
+            --zds-padding-input-x:   0.875rem;
+            --zds-padding-stat-y:    0.75rem;
+            --zds-padding-stat-x:    0.5rem;
+
+            --zds-radius-card:     6px;
+            --zds-radius-button:   6px;
+            --zds-radius-input:    6px;
+            --zds-radius-badge:    4px;
+            --zds-radius-stat:     4px;
+
+            --zds-ease-out:        cubic-bezier(0, 0, 0.58, 1);
+            --zds-ease-bounce:     cubic-bezier(0.34, 1.56, 0.64, 1);
+            --zds-duration-instant: 80ms;
+            --zds-duration-fast:    150ms;
+            --zds-duration-normal:  250ms;
+            --zds-duration-slow:    350ms;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                --zds-duration-instant: 0ms;
+                --zds-duration-fast:    0ms;
+                --zds-duration-normal:  0ms;
+                --zds-duration-slow:    0ms;
+            }
+        }
+
+
+        /* ═══════════════════════════════════════
+           BASE STYLES
+           ═══════════════════════════════════════ */
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            color-scheme: var(--color-scheme);
+        }
+
+        body {
+            font-family: var(--zds-font-content);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            background: var(--zds-bg);
+            color: var(--zds-text);
+            min-height: 100vh;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* ═══════════════════════════════════════
+           APP CONTAINER
+           ═══════════════════════════════════════ */
+
+        .app {
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 0 var(--zds-padding-page-x) var(--zds-padding-page-y);
+        }
+
+
+        /* ═══════════════════════════════════════
+           HEADER — Brand lockup
+           ═══════════════════════════════════════ */
+
+        .header {
+            padding: var(--zds-padding-page-y) 0 var(--zds-gap-section);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: var(--zds-font-chrome);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--zds-text);
+            letter-spacing: -0.5px;
+            line-height: 1;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.35em;
+        }
+
+        .header h1 .little {
+            font-family: var(--zds-font-brand);
+            font-weight: 400;
+            background: var(--zds-rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.35rem;
+        }
+
+        .header .subtitle {
+            font-family: var(--zds-font-content);
+            font-size: 0.8125rem;
+            color: var(--zds-text-muted);
+            font-weight: 400;
+            margin-top: 6px;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: 1px solid var(--zds-border-strong);
+            border-radius: var(--zds-radius-button);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--zds-text-muted);
+            transition: color var(--zds-duration-fast), border-color var(--zds-duration-fast);
+        }
+
+        .theme-toggle:hover {
+            color: var(--zds-text);
+            border-color: var(--zds-border-active);
+        }
+
+        .theme-toggle .icon-sun,
+        .theme-toggle .icon-moon { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        [data-theme="light"] .theme-toggle .icon-sun { display: none; }
+        [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+
+        /* ═══════════════════════════════════════
+           CARDS
+           ═══════════════════════════════════════ */
+
+        .card {
+            background: var(--zds-surface);
+            box-shadow: var(--zds-shadow-card);
+            border-radius: var(--zds-radius-card);
+            padding: var(--zds-padding-card-y) var(--zds-padding-card-x);
+            margin-bottom: var(--zds-gap-card);
+        }
+
+        .card-label {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: var(--zds-text-faint);
+            margin-bottom: var(--zds-gap-group);
+        }
+
+
+        /* ═══════════════════════════════════════
+           FORM — Input Group
+           ═══════════════════════════════════════ */
+
+        .field-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .field-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--zds-gap-group);
+        }
+
+        .field label {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: var(--zds-text);
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: var(--zds-padding-input-y) var(--zds-padding-input-x);
+            font-family: var(--zds-font-content);
+            font-size: 0.9375rem;
+            font-weight: 400;
+            color: var(--zds-text);
+            background: var(--zds-bg);
+            border: 1px solid var(--zds-border-strong);
+            border-radius: var(--zds-radius-input);
+            outline: none;
+            min-height: 44px;
+            transition: border-color var(--zds-duration-fast), box-shadow var(--zds-duration-fast);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .field input::placeholder {
+            color: var(--zds-text-faint);
+            font-weight: 400;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--zds-accent);
+            box-shadow: var(--zds-input-focus-ring);
+        }
+
+        .field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23878580' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .field input:disabled,
+        .field select:disabled {
+            background: var(--zds-input-disabled-bg);
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .field input[type="date"] {
+            color-scheme: var(--color-scheme);
+        }
+
+
+        /* ═══════════════════════════════════════
+           SEGMENTED CONTROL — Gender, Mode, Tabs
+           ═══════════════════════════════════════ */
+
+        .segmented-control {
+            display: flex;
+            background: var(--zds-surface-raised);
+            border: 1px solid var(--zds-border-strong);
+            border-radius: var(--zds-radius-input);
+            padding: 3px;
+            min-height: 44px;
+        }
+
+        .segmented-control input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .segmented-control label,
+        .segmented-control .seg-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--zds-font-chrome);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--zds-text-muted);
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background var(--zds-duration-fast), color var(--zds-duration-fast);
+            padding: 0 8px;
+            white-space: nowrap;
+        }
+
+        .segmented-control input:checked + label,
+        .segmented-control .seg-option.active {
+            background: var(--zds-surface-overlay);
+            color: var(--zds-text);
+        }
+
+        .segmented-control label:hover,
+        .segmented-control .seg-option:hover {
+            color: var(--zds-text);
+        }
+
+
+        /* ═══════════════════════════════════════
+           TAB NAVIGATION — Uses segmented control
+           ═══════════════════════════════════════ */
+
+        .tabs {
+            display: flex;
+            background: var(--zds-surface-raised);
+            border: 1px solid var(--zds-border-strong);
+            border-radius: var(--zds-radius-input);
+            padding: 3px;
+            margin-bottom: var(--zds-gap-card);
+            min-height: 44px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+            font-family: var(--zds-font-chrome);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--zds-text-muted);
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background var(--zds-duration-fast), color var(--zds-duration-fast);
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--zds-text);
+        }
+
+        .tab-btn.active {
+            background: var(--zds-surface-overlay);
+            color: var(--zds-text);
+        }
+
+
+        /* ═══════════════════════════════════════
+           TAB CONTENT
+           ═══════════════════════════════════════ */
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn var(--zds-duration-normal) var(--zds-ease-out);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* ═══════════════════════════════════════
+           ACTIVITY NOTE
+           ═══════════════════════════════════════ */
+
+        .activity-note {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            color: var(--zds-text-faint);
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+
+        /* ═══════════════════════════════════════
+           BUTTONS
+           ═══════════════════════════════════════ */
+
+        .btn-row {
+            display: flex;
+            gap: var(--zds-gap-button);
+            margin-top: var(--zds-gap-card);
+        }
+
+        .btn {
+            flex: 1;
+            padding: var(--zds-padding-button-y) var(--zds-padding-button-x);
+            font-family: var(--zds-font-chrome);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border: none;
+            border-radius: var(--zds-radius-button);
+            cursor: pointer;
+            min-height: 44px;
+            transition: transform var(--zds-duration-instant), opacity var(--zds-duration-fast);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--zds-accent);
+            color: var(--zds-accent-text);
+        }
+
+        .btn-primary:hover {
+            background: var(--zds-accent-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--zds-text);
+            border: 1px solid var(--zds-border-strong);
+            font-weight: 500;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--zds-border-active);
+        }
+
+
+        /* ═══════════════════════════════════════
+           RESULTS
+           ═══════════════════════════════════════ */
+
+        .results {
+            display: none;
+        }
+
+        .results.visible {
+            display: block;
+        }
+
+        .patient-banner {
+            font-family: var(--zds-font-chrome);
+            background: var(--zds-surface-raised);
+            box-shadow: var(--zds-shadow-card);
+            border-radius: var(--zds-radius-stat);
+            padding: var(--zds-padding-stat-y) var(--zds-padding-card-x);
+            margin-bottom: var(--zds-gap-card);
+            font-size: 0.8125rem;
+            color: var(--zds-text-muted);
+            text-align: center;
+        }
+
+        .patient-banner strong {
+            color: var(--zds-text);
+            font-weight: 600;
+        }
+
+        .result-card {
+            background: var(--zds-surface);
+            box-shadow: var(--zds-shadow-card);
+            border-left: 3px solid var(--zds-accent);
+            border-radius: var(--zds-radius-card);
+            padding: var(--zds-padding-card-y) var(--zds-padding-card-x);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.6s var(--zds-ease-out), transform 0.6s var(--zds-ease-out);
+        }
+
+        .results.visible .result-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .results.visible .result-card:nth-child(2) { transition-delay: 0s; }
+        .results.visible .result-card:nth-child(3) { transition-delay: 0.35s; }
+        .results.visible .result-card:nth-child(4) { transition-delay: 0.6s; }
+
+        .result-label {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: var(--zds-text-faint);
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-family: var(--zds-font-chrome);
+            font-size: 1.625rem;
+            font-weight: 700;
+            color: var(--zds-accent);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .result-unit {
+            font-family: var(--zds-font-content);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--zds-text-muted);
+        }
+
+        .result-secondary {
+            font-family: var(--zds-font-content);
+            font-size: 0.8125rem;
+            color: var(--zds-text-muted);
+            margin-top: 2px;
+        }
+
+
+        /* ═══════════════════════════════════════
+           DISCLOSURE — Show Your Work
+           ═══════════════════════════════════════ */
+
+        .show-work-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 0;
+            min-height: 44px;
+            font-family: var(--zds-font-chrome);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--zds-accent);
+            background: none;
+            border: none;
+            border-bottom: 1px solid var(--zds-border);
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: color var(--zds-duration-fast);
+        }
+
+        .show-work-btn:hover {
+            color: var(--zds-accent-hover);
+        }
+
+        .show-work-btn svg {
+            transition: transform var(--zds-duration-normal) var(--zds-ease-out);
+            flex-shrink: 0;
+        }
+
+        .show-work-btn.open svg {
+            transform: rotate(180deg);
+        }
+
+        .show-work-btn.open {
+            border-bottom: none;
+        }
+
+        .calc-details {
+            display: none;
+            padding: 16px 0;
+            border-top: 1px solid var(--zds-border);
+            font-family: var(--zds-font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.6;
+            color: var(--zds-text-muted);
+        }
+
+        .calc-details.visible {
+            display: block;
+        }
+
+        .calc-formula {
+            color: var(--zds-accent);
+            font-weight: 500;
+        }
+
+        .calc-step {
+            color: var(--zds-text-faint);
+        }
+
+        .calc-result {
+            color: var(--zds-accent);
+            font-weight: 600;
+        }
+
+
+        /* ═══════════════════════════════════════
+           DRI REFERENCE TABLE
+           ═══════════════════════════════════════ */
+
+        .dri-section-label {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: var(--zds-text-faint);
+            padding: 10px 0 6px;
+            border-bottom: 1px solid var(--zds-border);
+            margin-bottom: 2px;
+        }
+
+        .dri-section-label.first {
+            padding-top: 0;
+        }
+
+        .dri-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--zds-border);
+            font-size: 0.8125rem;
+        }
+
+        .dri-row:last-child {
+            border-bottom: none;
+        }
+
+        .dri-name {
+            flex: 1;
+            color: var(--zds-text-muted);
+            font-family: var(--zds-font-content);
+            font-weight: 400;
+            min-width: 0;
+        }
+
+        .dri-name .dri-unit {
+            font-size: 0.6875rem;
+            color: var(--zds-text-faint);
+            margin-left: 2px;
+        }
+
+        .dri-rda {
+            width: 70px;
+            text-align: right;
+            font-family: var(--zds-font-chrome);
+            font-weight: 600;
+            color: var(--zds-accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .dri-ul {
+            width: 60px;
+            text-align: right;
+            font-family: var(--zds-font-chrome);
+            font-weight: 500;
+            color: var(--zds-text-faint);
+            font-size: 0.75rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .dri-ai {
+            color: var(--zds-info);
+        }
+
+        .dri-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0 6px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid var(--zds-border-strong);
+        }
+
+        .dri-header span {
+            font-family: var(--zds-font-chrome);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--zds-text-faint);
+        }
+
+        .dri-header .dri-h-rda { width: 70px; text-align: right; }
+        .dri-header .dri-h-ul { width: 60px; text-align: right; }
+
+        .dri-legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--zds-border);
+            font-family: var(--zds-font-content);
+            font-size: 0.6875rem;
+            color: var(--zds-text-faint);
+        }
+
+        .dri-legend-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .dri-legend-dot.rda { background: var(--zds-accent); }
+        .dri-legend-dot.ai { background: var(--zds-info); }
+
+        .dri-age-badge {
+            font-family: var(--zds-font-content);
+            text-align: center;
+            font-size: 0.8125rem;
+            color: var(--zds-text-muted);
+            margin-bottom: 12px;
+            padding: 8px;
+            background: var(--zds-surface-raised);
+            border-radius: var(--zds-radius-stat);
+        }
+
+        .dri-age-badge strong {
+            color: var(--zds-text);
+        }
+
+
+        /* ═══════════════════════════════════════
+           GROWTH CHART RESULTS
+           ═══════════════════════════════════════ */
+
+        .growth-result-card {
+            background: var(--zds-surface);
+            box-shadow: var(--zds-shadow-card);
+            border-radius: var(--zds-radius-card);
+            padding: var(--zds-padding-card-y) var(--zds-padding-card-x);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.5s var(--zds-ease-out), transform 0.5s var(--zds-ease-out);
+        }
+
+        .growth-results.visible .growth-result-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .growth-results.visible .growth-result-card:nth-child(2) { transition-delay: 0.15s; }
+        .growth-results.visible .growth-result-card:nth-child(3) { transition-delay: 0.3s; }
+        .growth-results.visible .growth-result-card:nth-child(4) { transition-delay: 0.45s; }
+        .growth-results.visible .growth-result-card:nth-child(5) { transition-delay: 0.6s; }
+        .growth-results.visible .growth-result-card:nth-child(6) { transition-delay: 0.75s; }
+
+        .growth-result-card .metric-name {
+            font-family: var(--zds-font-content);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: var(--zds-text-faint);
+            margin-bottom: 8px;
+        }
+
+        .growth-result-card .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .growth-result-card .z-score {
+            font-family: var(--zds-font-chrome);
+            font-size: 1.375rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .growth-result-card .percentile {
+            font-family: var(--zds-font-chrome);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--zds-text-muted);
+        }
+
+        .growth-result-card .percentile-suffix {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--zds-text-faint);
+        }
+
+        /* Z-score color coding — Flexoki semantic */
+        .z-normal { color: var(--zds-accent); }
+        .z-warn   { color: var(--zds-yellow); }
+        .z-alert  { color: var(--zds-warning); }
+        .z-danger { color: var(--zds-error); }
+
+        .z-bar {
+            margin-top: 10px;
+            height: 6px;
+            background: var(--zds-bg);
+            border-radius: 3px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .z-bar-fill {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.8s var(--zds-ease-out), left 0.8s var(--zds-ease-out);
+        }
+
+        .z-bar-marker {
+            position: absolute;
+            top: -4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--zds-surface);
+            transform: translateX(-50%);
+            transition: left 0.8s var(--zds-ease-out);
+            z-index: 2;
+        }
+
+        .z-bar-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-family: var(--zds-font-chrome);
+            font-size: 0.75rem;
+            color: var(--zds-text-faint);
+        }
+
+        .growth-age-display {
+            font-family: var(--zds-font-content);
+            text-align: center;
+            font-size: 0.8125rem;
+            color: var(--zds-text-muted);
+            margin-bottom: 12px;
+            padding: 8px;
+            background: var(--zds-surface-raised);
+            border-radius: var(--zds-radius-stat);
+        }
+
+        .growth-age-display strong {
+            color: var(--zds-text);
+        }
+
+
+        /* ═══════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════ */
+
+        footer {
+            text-align: center;
+            padding: var(--zds-gap-section) 0 8px;
+            font-family: var(--zds-font-content);
+            font-size: 0.6875rem;
+            color: var(--zds-text-faint);
+        }
+
+        footer a {
+            color: var(--zds-text-faint);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--zds-text-muted);
+        }
+
+        .sources {
+            font-size: 0.6875rem;
+        }
+
+        .brand-footer {
+            margin-top: 10px;
+            font-family: var(--zds-font-content);
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--zds-text-faint);
+        }
+
+        .brand-rainbow {
+            font-family: var(--zds-font-brand);
+            font-weight: 400;
+            background: var(--zds-rainbow);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow-shift 9s linear infinite;
+        }
+
+        @keyframes rainbow-shift {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
+        }
+
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE — Narrow devices
+           ═══════════════════════════════════════ */
+
+        @media (max-width: 380px) {
+            .app { padding: 0 12px 20px; }
+            .card { padding: 16px; }
+            .tab-btn { font-size: 0.75rem; }
+            .result-value { font-size: 1.375rem; }
+        }
+
+
+        /* ═══════════════════════════════════════
+           ACCESSIBILITY
+           ═══════════════════════════════════════ */
+
+        @media (prefers-reduced-motion: reduce) {
+            .result-card,
+            .growth-result-card {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+            .brand-rainbow {
+                animation: none;
+            }
+            @keyframes fadeIn { from { opacity: 1; } to { opacity: 1; } }
+        }
+
+        /* Focus indicators */
+        :focus-visible {
+            outline: 2px solid var(--zds-accent);
+            outline-offset: 2px;
+        }
+
+        input:focus-visible,
+        select:focus-visible {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- Header — Brand Lockup -->
+        <div class="header">
+            <div class="header-row">
+                <h1><span class="little">Little</span> Spoon</h1>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+            <p class="subtitle">Pediatric Nutrition Tools</p>
+        </div>
+
+        <!-- Shared Patient Info -->
+        <div class="card" id="sharedFields">
+            <div class="card-label">Patient</div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 25" step="0.1" min="0.5" max="150" inputmode="decimal">
+                </div>
+                <div class="field">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 120" step="0.1" min="20" max="220" inputmode="decimal">
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label>Gender</label>
+                    <fieldset class="segmented-control" style="border: 1px solid var(--zds-border-strong);">
+                        <input type="radio" name="gender" id="genderM" value="male">
+                        <label for="genderM">Male</label>
+                        <input type="radio" name="gender" id="genderF" value="female">
+                        <label for="genderF">Female</label>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('nutrition')" id="tabNutrition">Nutrition</button>
+            <button class="tab-btn" onclick="switchTab('growth')" id="tabGrowth">Growth</button>
+            <button class="tab-btn" onclick="switchTab('dri')" id="tabDRI">DRI</button>
+        </div>
+
+        <!-- ════════════════════════════════════
+             TAB 1: Nutrition Requirements
+             ════════════════════════════════════ -->
+        <div class="tab-content active" id="contentNutrition">
+            <div class="card">
+                <div class="card-label">Age &amp; Activity</div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="ageYears">Years</label>
+                        <input type="number" id="ageYears" placeholder="0" min="0" max="18" inputmode="numeric">
+                    </div>
+                    <div class="field">
+                        <label for="ageMonths">Months</label>
+                        <input type="number" id="ageMonths" placeholder="0" min="0" max="11" inputmode="numeric">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="activity">Activity Level</label>
+                        <select id="activity">
+                            <option value="">Select level</option>
+                            <option value="sedentary">Sedentary</option>
+                            <option value="low">Low Active</option>
+                            <option value="active">Active</option>
+                            <option value="very">Very Active</option>
+                        </select>
+                        <p class="activity-note" id="activityNote"></p>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="calculateNutrition()">Calculate</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">Reset</button>
+                </div>
+            </div>
+
+            <!-- Nutrition Results -->
+            <div class="results" id="nutritionResults">
+                <div class="patient-banner" id="patientBanner"></div>
+
+                <!-- Energy -->
+                <div class="result-card">
+                    <div class="result-label">Energy Requirement</div>
+                    <div class="result-value"><span id="energyVal">--</span> <span class="result-unit">kcal/day</span></div>
+                    <div class="result-secondary" id="energyPerKg"></div>
+                    <button class="show-work-btn" onclick="toggleWork('energy')">
+                        <span>Show calculation</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="calc-details" id="energyWork"></div>
+                </div>
+
+                <!-- Protein -->
+                <div class="result-card">
+                    <div class="result-label">Protein Requirement</div>
+                    <div class="result-value"><span id="proteinVal">--</span> <span class="result-unit">g/day</span></div>
+                    <div class="result-secondary" id="proteinPerKg"></div>
+                    <button class="show-work-btn" onclick="toggleWork('protein')">
+                        <span>Show calculation</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="calc-details" id="proteinWork"></div>
+                </div>
+
+                <!-- Fluid -->
+                <div class="result-card">
+                    <div class="result-label">Fluid Requirement</div>
+                    <div class="result-value"><span id="fluidVal">--</span> <span class="result-unit">mL/day</span></div>
+                    <div class="result-secondary" id="fluidPerKg"></div>
+                    <button class="show-work-btn" onclick="toggleWork('fluid')">
+                        <span>Show calculation</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="calc-details" id="fluidWork"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             TAB 2: Growth Charts
+             ════════════════════════════════════ -->
+        <div class="tab-content" id="contentGrowth">
+            <div class="card">
+                <div class="card-label">Measurement</div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob">
+                    </div>
+                    <div class="field">
+                        <label for="dom">Date of Measurement</label>
+                        <input type="date" id="dom">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="headCirc">Head Circ (cm)</label>
+                        <input type="number" id="headCirc" placeholder="optional" step="0.1" min="20" max="60" inputmode="decimal">
+                    </div>
+                    <div class="field">
+                        <label>Body Composition</label>
+                        <fieldset class="segmented-control" style="border: 1px solid var(--zds-border-strong);">
+                            <input type="radio" name="growthMode" id="modeBMI" value="bmi" checked>
+                            <label for="modeBMI">BMI</label>
+                            <input type="radio" name="growthMode" id="modeWFL" value="wfl">
+                            <label for="modeWFL">Wt/Length</label>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="calculateGrowth()">Calculate</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">Reset</button>
+                </div>
+            </div>
+
+            <!-- Growth Results -->
+            <div class="results growth-results" id="growthResults">
+                <div class="growth-age-display" id="growthAgeBanner"></div>
+
+                <div class="growth-result-card" id="growthWFA">
+                    <div class="metric-name">Weight-for-Age</div>
+                    <div class="metric-row">
+                        <div class="z-score" id="wfaZ">--</div>
+                        <div class="percentile"><span id="wfaPct">--</span><span class="percentile-suffix">th %ile</span></div>
+                    </div>
+                    <div class="z-bar"><div class="z-bar-fill"></div><div class="z-bar-marker" id="wfaMarker"></div></div>
+                    <div class="z-bar-labels"><span>-3</span><span>-2</span><span>0</span><span>+2</span><span>+3</span></div>
+                </div>
+
+                <div class="growth-result-card" id="growthLHFA">
+                    <div class="metric-name" id="lhfaLabel">Length/Height-for-Age</div>
+                    <div class="metric-row">
+                        <div class="z-score" id="lhfaZ">--</div>
+                        <div class="percentile"><span id="lhfaPct">--</span><span class="percentile-suffix">th %ile</span></div>
+                    </div>
+                    <div class="z-bar"><div class="z-bar-fill"></div><div class="z-bar-marker" id="lhfaMarker"></div></div>
+                    <div class="z-bar-labels"><span>-3</span><span>-2</span><span>0</span><span>+2</span><span>+3</span></div>
+                </div>
+
+                <div class="growth-result-card" id="growthBMIWFL">
+                    <div class="metric-name" id="bmiWflLabel">BMI-for-Age</div>
+                    <div class="metric-row">
+                        <div class="z-score" id="bmiWflZ">--</div>
+                        <div class="percentile"><span id="bmiWflPct">--</span><span class="percentile-suffix">th %ile</span></div>
+                    </div>
+                    <div class="z-bar"><div class="z-bar-fill"></div><div class="z-bar-marker" id="bmiWflMarker"></div></div>
+                    <div class="z-bar-labels"><span>-3</span><span>-2</span><span>0</span><span>+2</span><span>+3</span></div>
+                </div>
+
+                <div class="growth-result-card" id="growthHC" style="display:none;">
+                    <div class="metric-name">Head Circumference-for-Age</div>
+                    <div class="metric-row">
+                        <div class="z-score" id="hcZ">--</div>
+                        <div class="percentile"><span id="hcPct">--</span><span class="percentile-suffix">th %ile</span></div>
+                    </div>
+                    <div class="z-bar"><div class="z-bar-fill"></div><div class="z-bar-marker" id="hcMarker"></div></div>
+                    <div class="z-bar-labels"><span>-3</span><span>-2</span><span>0</span><span>+2</span><span>+3</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             TAB 3: DRI Reference
+             ════════════════════════════════════ -->
+        <div class="tab-content" id="contentDRI">
+            <div class="card">
+                <div class="card-label">Age Group</div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="driAgeGroup">Select age range</label>
+                        <select id="driAgeGroup" onchange="renderDRI()">
+                            <option value="">Choose age group</option>
+                            <option value="0-6mo">0 - 6 months</option>
+                            <option value="7-12mo">7 - 12 months</option>
+                            <option value="1-3y">1 - 3 years</option>
+                            <option value="4-8y">4 - 8 years</option>
+                            <option value="9-13y">9 - 13 years</option>
+                            <option value="14-18y">14 - 18 years</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="activity-note" id="driGenderNote"></p>
+            </div>
+
+            <div id="driOutput"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="sources">
+                <a href="https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/equations-estimate-energy-requirement.html" target="_blank">Health Canada DRI</a> · Holliday-Segar (1957) · <a href="https://www.who.int/tools/child-growth-standards" target="_blank">WHO Growth Standards</a>
+            </div>
+            <div class="brand-footer">
+                a <span class="brand-rainbow">zhuzh labs</span> joint
+            </div>
+            <div style="margin-top: 4px;">For clinical use. Always verify calculations.</div>
+        </footer>
+    </div>
+
+    <script>
+    /* ═══════════════════════════════════════
+       LITTLE SPOON v2 — Logic
+       All calculation logic preserved from original.
+       ═══════════════════════════════════════ */
+
+    // ── Theme Toggle ──
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    }
+
+    // ── Tab Navigation ──
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        const tabMap = {
+            nutrition: { btn: 'tabNutrition', content: 'contentNutrition' },
+            growth:    { btn: 'tabGrowth',    content: 'contentGrowth' },
+            dri:       { btn: 'tabDRI',       content: 'contentDRI' }
+        };
+
+        document.getElementById(tabMap[tab].btn).classList.add('active');
+        document.getElementById(tabMap[tab].content).classList.add('active');
+    }
+
+    // ── Animated Counter ──
+    function animateValue(el, end, duration) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            el.textContent = typeof end === 'number' && !Number.isInteger(end)
+                ? end.toFixed(1) : Math.round(end).toLocaleString();
+            return;
+        }
+        const start = performance.now();
+        const isDecimal = typeof end === 'number' && !Number.isInteger(end);
+        function tick(now) {
+            const t = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - t, 3);
+            const val = end * ease;
+            el.textContent = isDecimal ? val.toFixed(1) : Math.round(val).toLocaleString();
+            if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+
+    // ── Age Helpers ──
+    function getAgeMonths() {
+        return (parseInt(document.getElementById('ageYears').value) || 0) * 12
+             + (parseInt(document.getElementById('ageMonths').value) || 0);
+    }
+
+    // Update activity note when age changes
+    ['ageYears', 'ageMonths'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+            const months = getAgeMonths();
+            const note = document.getElementById('activityNote');
+            const sel = document.getElementById('activity');
+            if (months < 36) {
+                note.textContent = 'Not used for children under 3 years.';
+                sel.disabled = true;
+            } else {
+                note.textContent = '';
+                sel.disabled = false;
+            }
+        });
+    });
+
+    // ── Gender Helper ──
+    function getGender() {
+        const checked = document.querySelector('input[name="gender"]:checked');
+        return checked ? checked.value : '';
+    }
+
+    // ══════════════════════════════════════════
+    //  HEALTH CANADA 2023 EER EQUATIONS
+    // ══════════════════════════════════════════
+
+    const MALE_EER = {
+        sedentary: { i: -447.51, a: 3.68, h: 13.01, w: 13.15 },
+        low:       { i: 19.12,   a: 3.68, h: 8.62,  w: 20.28 },
+        active:    { i: -388.19, a: 3.68, h: 12.66, w: 20.46 },
+        very:      { i: -671.75, a: 3.68, h: 15.38, w: 23.25 }
+    };
+
+    const FEMALE_EER = {
+        sedentary: { i: 55.59,   a: -22.25, h: 8.43,  w: 17.07 },
+        low:       { i: -297.54, a: -22.25, h: 12.77, w: 14.73 },
+        active:    { i: -189.55, a: -22.25, h: 11.74, w: 18.34 },
+        very:      { i: -709.59, a: -22.25, h: 18.22, w: 14.25 }
+    };
+
+    const INFANT_EER = {
+        male:   { i: -716.45, a: -1.00, h: 17.82, w: 15.06 },
+        female: { i: -69.15,  a: 80.0,  h: 2.65,  w: 54.15 }
+    };
+
+    const ENERGY_DEP = {
+        male:   [[3,200],[6,50],[12,20],[36,20]],
+        female: [[3,180],[6,60],[12,20],[36,15]]
+    };
+
+    function getGrowthAllowance(ageY) {
+        if (ageY < 9) return 20;
+        if (ageY < 14) return 25;
+        return 20;
+    }
+
+    const PROTEIN = [[6,1.52],[12,1.2],[36,1.05],[96,0.95],[156,0.95],[216,0.85]];
+
+    // ── Calculate Energy ──
+    function calcEnergy(wt, ht, ageM, gender, activity) {
+        const ageY = ageM / 12;
+        let eer, formula, steps;
+
+        if (ageM < 36) {
+            const c = INFANT_EER[gender];
+            let dep = 20, ageLabel = '1-3 yr';
+            for (const [max, val] of ENERGY_DEP[gender]) {
+                if (ageM < max) {
+                    dep = val;
+                    ageLabel = max <= 3 ? '0-3 mo' : max <= 6 ? '3-6 mo' : max <= 12 ? '6-12 mo' : '1-3 yr';
+                    break;
+                }
+            }
+            eer = c.i + c.a * ageY + c.h * ht + c.w * wt + dep;
+            const sign = v => v >= 0 ? '+' : '–';
+            formula = gender === 'male'
+                ? `EER = –716.45 – (1.00 × age) + (17.82 × height) + (15.06 × weight) + ${dep}`
+                : `EER = –69.15 + (80.0 × age) + (2.65 × height) + (54.15 × weight) + ${dep}`;
+            steps = [
+                `Age range: ${ageLabel} (energy deposition: +${dep} kcal)`,
+                `= ${c.i} ${sign(c.a * ageY)} ${Math.abs(c.a * ageY).toFixed(2)} + ${(c.h * ht).toFixed(2)} + ${(c.w * wt).toFixed(2)} + ${dep}`,
+                `= ${eer.toFixed(0)} kcal/day`
+            ];
+        } else {
+            const table = gender === 'male' ? MALE_EER[activity] : FEMALE_EER[activity];
+            const ga = getGrowthAllowance(ageY);
+            eer = table.i + table.a * ageY + table.h * ht + table.w * wt + ga;
+            const labels = { sedentary:'Inactive', low:'Low Active', active:'Active', very:'Very Active' };
+            formula = `EER (${labels[activity]}) = ${table.i} + (${table.a} × age) + (${table.h} × height) + (${table.w} × weight) + ${ga}`;
+            steps = [
+                `Activity: ${labels[activity]}`,
+                `Growth allowance: +${ga} kcal`,
+                `= ${table.i} + ${(table.a * ageY).toFixed(2)} + ${(table.h * ht).toFixed(2)} + ${(table.w * wt).toFixed(2)} + ${ga}`,
+                `= ${eer.toFixed(0)} kcal/day`
+            ];
+        }
+
+        return {
+            value: Math.round(eer),
+            work: `<div class="calc-formula">${formula}</div>` +
+                  steps.map(s => `<div class="calc-step">${s}</div>`).join('') +
+                  `<div class="calc-result">= ${Math.round(eer)} kcal/day</div>`
+        };
+    }
+
+    // ── Calculate Protein ──
+    function calcProtein(wt, ageM) {
+        let gPerKg = 0.85, label = '14-18 yr';
+        const labels = ['0-6 mo','7-12 mo','1-3 yr','4-8 yr','9-13 yr','14-18 yr'];
+        for (let i = 0; i < PROTEIN.length; i++) {
+            if (ageM <= PROTEIN[i][0]) { gPerKg = PROTEIN[i][1]; label = labels[i]; break; }
+        }
+        const total = wt * gPerKg;
+        return {
+            value: total.toFixed(1),
+            gPerKg,
+            work: `<div class="calc-formula">Protein = weight × DRI (g/kg/day)</div>` +
+                  `<div class="calc-step">DRI for ${label}: ${gPerKg} g/kg/day</div>` +
+                  `<div class="calc-step">= ${wt} kg × ${gPerKg} g/kg/day</div>` +
+                  `<div class="calc-result">= ${total.toFixed(1)} g/day</div>`
+        };
+    }
+
+    // ── Calculate Fluid (Holliday-Segar) ──
+    function calcFluid(wt) {
+        let fluid, steps;
+        if (wt <= 10) {
+            fluid = wt * 100;
+            steps = [`${wt} kg × 100 mL/kg = ${fluid.toFixed(0)} mL`];
+        } else if (wt <= 20) {
+            const a = 1000, b = (wt - 10) * 50;
+            fluid = a + b;
+            steps = [`First 10 kg: 1000 mL`, `Next ${(wt-10).toFixed(1)} kg × 50 = ${b.toFixed(0)} mL`, `Total: ${fluid.toFixed(0)} mL`];
+        } else {
+            const a = 1000, b = 500, c = (wt - 20) * 20;
+            fluid = a + b + c;
+            steps = [`First 10 kg: 1000 mL`, `Next 10 kg: 500 mL`, `Remaining ${(wt-20).toFixed(1)} kg × 20 = ${c.toFixed(0)} mL`, `Total: ${fluid.toFixed(0)} mL`];
+        }
+        const perKg = (fluid / wt).toFixed(1);
+        return {
+            value: Math.round(fluid),
+            perKg,
+            work: `<div class="calc-formula">Holliday-Segar Formula</div>` +
+                  `<div class="calc-step">First 10 kg: 100 mL/kg · 11-20 kg: 50 mL/kg · >20 kg: 20 mL/kg</div>` +
+                  steps.map(s => `<div class="calc-step">${s}</div>`).join('') +
+                  `<div class="calc-result">= ${Math.round(fluid)} mL/day (${perKg} mL/kg/day)</div>`
+        };
+    }
+
+    // ── Main Calculate ──
+    function calculateNutrition() {
+        const wt = parseFloat(document.getElementById('weight').value);
+        const ht = parseFloat(document.getElementById('height').value);
+        const ageM = getAgeMonths();
+        const gender = getGender();
+        const activity = document.getElementById('activity').value;
+
+        if (!wt || wt <= 0) return alert('Enter a valid weight.');
+        if (!ht || ht <= 0) return alert('Enter a valid height.');
+        if (ageM < 0 || ageM > 216) return alert('Enter a valid age (0-18 years).');
+        if (!gender) return alert('Select a gender.');
+        if (ageM >= 36 && !activity) return alert('Select an activity level for children 3+ years.');
+
+        const energy = calcEnergy(wt, ht, ageM, gender, activity);
+        const protein = calcProtein(wt, ageM);
+        const fluid = calcFluid(wt);
+
+        animateValue(document.getElementById('energyVal'), energy.value, 2200);
+        document.getElementById('energyPerKg').textContent = `(${(energy.value / wt).toFixed(1)} kcal/kg/day)`;
+        document.getElementById('energyWork').innerHTML = energy.work;
+
+        animateValue(document.getElementById('proteinVal'), parseFloat(protein.value), 1800);
+        document.getElementById('proteinPerKg').textContent = `(${protein.gPerKg} g/kg/day)`;
+        document.getElementById('proteinWork').innerHTML = protein.work;
+
+        animateValue(document.getElementById('fluidVal'), fluid.value, 2000);
+        document.getElementById('fluidPerKg').textContent = `(${fluid.perKg} mL/kg/day)`;
+        document.getElementById('fluidWork').innerHTML = fluid.work;
+
+        // Patient banner
+        const yr = Math.floor(ageM / 12), mo = ageM % 12;
+        let ageStr = '';
+        if (yr > 0) ageStr += `${yr}y`;
+        if (mo > 0) ageStr += `${yr > 0 ? ' ' : ''}${mo}m`;
+        if (!ageStr) ageStr = '0m';
+        const gStr = gender === 'male' ? 'M' : 'F';
+        document.getElementById('patientBanner').innerHTML =
+            `<strong>${wt} kg</strong> · ${ht} cm · ${ageStr} · ${gStr}` +
+            (ageM >= 36 ? ` · ${activity}` : '');
+
+        document.getElementById('nutritionResults').classList.add('visible');
+        document.getElementById('nutritionResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Toggle Show Work ──
+    function toggleWork(type) {
+        const det = document.getElementById(type + 'Work');
+        const btn = det.previousElementSibling;
+        det.classList.toggle('visible');
+        btn.classList.toggle('open');
+        const txt = btn.querySelector('span');
+        if (det.classList.contains('visible')) {
+            txt.textContent = 'Hide calculation';
+        } else {
+            txt.textContent = 'Show calculation';
+        }
+    }
+
+    // ══════════════════════════════════════════
+    //  TAB 2: WHO GROWTH CHARTS
+    // ══════════════════════════════════════════
+
+    // ── WHO LMS Data (compact: [month, L, M, S]) ──
+    const WHO = {
+        wfa_boys: [[0,0.3487,3.3464,0.14602],[1,0.2297,4.4709,0.13395],[2,0.197,5.5675,0.12385],[3,0.1738,6.3762,0.11727],[4,0.1553,7.0023,0.11316],[5,0.1395,7.5105,0.1108],[6,0.1257,7.934,0.10958],[7,0.1134,8.297,0.10902],[8,0.1021,8.6151,0.10882],[9,0.0917,8.9014,0.10881],[10,0.082,9.1649,0.10891],[11,0.073,9.4122,0.10906],[12,0.0644,9.6479,0.10925],[13,0.0563,9.8749,0.10949],[14,0.0487,10.0953,0.10976],[15,0.0413,10.3108,0.11007],[16,0.0343,10.5228,0.11041],[17,0.0275,10.7319,0.11079],[18,0.0211,10.9385,0.11119],[19,0.0148,11.143,0.11164],[20,0.0087,11.3462,0.11211],[21,0.0029,11.5486,0.11261],[22,-0.0028,11.7504,0.11314],[23,-0.0083,11.9514,0.11369],[24,-0.0137,12.1515,0.11426],[25,-0.0189,12.3502,0.11485],[26,-0.024,12.5466,0.11544],[27,-0.0289,12.7401,0.11604],[28,-0.0337,12.9303,0.11664],[29,-0.0385,13.1169,0.11723],[30,-0.0431,13.3,0.11781],[31,-0.0476,13.4798,0.11839],[32,-0.052,13.6567,0.11896],[33,-0.0564,13.8309,0.11953],[34,-0.0606,14.0031,0.12008],[35,-0.0648,14.1736,0.12062],[36,-0.0689,14.3429,0.12116],[37,-0.0729,14.5113,0.12168],[38,-0.0769,14.6791,0.1222],[39,-0.0808,14.8466,0.12271],[40,-0.0846,15.014,0.12322],[41,-0.0883,15.1813,0.12373],[42,-0.092,15.3486,0.12425],[43,-0.0957,15.5158,0.12478],[44,-0.0993,15.6828,0.12531],[45,-0.1028,15.8497,0.12586],[46,-0.1063,16.0163,0.12643],[47,-0.1097,16.1827,0.127],[48,-0.1131,16.3489,0.12759],[49,-0.1165,16.515,0.12819],[50,-0.1198,16.6811,0.1288],[51,-0.123,16.8471,0.12943],[52,-0.1262,17.0132,0.13005],[53,-0.1294,17.1792,0.13069],[54,-0.1325,17.3452,0.13133],[55,-0.1356,17.5111,0.13197],[56,-0.1387,17.6768,0.13261],[57,-0.1417,17.8422,0.13325],[58,-0.1447,18.0073,0.13389],[59,-0.1477,18.1722,0.13453],[60,-0.1506,18.3366,0.13517]],
+        wfa_girls: [[0,0.3809,3.2322,0.14171],[1,0.1714,4.1873,0.13724],[2,0.0962,5.1282,0.13],[3,0.0402,5.8458,0.12619],[4,-0.005,6.4237,0.12402],[5,-0.043,6.8985,0.12274],[6,-0.0756,7.297,0.12204],[7,-0.1039,7.6422,0.12178],[8,-0.1288,7.9487,0.12181],[9,-0.1507,8.2254,0.12199],[10,-0.17,8.48,0.12223],[11,-0.1872,8.7192,0.12247],[12,-0.2024,8.9481,0.12268],[13,-0.2158,9.1699,0.12283],[14,-0.2278,9.387,0.12294],[15,-0.2384,9.6008,0.12299],[16,-0.2478,9.8124,0.12303],[17,-0.2562,10.0226,0.12306],[18,-0.2637,10.2315,0.12309],[19,-0.2703,10.4393,0.12315],[20,-0.2762,10.6464,0.12323],[21,-0.2815,10.8534,0.12335],[22,-0.2862,11.0608,0.1235],[23,-0.2903,11.2688,0.12369],[24,-0.2941,11.4775,0.1239],[25,-0.2975,11.6864,0.12414],[26,-0.3005,11.8947,0.12441],[27,-0.3032,12.1015,0.12472],[28,-0.3057,12.3059,0.12506],[29,-0.308,12.5073,0.12545],[30,-0.3101,12.7055,0.12587],[31,-0.312,12.9006,0.12633],[32,-0.3138,13.093,0.12683],[33,-0.3155,13.2837,0.12737],[34,-0.3171,13.4731,0.12794],[35,-0.3186,13.6618,0.12855],[36,-0.3201,13.8503,0.12919],[37,-0.3216,14.0385,0.12988],[38,-0.323,14.2265,0.13059],[39,-0.3243,14.414,0.13135],[40,-0.3257,14.601,0.13213],[41,-0.327,14.7873,0.13293],[42,-0.3283,14.9727,0.13376],[43,-0.3296,15.1573,0.1346],[44,-0.3309,15.341,0.13545],[45,-0.3322,15.524,0.1363],[46,-0.3335,15.7064,0.13716],[47,-0.3348,15.8882,0.138],[48,-0.3361,16.0697,0.13884],[49,-0.3374,16.2511,0.13968],[50,-0.3387,16.4322,0.14051],[51,-0.34,16.6133,0.14132],[52,-0.3414,16.7942,0.14213],[53,-0.3427,16.9748,0.14293],[54,-0.344,17.1551,0.14371],[55,-0.3453,17.3347,0.14448],[56,-0.3466,17.5136,0.14525],[57,-0.3479,17.6916,0.146],[58,-0.3492,17.8686,0.14675],[59,-0.3505,18.0445,0.14748],[60,-0.3518,18.2193,0.14821]],
+        lfa_boys: [[0,1,49.8842,0.03795],[1,1,54.7244,0.03557],[2,1,58.4249,0.03424],[3,1,61.4292,0.03328],[4,1,63.886,0.03257],[5,1,65.9026,0.03204],[6,1,67.6236,0.03165],[7,1,69.1645,0.03139],[8,1,70.5994,0.03124],[9,1,71.9687,0.03117],[10,1,73.2812,0.03118],[11,1,74.5388,0.03125],[12,1,75.7488,0.03137],[13,1,76.9186,0.03154],[14,1,78.0497,0.03174],[15,1,79.1458,0.03197],[16,1,80.2113,0.03222],[17,1,81.2487,0.0325],[18,1,82.2587,0.03279],[19,1,83.2418,0.0331],[20,1,84.1996,0.03342],[21,1,85.1348,0.03376],[22,1,86.0477,0.0341],[23,1,86.941,0.03445],[24,1,87.8161,0.03479]],
+        lfa_girls: [[0,1,49.1477,0.0379],[1,1,53.6872,0.0364],[2,1,57.0673,0.03568],[3,1,59.8029,0.0352],[4,1,62.0899,0.03486],[5,1,64.0301,0.03463],[6,1,65.7311,0.03448],[7,1,67.2873,0.03441],[8,1,68.7498,0.0344],[9,1,70.1435,0.03444],[10,1,71.4818,0.03452],[11,1,72.771,0.03464],[12,1,74.015,0.03479],[13,1,75.2176,0.03496],[14,1,76.3817,0.03514],[15,1,77.5099,0.03534],[16,1,78.6055,0.03555],[17,1,79.671,0.03576],[18,1,80.7079,0.03598],[19,1,81.7182,0.0362],[20,1,82.7036,0.03643],[21,1,83.6654,0.03666],[22,1,84.604,0.03688],[23,1,85.5202,0.03711],[24,1,86.4153,0.03734]],
+        hfa_boys: [[24,1,87.1161,0.03507],[25,1,87.972,0.03542],[26,1,88.8065,0.03576],[27,1,89.6197,0.0361],[28,1,90.412,0.03642],[29,1,91.1828,0.03674],[30,1,91.9327,0.03704],[31,1,92.6631,0.03733],[32,1,93.3753,0.03761],[33,1,94.0711,0.03787],[34,1,94.7532,0.03812],[35,1,95.4236,0.03836],[36,1,96.0835,0.03858],[37,1,96.7337,0.03879],[38,1,97.3749,0.039],[39,1,98.0073,0.03919],[40,1,98.631,0.03937],[41,1,99.2459,0.03954],[42,1,99.8515,0.03971],[43,1,100.4485,0.03986],[44,1,101.0374,0.04002],[45,1,101.6186,0.04016],[46,1,102.1933,0.04031],[47,1,102.7625,0.04045],[48,1,103.3273,0.04059],[49,1,103.8886,0.04073],[50,1,104.4473,0.04086],[51,1,105.0041,0.041],[52,1,105.5596,0.04113],[53,1,106.1138,0.04126],[54,1,106.6668,0.04139],[55,1,107.2188,0.04152],[56,1,107.7697,0.04165],[57,1,108.3198,0.04177],[58,1,108.8689,0.0419],[59,1,109.417,0.04202],[60,1,109.9638,0.04214]],
+        hfa_girls: [[24,1,85.7153,0.03764],[25,1,86.5904,0.03786],[26,1,87.4462,0.03808],[27,1,88.283,0.0383],[28,1,89.1004,0.03851],[29,1,89.8991,0.03872],[30,1,90.6797,0.03893],[31,1,91.443,0.03913],[32,1,92.1906,0.03933],[33,1,92.9239,0.03952],[34,1,93.6444,0.03971],[35,1,94.3533,0.03989],[36,1,95.0515,0.04006],[37,1,95.7399,0.04024],[38,1,96.4187,0.04041],[39,1,97.0885,0.04057],[40,1,97.7493,0.04073],[41,1,98.4015,0.04089],[42,1,99.0448,0.04105],[43,1,99.6795,0.0412],[44,1,100.3058,0.04135],[45,1,100.9238,0.0415],[46,1,101.5337,0.04164],[47,1,102.136,0.04179],[48,1,102.7312,0.04193],[49,1,103.3197,0.04206],[50,1,103.9021,0.0422],[51,1,104.4786,0.04233],[52,1,105.0494,0.04246],[53,1,105.6148,0.04259],[54,1,106.1748,0.04272],[55,1,106.7295,0.04285],[56,1,107.2788,0.04298],[57,1,107.8227,0.0431],[58,1,108.3613,0.04322],[59,1,108.8948,0.04334],[60,1,109.4233,0.04347]],
+        hc_boys: [[0,1,34.4618,0.03686],[1,1,37.2759,0.03133],[2,1,39.1285,0.02997],[3,1,40.5135,0.02918],[4,1,41.6317,0.02868],[5,1,42.5576,0.02837],[6,1,43.3306,0.02817],[7,1,43.9803,0.02804],[8,1,44.53,0.02796],[9,1,44.9998,0.02792],[10,1,45.4051,0.0279],[11,1,45.7573,0.02789],[12,1,46.0661,0.02789],[13,1,46.3395,0.02789],[14,1,46.5844,0.02791],[15,1,46.806,0.02792],[16,1,47.0088,0.02795],[17,1,47.1962,0.02797],[18,1,47.3711,0.028],[19,1,47.5357,0.02803],[20,1,47.6919,0.02806],[21,1,47.8408,0.0281],[22,1,47.9833,0.02813],[23,1,48.1201,0.02817],[24,1,48.2515,0.02821],[25,1,48.3777,0.02825],[26,1,48.4989,0.0283],[27,1,48.6151,0.02834],[28,1,48.7264,0.02838],[29,1,48.8331,0.02842],[30,1,48.9351,0.02847],[31,1,49.0327,0.02851],[32,1,49.126,0.02855],[33,1,49.2153,0.02859],[34,1,49.3007,0.02863],[35,1,49.3826,0.02867],[36,1,49.4612,0.02871],[37,1,49.5367,0.02875],[38,1,49.6093,0.02878],[39,1,49.6791,0.02882],[40,1,49.7465,0.02886],[41,1,49.8116,0.02889],[42,1,49.8745,0.02893],[43,1,49.9354,0.02896],[44,1,49.9942,0.02899],[45,1,50.0512,0.02903],[46,1,50.1064,0.02906],[47,1,50.1598,0.02909],[48,1,50.2115,0.02912],[49,1,50.2617,0.02915],[50,1,50.3105,0.02918],[51,1,50.3578,0.02921],[52,1,50.4039,0.02924],[53,1,50.4488,0.02927],[54,1,50.4926,0.02929],[55,1,50.5354,0.02932],[56,1,50.5772,0.02935],[57,1,50.6183,0.02938],[58,1,50.6587,0.0294],[59,1,50.6984,0.02943],[60,1,50.7375,0.02946]],
+        hc_girls: [[0,1,33.8787,0.03496],[1,1,36.5463,0.0321],[2,1,38.2521,0.03168],[3,1,39.5328,0.03104],[4,1,40.5817,0.03049],[5,1,41.459,0.03005],[6,1,42.1995,0.0297],[7,1,42.829,0.02941],[8,1,43.367,0.02917],[9,1,43.83,0.02897],[10,1,44.2319,0.0288],[11,1,44.5844,0.02866],[12,1,44.8965,0.02854],[13,1,45.1752,0.02844],[14,1,45.4265,0.02836],[15,1,45.6551,0.0283],[16,1,45.865,0.02824],[17,1,46.0598,0.0282],[18,1,46.2424,0.02817],[19,1,46.4152,0.02815],[20,1,46.58,0.02813],[21,1,46.7384,0.02812],[22,1,46.8913,0.02812],[23,1,47.0391,0.02812],[24,1,47.1822,0.02813],[25,1,47.3207,0.02814],[26,1,47.4545,0.02815],[27,1,47.5842,0.02817],[28,1,47.7093,0.02819],[29,1,47.8304,0.02821],[30,1,47.9474,0.02824],[31,1,48.0604,0.02826],[32,1,48.1695,0.02829],[33,1,48.2751,0.02832],[34,1,48.3771,0.02835],[35,1,48.4757,0.02838],[36,1,48.5712,0.02841],[37,1,48.6637,0.02844],[38,1,48.7532,0.02848],[39,1,48.84,0.02851],[40,1,48.9242,0.02855],[41,1,49.006,0.02858],[42,1,49.0855,0.02861],[43,1,49.163,0.02865],[44,1,49.2384,0.02868],[45,1,49.3119,0.02872],[46,1,49.3836,0.02875],[47,1,49.4537,0.02879],[48,1,49.5222,0.02882],[49,1,49.5892,0.02886],[50,1,49.6549,0.02889],[51,1,49.7193,0.02893],[52,1,49.7825,0.02896],[53,1,49.8446,0.029],[54,1,49.9057,0.02903],[55,1,49.9659,0.02907],[56,1,50.0252,0.0291],[57,1,50.0837,0.02914],[58,1,50.1415,0.02917],[59,1,50.1987,0.02921],[60,1,50.2553,0.02924]],
+        bmi_boys: [[0,0.6318,13.4069,0.09594],[1,-0.0631,14.944,0.09813],[2,-0.2571,16.3503,0.09317],[3,-0.2898,17.0494,0.08964],[4,-0.2541,17.3325,0.08738],[5,-0.189,17.3653,0.08593],[6,-0.1119,17.2392,0.08498],[7,-0.035,17.0262,0.08435],[8,0.0356,16.769,0.08391],[9,0.0921,16.5001,0.08361],[10,0.1365,16.2354,0.08341],[11,0.1713,15.984,0.08329],[12,0.1984,15.7514,0.08326],[13,0.2196,15.54,0.08331],[14,0.2362,15.3505,0.08345],[15,0.2494,15.1816,0.08369],[16,0.2602,15.0317,0.08404],[17,0.2691,14.8988,0.0845],[18,0.2766,14.7811,0.08506],[19,0.283,14.6776,0.08571],[20,0.2888,14.5873,0.08642],[21,0.2939,14.5099,0.0872],[22,0.2987,14.4449,0.08803],[23,0.3031,14.3915,0.08889],[24,0.3073,14.3487,0.08979],[25,0.3092,14.3201,0.09025],[26,0.3113,14.2907,0.09079],[27,0.3132,14.2633,0.09133],[28,0.3151,14.2376,0.09192],[29,0.3168,14.2137,0.09253],[30,0.3185,14.1925,0.09318],[31,0.3201,14.1739,0.09386],[32,0.3216,14.1578,0.09456],[33,0.3231,14.1443,0.09529],[34,0.3245,14.1338,0.09604],[35,0.3259,14.126,0.0968],[36,0.3272,14.121,0.09758],[37,0.3286,14.119,0.09839],[38,0.3299,14.1198,0.09921],[39,0.3312,14.1236,0.10004],[40,0.3325,14.1304,0.1009],[41,0.3338,14.1402,0.10177],[42,0.335,14.153,0.10265],[43,0.3363,14.1689,0.10355],[44,0.3376,14.1878,0.10446],[45,0.3388,14.2099,0.10538],[46,0.3401,14.2351,0.10632],[47,0.3413,14.2633,0.10727],[48,0.3425,14.2946,0.10824],[49,0.3437,14.3292,0.10922],[50,0.3449,14.367,0.11021],[51,0.346,14.408,0.11121],[52,0.3472,14.4521,0.11222],[53,0.3483,14.4996,0.11324],[54,0.3494,14.5504,0.11427],[55,0.3505,14.6045,0.1153],[56,0.3516,14.662,0.11634],[57,0.3527,14.7228,0.11739],[58,0.3537,14.787,0.11844],[59,0.3548,14.8545,0.11949],[60,0.3558,14.9255,0.12054]],
+        bmi_girls: [[0,0.6697,13.3363,0.09267],[1,0.0594,14.6256,0.09754],[2,-0.2563,15.7978,0.09209],[3,-0.3237,16.337,0.08852],[4,-0.2917,16.473,0.08636],[5,-0.2213,16.3883,0.08498],[6,-0.137,16.178,0.08408],[7,-0.0529,15.9163,0.08349],[8,0.0203,15.6397,0.08311],[9,0.0776,15.3716,0.08289],[10,0.1229,15.1254,0.0828],[11,0.1596,14.9063,0.08283],[12,0.1899,14.7155,0.08299],[13,0.2149,14.5507,0.08327],[14,0.2359,14.4096,0.08369],[15,0.2538,14.2894,0.08423],[16,0.2693,14.1879,0.08489],[17,0.2829,14.1027,0.08566],[18,0.295,14.0317,0.08652],[19,0.3058,13.9728,0.08744],[20,0.3157,13.9244,0.08842],[21,0.3248,13.8852,0.08944],[22,0.3332,13.854,0.09049],[23,0.3411,13.8302,0.09157],[24,0.3484,13.8128,0.09265],[25,0.3515,13.8055,0.09319],[26,0.3549,13.7974,0.09383],[27,0.3581,13.7913,0.0945],[28,0.3613,13.7867,0.09521],[29,0.3644,13.7837,0.09597],[30,0.3674,13.7825,0.09677],[31,0.3704,13.7832,0.0976],[32,0.3733,13.786,0.09849],[33,0.3761,13.791,0.09941],[34,0.3789,13.7982,0.10039],[35,0.3816,13.8079,0.1014],[36,0.3842,13.8201,0.10245],[37,0.3867,13.835,0.10354],[38,0.3892,13.8527,0.10466],[39,0.3916,13.8732,0.10582],[40,0.3939,13.8968,0.107],[41,0.3962,13.9234,0.10821],[42,0.3984,13.9533,0.10945],[43,0.4005,13.9864,0.1107],[44,0.4025,14.0229,0.11198],[45,0.4045,14.0628,0.11327],[46,0.4064,14.1063,0.11457],[47,0.4082,14.1533,0.11589],[48,0.41,14.2039,0.11722],[49,0.4116,14.2583,0.11855],[50,0.4132,14.3163,0.1199],[51,0.4148,14.378,0.12125],[52,0.4162,14.4434,0.1226],[53,0.4176,14.5126,0.12396],[54,0.4189,14.5855,0.12532],[55,0.4201,14.6621,0.12669],[56,0.4212,14.7423,0.12806],[57,0.4222,14.826,0.12943],[58,0.4232,14.9133,0.1308],[59,0.4241,15.0039,0.13217],[60,0.4249,15.098,0.13354]],
+        wfl_boys: [[45,0.3236,2.4413,0.09182],[46,0.2888,2.6685,0.09153],[47,0.254,2.899,0.09082],[48,0.2192,3.1303,0.08982],[49,0.1844,3.3608,0.08862],[50,0.1512,3.5912,0.08733],[51,0.1191,3.8214,0.08602],[52,0.0889,4.0489,0.08474],[53,0.061,4.2716,0.08352],[54,0.0356,4.488,0.08239],[55,0.0127,4.697,0.08135],[56,-0.0078,4.8981,0.08041],[57,-0.026,5.0908,0.07955],[58,-0.0419,5.2746,0.07878],[59,-0.0558,5.4498,0.07808],[60,-0.0677,5.6164,0.07744],[61,-0.0779,5.775,0.07685],[62,-0.0865,5.926,0.07631],[63,-0.0937,6.0698,0.0758],[64,-0.0997,6.207,0.07533],[65,-0.1046,6.338,0.07489],[65.5,-0.1066,6.4011,0.07468],[66,-0.1084,6.4627,0.07447],[67,-0.1113,6.5817,0.07409],[68,-0.1133,6.6958,0.07373],[69,-0.1145,6.8054,0.0734],[70,-0.115,6.911,0.07309],[71,-0.1149,7.0132,0.07281],[72,-0.1143,7.1127,0.07256],[73,-0.1132,7.2101,0.07234],[74,-0.1118,7.306,0.07216],[75,-0.1101,7.4011,0.07202],[76,-0.1081,7.4962,0.07192],[77,-0.106,7.5917,0.07187],[78,-0.1037,7.6883,0.07188],[79,-0.1013,7.7867,0.07194],[80,-0.0988,7.8874,0.07206],[81,-0.0962,7.9907,0.07225],[82,-0.0935,8.0972,0.0725],[83,-0.0907,8.207,0.07282],[84,-0.0878,8.3206,0.07322],[85,-0.0848,8.4383,0.07369],[86,-0.0817,8.5604,0.07424],[87,-0.0784,8.6873,0.07487],[88,-0.075,8.8195,0.07558],[89,-0.0714,8.9577,0.07638],[90,-0.0677,9.1021,0.07726],[91,-0.0639,9.2532,0.07822],[92,-0.0599,9.4107,0.07926],[93,-0.0557,9.575,0.08038],[94,-0.0514,9.7461,0.08158],[95,-0.0469,9.9241,0.08286],[96,-0.0423,10.1095,0.08421],[97,-0.0375,10.3019,0.08563],[98,-0.0326,10.5012,0.08713],[99,-0.0275,10.7074,0.08869],[100,-0.0222,10.9202,0.09032],[101,-0.0168,11.1397,0.092],[102,-0.0112,11.3659,0.09373],[103,-0.0055,11.5987,0.09551],[104,0.0004,11.8382,0.09732],[105,0.0065,12.0844,0.09916],[106,0.0128,12.3377,0.10103],[107,0.0192,12.5984,0.10291],[108,0.0259,12.8672,0.10481],[109,0.0327,13.1447,0.10672],[110,0.0397,13.4318,0.10862]],
+        wfl_girls: [[45,0.2254,2.4607,0.09029],[46,0.1502,2.6668,0.09075],[47,0.0787,2.8756,0.09084],[48,0.0114,3.0843,0.09061],[49,-0.0507,3.2916,0.09009],[50,-0.1063,3.4963,0.08935],[51,-0.1544,3.6984,0.08844],[52,-0.1949,3.8976,0.08743],[53,-0.2281,4.0926,0.08637],[54,-0.2545,4.2824,0.0853],[55,-0.2749,4.4658,0.08425],[56,-0.2899,4.6423,0.08325],[57,-0.3005,4.8114,0.08232],[58,-0.3072,4.9728,0.08146],[59,-0.3109,5.1267,0.08067],[60,-0.312,5.2734,0.07995],[61,-0.3113,5.4131,0.07929],[62,-0.3091,5.5462,0.07869],[63,-0.3059,5.673,0.07813],[64,-0.302,5.7939,0.07762],[65,-0.2977,5.9093,0.07714],[65.5,-0.2954,5.9649,0.07692],[66,-0.293,6.019,0.0767],[67,-0.2881,6.1228,0.07631],[68,-0.2833,6.2224,0.07594],[69,-0.2785,6.3183,0.07562],[70,-0.274,6.4108,0.07533],[71,-0.2698,6.5007,0.07509],[72,-0.266,6.5885,0.0749],[73,-0.2626,6.6749,0.07477],[74,-0.2596,6.7604,0.07469],[75,-0.2571,6.8459,0.07468],[76,-0.255,6.9321,0.07474],[77,-0.2533,7.0196,0.07487],[78,-0.252,7.109,0.07509],[79,-0.2511,7.201,0.07539],[80,-0.2504,7.296,0.07578],[81,-0.25,7.3946,0.07627],[82,-0.2497,7.497,0.07685],[83,-0.2496,7.6037,0.07754],[84,-0.2494,7.7149,0.07833],[85,-0.2492,7.8309,0.07924],[86,-0.2489,7.9519,0.08026],[87,-0.2484,8.0783,0.0814],[88,-0.2475,8.2103,0.08267],[89,-0.2464,8.3485,0.08406],[90,-0.2448,8.4932,0.08558],[91,-0.2429,8.6451,0.08722],[92,-0.2404,8.8047,0.089],[93,-0.2375,8.9728,0.09091],[94,-0.234,9.1503,0.09295],[95,-0.23,9.338,0.09511],[96,-0.2256,9.537,0.09739],[97,-0.2206,9.7483,0.09979],[98,-0.2152,9.9727,0.10229],[99,-0.2094,10.2113,0.1049],[100,-0.2032,10.4649,0.1076],[101,-0.1967,10.7346,0.1104],[102,-0.1899,11.0216,0.11327],[103,-0.1829,11.327,0.11622],[104,-0.1756,11.6519,0.11923],[105,-0.1682,11.9976,0.12229],[106,-0.1607,12.3654,0.12539],[107,-0.153,12.7565,0.12852],[108,-0.1454,13.1721,0.13165],[109,-0.1378,13.6135,0.13477],[110,-0.1303,14.082,0.13785]],
+        // WHO 2007 Growth Reference (5-19 years): Height-for-age, BMI-for-age
+        hfa_boys_5_19: [[61,1,110.4927,0.04216],[62,1,111.0156,0.04228],[63,1,111.5359,0.0424],[64,1,112.0542,0.04252],[65,1,112.571,0.04264],[66,1,113.0869,0.04276],[67,1,113.6024,0.04288],[68,1,114.1181,0.043],[69,1,114.6345,0.04312],[70,1,115.1524,0.04324],[71,1,115.6722,0.04336],[72,1,116.1946,0.04349],[73,1,116.7201,0.04362],[74,1,117.2492,0.04375],[75,1,117.7825,0.04388],[76,1,118.3204,0.04402],[77,1,118.8633,0.04416],[78,1,119.4116,0.0443],[79,1,119.9655,0.04445],[80,1,120.5253,0.04461],[81,1,121.0911,0.04477],[82,1,121.663,0.04493],[83,1,122.241,0.0451],[84,1,122.8249,0.04528],[85,1,123.4146,0.04546],[86,1,124.0098,0.04565],[87,1,124.6098,0.04585],[88,1,125.2141,0.04605],[89,1,125.8218,0.04626],[90,1,126.4322,0.04648],[91,1,127.0443,0.04671],[92,1,127.657,0.04694],[93,1,128.2693,0.04719],[94,1,128.8799,0.04744],[95,1,129.4878,0.04771],[96,1,130.0918,0.04799],[97,1,130.6909,0.04828],[98,1,131.2845,0.04859],[99,1,131.8721,0.04891],[100,1,132.4534,0.04925],[101,1,133.0286,0.04961],[102,1,133.5981,0.04998],[103,1,134.1628,0.05037],[104,1,134.7237,0.05079],[105,1,135.2822,0.05122],[106,1,135.8397,0.05167],[107,1,136.398,0.05215],[108,1,136.9588,0.05265],[109,1,137.5239,0.05318],[110,1,138.0953,0.05373],[111,1,138.6748,0.05432],[112,1,139.2641,0.05493],[113,1,139.8647,0.05557],[114,1,140.4781,0.05624],[115,1,141.1057,0.05694],[116,1,141.7487,0.05766],[117,1,142.4078,0.05841],[118,1,143.0834,0.05918],[119,1,143.7756,0.05997],[120,1,144.4841,0.06078],[121,1,145.2077,0.06159],[122,1,145.9447,0.06241],[123,1,146.6926,0.06323],[124,1,147.4489,0.06404],[125,1,148.2106,0.06484],[126,1,148.974,0.06562],[127,1,149.7358,0.06637],[128,1,150.4924,0.0671],[129,1,151.2405,0.06779],[130,1,151.977,0.06844],[131,1,152.6994,0.06906],[132,1,153.4054,0.06963],[133,1,154.0936,0.07016],[134,1,154.7626,0.07064],[135,1,155.4117,0.07108],[136,1,156.0404,0.07147],[137,1,156.6488,0.07181],[138,1,157.2374,0.07212],[139,1,157.8069,0.07238],[140,1,158.3582,0.0726],[141,1,158.892,0.07279],[142,1,159.4093,0.07294],[143,1,159.9106,0.07306],[144,1,160.3965,0.07315],[145,1,160.8672,0.07321],[146,1,161.3224,0.07325],[147,1,161.7619,0.07327],[148,1,162.1849,0.07327],[149,1,162.5907,0.07326],[150,1,162.9783,0.07323],[151,1,163.3467,0.07319],[152,1,163.6948,0.07314],[153,1,164.0212,0.07308],[154,1,164.3249,0.07302],[155,1,164.6049,0.07296],[156,1,164.8604,0.0729],[157,1,165.091,0.07284],[158,1,165.2964,0.07278],[159,1,165.4766,0.07272],[160,1,165.6318,0.07267],[161,1,165.7626,0.07262],[162,1,165.8698,0.07258],[163,1,165.9541,0.07254],[164,1,166.0171,0.07251],[165,1,166.0603,0.07249],[166,1,166.0855,0.07248],[167,1,166.0946,0.07247],[168,1,166.0897,0.07247],[169,1,166.073,0.07248],[170,1,166.0466,0.0725],[171,1,166.0129,0.07253],[172,1,165.9742,0.07257],[173,1,165.933,0.07262],[174,1,165.8914,0.07268],[175,1,165.8517,0.07274],[176,1,165.816,0.07281],[177,1,165.7864,0.07289],[178,1,165.7643,0.07297],[179,1,165.7511,0.07306],[180,1,165.7476,0.07315],[181,1,165.754,0.07325],[182,1,165.7706,0.07335],[183,1,165.7973,0.07346],[184,1,165.834,0.07357],[185,1,165.8804,0.07369],[186,1,165.9362,0.0738],[187,1,166.0009,0.07392],[188,1,166.074,0.07404],[189,1,166.155,0.07416],[190,1,166.243,0.07428],[191,1,166.3375,0.0744],[192,1,166.4377,0.07452],[193,1,166.543,0.07464],[194,1,166.6527,0.07477],[195,1,166.7663,0.07489],[196,1,166.8832,0.07501],[197,1,167.0028,0.07513],[198,1,167.1248,0.07525],[199,1,167.2487,0.07537],[200,1,167.374,0.07549],[201,1,167.5004,0.07561],[202,1,167.6275,0.07573],[203,1,167.755,0.07585],[204,1,167.8826,0.07596],[205,1,168.01,0.07607],[206,1,168.1372,0.07618],[207,1,168.264,0.07629],[208,1,168.3902,0.0764],[209,1,168.516,0.0765],[210,1,168.6413,0.0766],[211,1,168.766,0.0767],[212,1,168.8903,0.0768],[213,1,169.0141,0.0769],[214,1,169.1375,0.077],[215,1,169.2607,0.0771],[216,1,169.3836,0.0772],[217,1,169.5064,0.0773],[218,1,169.6291,0.0774],[219,1,169.7519,0.0775],[220,1,169.8748,0.0776],[221,1,169.998,0.0777],[222,1,170.1215,0.0778],[223,1,170.2453,0.0779],[224,1,170.3697,0.078],[225,1,170.4946,0.07811],[226,1,170.6203,0.07822],[227,1,170.7468,0.07833],[228,1,170.8742,0.07844]],
+        hfa_girls_5_19: [[61,1,109.2201,0.04318],[62,1,109.7536,0.04331],[63,1,110.2883,0.04344],[64,1,110.8243,0.04357],[65,1,111.362,0.04371],[66,1,111.9016,0.04385],[67,1,112.4435,0.04399],[68,1,112.9879,0.04413],[69,1,113.5352,0.04428],[70,1,114.0859,0.04443],[71,1,114.6402,0.04459],[72,1,115.1988,0.04475],[73,1,115.762,0.04492],[74,1,116.3303,0.04509],[75,1,116.9042,0.04527],[76,1,117.484,0.04546],[77,1,118.0701,0.04565],[78,1,118.6627,0.04585],[79,1,119.2618,0.04606],[80,1,119.8674,0.04628],[81,1,120.4795,0.04651],[82,1,121.098,0.04675],[83,1,121.7225,0.047],[84,1,122.3526,0.04726],[85,1,122.988,0.04753],[86,1,123.6282,0.04782],[87,1,124.2725,0.04812],[88,1,124.9203,0.04843],[89,1,125.571,0.04876],[90,1,126.2239,0.04911],[91,1,126.8787,0.04947],[92,1,127.5348,0.04985],[93,1,128.1921,0.05025],[94,1,128.8503,0.05067],[95,1,129.5096,0.05111],[96,1,130.1699,0.05158],[97,1,130.8316,0.05207],[98,1,131.4948,0.05258],[99,1,132.1599,0.05312],[100,1,132.8272,0.05369],[101,1,133.497,0.05428],[102,1,134.1695,0.0549],[103,1,134.845,0.05555],[104,1,135.5239,0.05623],[105,1,136.2064,0.05693],[106,1,136.8927,0.05766],[107,1,137.5829,0.05842],[108,1,138.2771,0.0592],[109,1,138.9754,0.06001],[110,1,139.6777,0.06083],[111,1,140.384,0.06168],[112,1,141.094,0.06254],[113,1,141.8076,0.0634],[114,1,142.5242,0.06428],[115,1,143.2435,0.06515],[116,1,143.9647,0.06602],[117,1,144.6872,0.06688],[118,1,145.41,0.06772],[119,1,146.1322,0.06854],[120,1,146.8527,0.06933],[121,1,147.5702,0.07008],[122,1,148.2833,0.07079],[123,1,148.9906,0.07146],[124,1,149.6905,0.07207],[125,1,150.3816,0.07264],[126,1,151.0623,0.07314],[127,1,151.7312,0.0736],[128,1,152.387,0.074],[129,1,153.0283,0.07435],[130,1,153.654,0.07465],[131,1,154.2631,0.07491],[132,1,154.8547,0.07512],[133,1,155.4283,0.07528],[134,1,155.983,0.07541],[135,1,156.5186,0.07549],[136,1,157.0347,0.07555],[137,1,157.5313,0.07557],[138,1,158.0085,0.07556],[139,1,158.4664,0.07553],[140,1,158.9055,0.07547],[141,1,159.3261,0.07539],[142,1,159.7287,0.0753],[143,1,160.1139,0.07519],[144,1,160.4822,0.07507],[145,1,160.834,0.07494],[146,1,161.1696,0.0748],[147,1,161.4892,0.07466],[148,1,161.7928,0.07452],[149,1,162.0806,0.07437],[150,1,162.3524,0.07423],[151,1,162.6082,0.07409],[152,1,162.8479,0.07395],[153,1,163.0714,0.07381],[154,1,163.2787,0.07368],[155,1,163.4699,0.07355],[156,1,163.645,0.07343],[157,1,163.804,0.07332],[158,1,163.9473,0.07321],[159,1,164.0749,0.07311],[160,1,164.1873,0.07302],[161,1,164.285,0.07293],[162,1,164.3684,0.07286],[163,1,164.4382,0.07279],[164,1,164.4951,0.07273],[165,1,164.5397,0.07268],[166,1,164.5729,0.07264],[167,1,164.5956,0.0726],[168,1,164.6088,0.07258],[169,1,164.6134,0.07256],[170,1,164.6106,0.07256],[171,1,164.6014,0.07256],[172,1,164.587,0.07257],[173,1,164.5686,0.07259],[174,1,164.5472,0.07263],[175,1,164.5241,0.07267],[176,1,164.5003,0.07272],[177,1,164.4768,0.07278],[178,1,164.4548,0.07285],[179,1,164.4351,0.07293],[180,1,164.4188,0.07302],[181,1,164.4066,0.07312],[182,1,164.3996,0.07322],[183,1,164.3985,0.07334],[184,1,164.404,0.07346],[185,1,164.417,0.07359],[186,1,164.438,0.07372],[187,1,164.4677,0.07386],[188,1,164.5067,0.074],[189,1,164.5556,0.07414],[190,1,164.6147,0.07429],[191,1,164.6847,0.07444],[192,1,164.7658,0.07459],[193,1,164.8585,0.07474],[194,1,164.9629,0.07489],[195,1,165.0793,0.07504],[196,1,165.2077,0.0752],[197,1,165.3483,0.07535],[198,1,165.5011,0.0755],[199,1,165.6661,0.07565],[200,1,165.8431,0.0758],[201,1,166.032,0.07596],[202,1,166.2324,0.07611],[203,1,166.4442,0.07626],[204,1,166.6669,0.07641],[205,1,166.9002,0.07656],[206,1,167.1437,0.07671],[207,1,167.397,0.07686],[208,1,167.6597,0.07701],[209,1,167.9315,0.07715],[210,1,168.212,0.0773],[211,1,168.5008,0.07744],[212,1,168.7977,0.07759],[213,1,169.1022,0.07773],[214,1,169.4143,0.07787],[215,1,169.7337,0.07801],[216,1,170.0601,0.07815],[217,1,170.3934,0.07829],[218,1,170.7334,0.07843],[219,1,171.0799,0.07857],[220,1,171.4327,0.07871],[221,1,171.7918,0.07885],[222,1,172.1571,0.07899],[223,1,172.5284,0.07913],[224,1,172.9057,0.07927],[225,1,173.2889,0.07941],[226,1,173.6779,0.07955],[227,1,174.0726,0.07969],[228,1,174.4729,0.07983]],
+        bmi_boys_5_19: [[61,0.3558,14.9255,0.12054],[62,0.3569,14.9999,0.1216],[63,0.3579,15.0779,0.12267],[64,0.359,15.1594,0.12375],[65,0.36,15.2446,0.12484],[66,0.361,15.3334,0.12594],[67,0.362,15.4259,0.12705],[68,0.363,15.5221,0.12817],[69,0.3639,15.622,0.12929],[70,0.3648,15.7256,0.13042],[71,0.3656,15.8328,0.13156],[72,0.3664,15.9437,0.1327],[73,0.3672,16.0583,0.13384],[74,0.3679,16.1766,0.13499],[75,0.3685,16.2985,0.13614],[76,0.369,16.424,0.13729],[77,0.3695,16.5531,0.13844],[78,0.3699,16.6857,0.1396],[79,0.3701,16.8218,0.14075],[80,0.3703,16.9612,0.1419],[81,0.3703,17.1039,0.14305],[82,0.3702,17.2498,0.1442],[83,0.3699,17.3988,0.14534],[84,0.3694,17.5509,0.14648],[85,0.3687,17.706,0.14761],[86,0.3678,17.8639,0.14874],[87,0.3667,18.0247,0.14986],[88,0.3652,18.1882,0.15098],[89,0.3635,18.3543,0.15209],[90,0.3615,18.523,0.15319],[91,0.3591,18.694,0.15429],[92,0.3564,18.8673,0.15538],[93,0.3533,19.0428,0.15647],[94,0.3498,19.2202,0.15754],[95,0.346,19.3995,0.1586],[96,0.3417,19.5805,0.15965],[97,0.337,19.7631,0.16069],[98,0.3318,19.9471,0.16172],[99,0.3262,20.1324,0.16273],[100,0.3201,20.3188,0.16372],[101,0.3136,20.5061,0.1647],[102,0.3066,20.6942,0.16566],[103,0.2992,20.8828,0.1666],[104,0.2914,21.0718,0.16753],[105,0.2831,21.2609,0.16843],[106,0.2745,21.4499,0.16932],[107,0.2656,21.6386,0.17018],[108,0.2563,21.827,0.17103],[109,0.2467,22.0148,0.17185],[110,0.2369,22.202,0.17265],[111,0.2268,22.3884,0.17343],[112,0.2166,22.574,0.17419],[113,0.2062,22.7587,0.17493],[114,0.1958,22.9425,0.17565],[115,0.1854,23.1253,0.17635],[116,0.175,23.3073,0.17703],[117,0.1648,23.4884,0.17769],[118,0.1547,23.6688,0.17833],[119,0.145,23.8486,0.17895],[120,0.1356,24.028,0.17956],[121,0.1267,24.2071,0.18015],[122,0.1183,24.3861,0.18072],[123,0.1106,24.5652,0.18128],[124,0.1036,24.7446,0.18183],[125,0.0974,24.9245,0.18236],[126,0.092,25.105,0.18289],[127,0.0875,25.2861,0.18341],[128,0.084,25.468,0.18393],[129,0.0816,25.6506,0.18444],[130,0.0803,25.834,0.18494],[131,0.0801,26.0179,0.18544],[132,0.0811,26.2022,0.18594],[133,0.0833,26.3868,0.18643],[134,0.0868,26.5713,0.18692],[135,0.0916,26.7554,0.18741],[136,0.0978,26.9386,0.18789],[137,0.1054,27.1206,0.18837],[138,0.1145,27.3008,0.18884],[139,0.125,27.4789,0.1893],[140,0.137,27.6544,0.18975],[141,0.1505,27.8268,0.19019],[142,0.1655,27.9957,0.19062],[143,0.1819,28.1607,0.19103],[144,0.1997,28.3215,0.19143],[145,0.219,28.4776,0.19182],[146,0.2397,28.6286,0.19218],[147,0.2617,28.7743,0.19252],[148,0.2849,28.9144,0.19284],[149,0.3093,29.0487,0.19314],[150,0.3348,29.1769,0.19341],[151,0.3613,29.299,0.19366],[152,0.3886,29.4147,0.19388],[153,0.4166,29.5242,0.19408],[154,0.4452,29.6273,0.19425],[155,0.4741,29.7241,0.19439],[156,0.5034,29.8148,0.19451],[157,0.5327,29.8993,0.19461],[158,0.5619,29.978,0.19468],[159,0.5908,30.0509,0.19473],[160,0.6194,30.1183,0.19476],[161,0.6474,30.1805,0.19477],[162,0.6749,30.2378,0.19477],[163,0.7018,30.2906,0.19475],[164,0.728,30.339,0.19472],[165,0.7535,30.3834,0.19468],[166,0.7783,30.4241,0.19464],[167,0.8023,30.4613,0.19459],[168,0.8256,30.4953,0.19454],[169,0.8482,30.5264,0.19449],[170,0.87,30.5548,0.19444],[171,0.8912,30.5808,0.1944],[172,0.9116,30.6044,0.19436],[173,0.9314,30.6261,0.19433],[174,0.9506,30.646,0.19431],[175,0.9692,30.6643,0.1943],[176,0.9873,30.6811,0.1943],[177,1.0048,30.6967,0.19431],[178,1.0218,30.7111,0.19433],[179,1.0384,30.7246,0.19436],[180,1.0545,30.7373,0.1944],[181,1.0702,30.7494,0.19445],[182,1.0855,30.761,0.19451],[183,1.1005,30.7722,0.19459],[184,1.1152,30.7831,0.19467],[185,1.1296,30.7938,0.19477],[186,1.1437,30.8044,0.19487],[187,1.1576,30.8149,0.19499],[188,1.1713,30.8253,0.19511],[189,1.1848,30.8358,0.19524],[190,1.1982,30.8464,0.19538],[191,1.2114,30.8571,0.19553],[192,1.2245,30.868,0.19568],[193,1.2375,30.879,0.19584],[194,1.2504,30.8902,0.19601],[195,1.2632,30.9016,0.19618],[196,1.276,30.9132,0.19636],[197,1.2887,30.925,0.19654],[198,1.3013,30.937,0.19672],[199,1.3139,30.9492,0.19691],[200,1.3264,30.9617,0.1971],[201,1.339,30.9744,0.1973],[202,1.3515,30.9873,0.1975],[203,1.364,31.0005,0.1977],[204,1.3765,31.0139,0.1979],[205,1.389,31.0276,0.19811],[206,1.4015,31.0415,0.19832],[207,1.414,31.0556,0.19853],[208,1.4265,31.07,0.19874],[209,1.439,31.0847,0.19895],[210,1.4515,31.0996,0.19916],[211,1.464,31.1148,0.19937],[212,1.4766,31.1302,0.19959],[213,1.4891,31.1459,0.1998],[214,1.5017,31.1618,0.20002],[215,1.5143,31.178,0.20023],[216,1.5269,31.1944,0.20045],[217,1.5395,31.2111,0.20066],[218,1.5521,31.2281,0.20088],[219,1.5648,31.2453,0.20109],[220,1.5775,31.2628,0.2013],[221,1.5901,31.2806,0.20152],[222,1.6028,31.2986,0.20173],[223,1.6156,31.3169,0.20194],[224,1.6283,31.3355,0.20215],[225,1.641,31.3543,0.20236],[226,1.6538,31.3734,0.20257],[227,1.6665,31.3928,0.20278],[228,1.6793,31.4124,0.20299]],
+        bmi_girls_5_19: [[61,0.4249,15.098,0.13354],[62,0.4257,15.1954,0.13491],[63,0.4265,15.2963,0.13629],[64,0.4273,15.4008,0.13768],[65,0.4281,15.509,0.13909],[66,0.4288,15.621,0.14051],[67,0.4295,15.7369,0.14194],[68,0.4302,15.8567,0.14338],[69,0.4308,15.9806,0.14483],[70,0.4313,16.1085,0.14629],[71,0.4318,16.2404,0.14776],[72,0.4322,16.3764,0.14924],[73,0.4325,16.5164,0.15073],[74,0.4326,16.6604,0.15222],[75,0.4327,16.8084,0.15372],[76,0.4326,16.9604,0.15522],[77,0.4323,17.1164,0.15672],[78,0.4319,17.2762,0.15823],[79,0.4313,17.4399,0.15974],[80,0.4305,17.6074,0.16125],[81,0.4295,17.7786,0.16276],[82,0.4282,17.9534,0.16427],[83,0.4267,18.1319,0.16577],[84,0.4249,18.3139,0.16728],[85,0.4228,18.4993,0.16878],[86,0.4204,18.6881,0.17027],[87,0.4177,18.8803,0.17176],[88,0.4147,19.0758,0.17324],[89,0.4113,19.2744,0.17471],[90,0.4076,19.4763,0.17618],[91,0.4035,19.6812,0.17763],[92,0.399,19.8893,0.17908],[93,0.3941,20.1003,0.18051],[94,0.3889,20.3143,0.18194],[95,0.3833,20.5312,0.18335],[96,0.3773,20.7509,0.18475],[97,0.3709,20.9733,0.18613],[98,0.3641,21.1983,0.1875],[99,0.3569,21.4258,0.18885],[100,0.3494,21.6557,0.19019],[101,0.3415,21.8879,0.19151],[102,0.3333,22.1224,0.19281],[103,0.3248,22.3591,0.19409],[104,0.316,22.5979,0.19535],[105,0.3069,22.8388,0.1966],[106,0.2975,23.0818,0.19782],[107,0.288,23.3269,0.19903],[108,0.2782,23.5742,0.20021],[109,0.2683,23.8237,0.20137],[110,0.2582,24.0756,0.20251],[111,0.248,24.3299,0.20362],[112,0.2377,24.5868,0.20472],[113,0.2274,24.8464,0.20579],[114,0.2171,25.1088,0.20683],[115,0.2068,25.3741,0.20786],[116,0.1967,25.6422,0.20886],[117,0.1868,25.9131,0.20984],[118,0.1771,26.1867,0.21079],[119,0.1678,26.4629,0.21172],[120,0.1589,26.7414,0.21263],[121,0.1505,27.0219,0.21351],[122,0.1427,27.304,0.21437],[123,0.1355,27.5873,0.21521],[124,0.129,27.8712,0.21602],[125,0.1232,28.155,0.21681],[126,0.1182,28.438,0.21757],[127,0.114,28.7195,0.2183],[128,0.1107,28.9987,0.219],[129,0.1083,29.2748,0.21968],[130,0.1068,29.5471,0.22032],[131,0.1062,29.8148,0.22094],[132,0.1065,30.0772,0.22152],[133,0.1077,30.3338,0.22208],[134,0.1098,30.5839,0.2226],[135,0.1128,30.827,0.22309],[136,0.1168,31.0628,0.22356],[137,0.1217,31.2908,0.22399],[138,0.1275,31.5107,0.22439],[139,0.1343,31.7223,0.22476],[140,0.142,31.9252,0.2251],[141,0.1507,32.1193,0.22541],[142,0.1603,32.3045,0.22568],[143,0.1709,32.4808,0.22593],[144,0.1824,32.6481,0.22615],[145,0.1949,32.8065,0.22633],[146,0.2083,32.956,0.22649],[147,0.2226,33.0967,0.22661],[148,0.2379,33.2286,0.22671],[149,0.254,33.3519,0.22678],[150,0.271,33.4668,0.22682],[151,0.2888,33.5733,0.22683],[152,0.3075,33.6716,0.22682],[153,0.3269,33.762,0.22679],[154,0.3471,33.8447,0.22673],[155,0.368,33.9198,0.22665],[156,0.3895,33.9877,0.22656],[157,0.4116,34.0487,0.22644],[158,0.4343,34.1031,0.22631],[159,0.4575,34.1513,0.22617],[160,0.4811,34.1936,0.22601],[161,0.5051,34.2303,0.22584],[162,0.5295,34.2618,0.22566],[163,0.5541,34.2884,0.22548],[164,0.5789,34.3105,0.22528],[165,0.6039,34.3283,0.22508],[166,0.629,34.3421,0.22488],[167,0.6541,34.3523,0.22468],[168,0.6792,34.3591,0.22447],[169,0.7043,34.3629,0.22427],[170,0.7293,34.364,0.22407],[171,0.7541,34.3626,0.22387],[172,0.7789,34.359,0.22368],[173,0.8034,34.3534,0.22349],[174,0.8278,34.346,0.22332],[175,0.852,34.3371,0.22315],[176,0.876,34.327,0.22299],[177,0.8997,34.3158,0.22285],[178,0.9233,34.3038,0.22271],[179,0.9467,34.2912,0.22259],[180,0.9698,34.2781,0.22249],[181,0.9928,34.2648,0.2224],[182,1.0156,34.2514,0.22232],[183,1.0382,34.2382,0.22226],[184,1.0607,34.2253,0.22222],[185,1.083,34.2129,0.22219],[186,1.1052,34.2011,0.22218],[187,1.1272,34.1901,0.22218],[188,1.1492,34.18,0.2222],[189,1.171,34.1709,0.22223],[190,1.1928,34.163,0.22228],[191,1.2145,34.1563,0.22234],[192,1.2361,34.151,0.22241],[193,1.2578,34.1471,0.2225],[194,1.2794,34.1447,0.22259],[195,1.301,34.1437,0.2227],[196,1.3226,34.1443,0.22282],[197,1.3443,34.1464,0.22295],[198,1.366,34.15,0.22309],[199,1.3877,34.1551,0.22324],[200,1.4094,34.1617,0.22339],[201,1.4312,34.1697,0.22356],[202,1.453,34.179,0.22373],[203,1.4749,34.1897,0.22391],[204,1.4968,34.2016,0.22409],[205,1.5188,34.2147,0.22428],[206,1.5407,34.2288,0.22448],[207,1.5627,34.244,0.22468],[208,1.5847,34.26,0.22488],[209,1.6067,34.2769,0.22509],[210,1.6287,34.2945,0.2253],[211,1.6506,34.3127,0.22552],[212,1.6726,34.3314,0.22573],[213,1.6945,34.3506,0.22595],[214,1.7164,34.3701,0.22617],[215,1.7382,34.3898,0.22639],[216,1.76,34.4098,0.22661],[217,1.7817,34.4299,0.22683],[218,1.8034,34.4501,0.22705],[219,1.825,34.4703,0.22728],[220,1.8465,34.4905,0.2275],[221,1.868,34.5107,0.22773],[222,1.8893,34.5309,0.22795],[223,1.9106,34.551,0.22817],[224,1.9318,34.571,0.2284],[225,1.9529,34.591,0.22862],[226,1.974,34.6109,0.22884],[227,1.995,34.6307,0.22906],[228,2.0159,34.6505,0.22928]]
+    };
+
+    // ── Normal CDF approximation (for percentile) ──
+    function normCDF(z) {
+        const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
+        const p = 0.3275911;
+        const sign = z < 0 ? -1 : 1;
+        z = Math.abs(z) / Math.SQRT2;
+        const t = 1 / (1 + p * z);
+        const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-z * z);
+        return 0.5 * (1 + sign * y);
+    }
+
+    // ── Z-score from LMS ──
+    function calcZScore(x, L, M, S) {
+        if (L === 0) return Math.log(x / M) / S;
+        return (Math.pow(x / M, L) - 1) / (L * S);
+    }
+
+    // ── Interpolate LMS from table ──
+    function interpolateLMS(table, target) {
+        if (target <= table[0][0]) return { L: table[0][1], M: table[0][2], S: table[0][3] };
+        for (let i = 1; i < table.length; i++) {
+            if (target <= table[i][0]) {
+                const [x0, L0, M0, S0] = table[i-1];
+                const [x1, L1, M1, S1] = table[i];
+                const t = (target - x0) / (x1 - x0);
+                return {
+                    L: L0 + t * (L1 - L0),
+                    M: M0 + t * (M1 - M0),
+                    S: S0 + t * (S1 - S0)
+                };
+            }
+        }
+        const last = table[table.length-1];
+        return { L: last[1], M: last[2], S: last[3] };
+    }
+
+    // ── Calculate exact age in months from DOB to measurement date ──
+    function calcAgeMonths(dob, dom) {
+        const diffMs = dom.getTime() - dob.getTime();
+        const totalDays = diffMs / (1000 * 60 * 60 * 24);
+        return totalDays / 30.4375;
+    }
+
+    // ── Format age for display ──
+    function formatAge(ageMonths) {
+        const years = Math.floor(ageMonths / 12);
+        const months = Math.floor(ageMonths % 12);
+        const days = Math.round((ageMonths % 1) * 30.44);
+        let parts = [];
+        if (years > 0) parts.push(`${years} yr`);
+        if (months > 0) parts.push(`${months} mo`);
+        if (days > 0 && years === 0) parts.push(`${days} d`);
+        return parts.join(' ') || '0 d';
+    }
+
+    // ── Get Z-score color class ──
+    function zColorClass(z) {
+        const abs = Math.abs(z);
+        if (abs < 1) return 'z-normal';
+        if (abs < 2) return 'z-warn';
+        if (abs < 3) return 'z-alert';
+        return 'z-danger';
+    }
+
+    // ── Position marker on Z-score bar (range -3.5 to +3.5) ──
+    function positionMarker(markerId, z, colorClass) {
+        const marker = document.getElementById(markerId);
+        const pct = Math.max(0, Math.min(100, ((z + 3.5) / 7) * 100));
+        marker.style.left = pct + '%';
+        const colors = {
+            'z-normal': 'var(--zds-accent)',
+            'z-warn': 'var(--zds-yellow)',
+            'z-alert': 'var(--zds-warning)',
+            'z-danger': 'var(--zds-error)'
+        };
+        marker.style.background = colors[colorClass] || 'var(--zds-accent)';
+    }
+
+    // ── Ordinal suffix ──
+    function ordinalSuffix(n) {
+        const i = Math.floor(Math.abs(n));
+        if (i % 100 >= 11 && i % 100 <= 13) return 'th';
+        switch (i % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    }
+
+    // ── Set percentile with correct ordinal ──
+    function setPctDisplay(spanId, pct) {
+        const display = pct < 1 ? pct.toFixed(1) : Math.round(pct);
+        document.getElementById(spanId).textContent = display;
+        const suffixEl = document.getElementById(spanId).nextElementSibling;
+        if (suffixEl) suffixEl.textContent = ordinalSuffix(display) + ' %ile';
+    }
+
+    // ── Set default measurement date to today ──
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dom').value = today;
+    });
+
+    // ── Main Growth Calculation ──
+    function calculateGrowth() {
+        const wt = parseFloat(document.getElementById('weight').value);
+        const ht = parseFloat(document.getElementById('height').value);
+        const gender = getGender();
+        const dobVal = document.getElementById('dob').value;
+        const domVal = document.getElementById('dom').value;
+        const hc = parseFloat(document.getElementById('headCirc').value);
+        let mode = document.querySelector('input[name="growthMode"]:checked').value;
+
+        if (!wt || wt <= 0) return alert('Enter weight in the Patient section above.');
+        if (!ht || ht <= 0) return alert('Enter height/length in the Patient section above.');
+        if (!gender) return alert('Select gender in the Patient section above.');
+        if (!dobVal) return alert('Enter date of birth.');
+        if (!domVal) return alert('Enter date of measurement.');
+
+        const dob = new Date(dobVal + 'T00:00:00');
+        const dom = new Date(domVal + 'T00:00:00');
+        if (dom <= dob) return alert('Measurement date must be after date of birth.');
+
+        const ageM = calcAgeMonths(dob, dom);
+        if (ageM > 228) return alert('WHO growth charts cover ages 0-19 years (0-228 months).');
+
+        const isBoy = gender === 'male';
+        const isLength = ageM < 24;
+        const is5to19 = ageM > 60;
+
+        if (is5to19 && mode === 'wfl') {
+            mode = 'bmi';
+            document.getElementById('modeBMI').checked = true;
+        }
+        document.getElementById('modeWFL').disabled = is5to19;
+        if (is5to19) {
+            document.querySelector('label[for="modeWFL"]').style.opacity = '0.4';
+        } else {
+            document.querySelector('label[for="modeWFL"]').style.opacity = '1';
+        }
+
+        const ageBanner = document.getElementById('growthAgeBanner');
+        const whoLabel = is5to19 ? 'WHO Growth Reference' : 'WHO Growth Standards';
+        ageBanner.innerHTML = `<strong>${formatAge(ageM)}</strong> (${ageM.toFixed(2)} months) · ${wt} kg · ${ht} cm · ${isBoy ? 'Male' : 'Female'} <span style="font-size:0.85em; color:var(--zds-text-faint); font-style:italic;">${whoLabel}</span>`;
+
+        // ── Weight-for-Age ──
+        const wfaCard = document.getElementById('growthWFA');
+        const wfaMarker = wfaCard.querySelector('.z-bar-marker');
+        if (ageM <= 60) {
+            const oldNote = wfaCard.querySelector('.wfa-na-note');
+            if (oldNote) oldNote.remove();
+            wfaMarker.style.display = '';
+
+            const wfaTable = isBoy ? WHO.wfa_boys : WHO.wfa_girls;
+            const wfaLMS = interpolateLMS(wfaTable, ageM);
+            const wfaZ = calcZScore(wt, wfaLMS.L, wfaLMS.M, wfaLMS.S);
+            const wfaPct = normCDF(wfaZ) * 100;
+            const wfaColor = zColorClass(wfaZ);
+
+            document.getElementById('wfaZ').textContent = (wfaZ >= 0 ? '+' : '') + wfaZ.toFixed(2) + ' SD';
+            document.getElementById('wfaZ').className = 'z-score ' + wfaColor;
+            setPctDisplay('wfaPct', wfaPct);
+            positionMarker('wfaMarker', wfaZ, wfaColor);
+            wfaCard.style.display = '';
+        } else {
+            document.getElementById('wfaZ').textContent = 'N/A';
+            document.getElementById('wfaZ').className = 'z-score';
+            document.getElementById('wfaPct').textContent = '-';
+            if (document.getElementById('wfaPct').nextElementSibling) {
+                document.getElementById('wfaPct').nextElementSibling.textContent = '';
+            }
+            wfaMarker.style.display = 'none';
+            let naNote = wfaCard.querySelector('.wfa-na-note');
+            if (!naNote) {
+                naNote = document.createElement('div');
+                naNote.className = 'wfa-na-note';
+                naNote.style.cssText = 'font-size:0.75rem; color:var(--zds-text-faint); font-style:italic; margin-top:6px; text-align:center;';
+                naNote.textContent = 'Weight-for-age not available above 5 years (WHO limitation)';
+                wfaCard.querySelector('.growth-result-card-inner, .z-bar-track, .z-bar')?.parentElement?.appendChild(naNote)
+                    || wfaCard.appendChild(naNote);
+            }
+            wfaCard.style.display = '';
+        }
+
+        // ── Length/Height-for-Age ──
+        let lhfaTable;
+        if (ageM < 24) {
+            lhfaTable = isBoy ? WHO.lfa_boys : WHO.lfa_girls;
+            document.getElementById('lhfaLabel').textContent = 'Length-for-Age';
+        } else if (ageM <= 60) {
+            lhfaTable = isBoy ? WHO.hfa_boys : WHO.hfa_girls;
+            document.getElementById('lhfaLabel').textContent = 'Height-for-Age';
+        } else {
+            lhfaTable = isBoy ? WHO.hfa_boys_5_19 : WHO.hfa_girls_5_19;
+            document.getElementById('lhfaLabel').textContent = 'Height-for-Age';
+        }
+        const lhfaLMS = interpolateLMS(lhfaTable, ageM);
+        const lhfaZ = calcZScore(ht, lhfaLMS.L, lhfaLMS.M, lhfaLMS.S);
+        const lhfaPct = normCDF(lhfaZ) * 100;
+        const lhfaColor = zColorClass(lhfaZ);
+
+        document.getElementById('lhfaZ').textContent = (lhfaZ >= 0 ? '+' : '') + lhfaZ.toFixed(2) + ' SD';
+        document.getElementById('lhfaZ').className = 'z-score ' + lhfaColor;
+        setPctDisplay('lhfaPct', lhfaPct);
+        positionMarker('lhfaMarker', lhfaZ, lhfaColor);
+
+        // ── BMI-for-Age or Weight-for-Length ──
+        let compZ, compPct;
+        if (mode === 'bmi') {
+            const bmi = wt / Math.pow(ht / 100, 2);
+            let bmiTable;
+            if (ageM <= 60) {
+                bmiTable = isBoy ? WHO.bmi_boys : WHO.bmi_girls;
+            } else {
+                bmiTable = isBoy ? WHO.bmi_boys_5_19 : WHO.bmi_girls_5_19;
+            }
+            const bmiLMS = interpolateLMS(bmiTable, ageM);
+            compZ = calcZScore(bmi, bmiLMS.L, bmiLMS.M, bmiLMS.S);
+            document.getElementById('bmiWflLabel').textContent = `BMI-for-Age (BMI: ${bmi.toFixed(1)})`;
+        } else {
+            const wflTable = isBoy ? WHO.wfl_boys : WHO.wfl_girls;
+            if (ht < 45 || ht > 110) {
+                alert('Weight-for-length covers 45-110 cm. Use BMI-for-age for larger children.');
+                return;
+            }
+            const wflLMS = interpolateLMS(wflTable, ht);
+            compZ = calcZScore(wt, wflLMS.L, wflLMS.M, wflLMS.S);
+            document.getElementById('bmiWflLabel').textContent = 'Weight-for-Length';
+        }
+        compPct = normCDF(compZ) * 100;
+        const compColor = zColorClass(compZ);
+
+        document.getElementById('bmiWflZ').textContent = (compZ >= 0 ? '+' : '') + compZ.toFixed(2) + ' SD';
+        document.getElementById('bmiWflZ').className = 'z-score ' + compColor;
+        setPctDisplay('bmiWflPct', compPct);
+        positionMarker('bmiWflMarker', compZ, compColor);
+
+        // ── Head Circumference (optional, 0-60 months only) ──
+        const hcCard = document.getElementById('growthHC');
+        if (hc && hc > 0 && ageM <= 60) {
+            const hcTable = isBoy ? WHO.hc_boys : WHO.hc_girls;
+            const hcLMS = interpolateLMS(hcTable, ageM);
+            const hcZVal = calcZScore(hc, hcLMS.L, hcLMS.M, hcLMS.S);
+            const hcPctVal = normCDF(hcZVal) * 100;
+            const hcColor = zColorClass(hcZVal);
+
+            document.getElementById('hcZ').textContent = (hcZVal >= 0 ? '+' : '') + hcZVal.toFixed(2) + ' SD';
+            document.getElementById('hcZ').className = 'z-score ' + hcColor;
+            setPctDisplay('hcPct', hcPctVal);
+            positionMarker('hcMarker', hcZVal, hcColor);
+            hcCard.style.display = '';
+        } else {
+            hcCard.style.display = 'none';
+        }
+
+        document.getElementById('growthResults').classList.add('visible');
+        document.getElementById('growthResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Reset All ──
+    function resetAll() {
+        document.getElementById('weight').value = '';
+        document.getElementById('height').value = '';
+        document.querySelectorAll('input[name="gender"]').forEach(r => r.checked = false);
+
+        document.getElementById('ageYears').value = '';
+        document.getElementById('ageMonths').value = '';
+        document.getElementById('activity').value = '';
+        document.getElementById('activity').disabled = false;
+        document.getElementById('activityNote').textContent = '';
+        document.getElementById('nutritionResults').classList.remove('visible');
+        document.querySelectorAll('.calc-details').forEach(d => d.classList.remove('visible'));
+        document.querySelectorAll('.show-work-btn').forEach(b => {
+            b.classList.remove('open');
+            const txt = b.querySelector('span');
+            if (txt) txt.textContent = 'Show calculation';
+        });
+
+        document.getElementById('dob').value = '';
+        document.getElementById('dom').value = new Date().toISOString().split('T')[0];
+        document.getElementById('headCirc').value = '';
+        document.getElementById('modeBMI').checked = true;
+        document.getElementById('growthResults').classList.remove('visible');
+        document.getElementById('growthHC').style.display = 'none';
+
+        document.getElementById('driAgeGroup').value = '';
+        document.getElementById('driOutput').innerHTML = '';
+        document.getElementById('driGenderNote').textContent = '';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ══════════════════════════════════════════
+    //  TAB 3: DRI REFERENCE TABLES
+    // ══════════════════════════════════════════
+
+    const DRI_VITAMINS = [
+        { name: 'Vitamin A',         unit: 'µg RAE',  vals: {'0-6mo':400,'7-12mo':500,'1-3y':300,'4-8y':400,'9-13y':600,'14-18y':[900,700]},         ai: {'0-6mo':true,'7-12mo':true}, ul: {'0-6mo':600,'7-12mo':600,'1-3y':600,'4-8y':900,'9-13y':1700,'14-18y':2800} },
+        { name: 'Vitamin C',         unit: 'mg',       vals: {'0-6mo':40,'7-12mo':50,'1-3y':15,'4-8y':25,'9-13y':45,'14-18y':[75,65]},                ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':400,'4-8y':650,'9-13y':1200,'14-18y':1800} },
+        { name: 'Vitamin D',         unit: 'µg',       vals: {'0-6mo':10,'7-12mo':10,'1-3y':15,'4-8y':15,'9-13y':15,'14-18y':15},                      ai: {'0-6mo':true,'7-12mo':true}, ul: {'0-6mo':25,'7-12mo':38,'1-3y':63,'4-8y':75,'9-13y':100,'14-18y':100} },
+        { name: 'Vitamin E',         unit: 'mg',       vals: {'0-6mo':4,'7-12mo':5,'1-3y':6,'4-8y':7,'9-13y':11,'14-18y':15},                          ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':200,'4-8y':300,'9-13y':600,'14-18y':800} },
+        { name: 'Vitamin K',         unit: 'µg',       vals: {'0-6mo':2.0,'7-12mo':2.5,'1-3y':30,'4-8y':55,'9-13y':60,'14-18y':75},                    ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true} },
+        { name: 'Thiamin (B1)',      unit: 'mg',       vals: {'0-6mo':0.2,'7-12mo':0.3,'1-3y':0.5,'4-8y':0.6,'9-13y':0.9,'14-18y':[1.2,1.0]},        ai: {'0-6mo':true,'7-12mo':true} },
+        { name: 'Riboflavin (B2)',   unit: 'mg',       vals: {'0-6mo':0.3,'7-12mo':0.4,'1-3y':0.5,'4-8y':0.6,'9-13y':0.9,'14-18y':[1.3,1.0]},        ai: {'0-6mo':true,'7-12mo':true} },
+        { name: 'Niacin (B3)',       unit: 'mg NE',    vals: {'0-6mo':2,'7-12mo':4,'1-3y':6,'4-8y':8,'9-13y':12,'14-18y':[16,14]},                     ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':10,'4-8y':15,'9-13y':20,'14-18y':30} },
+        { name: 'Vitamin B6',        unit: 'mg',       vals: {'0-6mo':0.1,'7-12mo':0.3,'1-3y':0.5,'4-8y':0.6,'9-13y':1.0,'14-18y':[1.3,1.2]},        ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':30,'4-8y':40,'9-13y':60,'14-18y':80} },
+        { name: 'Folate',            unit: 'µg DFE',   vals: {'0-6mo':65,'7-12mo':80,'1-3y':150,'4-8y':200,'9-13y':300,'14-18y':400},                  ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':300,'4-8y':400,'9-13y':600,'14-18y':800} },
+        { name: 'Vitamin B12',       unit: 'µg',       vals: {'0-6mo':0.4,'7-12mo':0.5,'1-3y':0.9,'4-8y':1.2,'9-13y':1.8,'14-18y':2.4},              ai: {'0-6mo':true,'7-12mo':true} },
+        { name: 'Pantothenic Acid',  unit: 'mg',       vals: {'0-6mo':1.7,'7-12mo':1.8,'1-3y':2,'4-8y':3,'9-13y':4,'14-18y':5},                       ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true} },
+        { name: 'Biotin',            unit: 'µg',       vals: {'0-6mo':5,'7-12mo':6,'1-3y':8,'4-8y':12,'9-13y':20,'14-18y':25},                         ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true} },
+        { name: 'Choline',           unit: 'mg',       vals: {'0-6mo':125,'7-12mo':150,'1-3y':200,'4-8y':250,'9-13y':375,'14-18y':[550,400]},          ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true}, ul: {'1-3y':1000,'4-8y':1000,'9-13y':2000,'14-18y':3000} },
+    ];
+
+    const DRI_MINERALS = [
+        { name: 'Calcium',     unit: 'mg',  vals: {'0-6mo':200,'7-12mo':260,'1-3y':700,'4-8y':1000,'9-13y':1300,'14-18y':1300},                  ai: {'0-6mo':true,'7-12mo':true}, ul: {'0-6mo':1000,'7-12mo':1500,'1-3y':2500,'4-8y':2500,'9-13y':3000,'14-18y':3000} },
+        { name: 'Iron',        unit: 'mg',  vals: {'0-6mo':0.27,'7-12mo':11,'1-3y':7,'4-8y':10,'9-13y':8,'14-18y':[11,15]},                      ai: {'0-6mo':true}, ul: {'0-6mo':40,'7-12mo':40,'1-3y':40,'4-8y':40,'9-13y':40,'14-18y':45} },
+        { name: 'Zinc',        unit: 'mg',  vals: {'0-6mo':2,'7-12mo':3,'1-3y':3,'4-8y':5,'9-13y':8,'14-18y':[11,9]},                            ai: {'0-6mo':true}, ul: {'0-6mo':4,'7-12mo':5,'1-3y':7,'4-8y':12,'9-13y':23,'14-18y':34} },
+        { name: 'Phosphorus',  unit: 'mg',  vals: {'0-6mo':100,'7-12mo':275,'1-3y':460,'4-8y':500,'9-13y':1250,'14-18y':1250},                   ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':3000,'4-8y':3000,'9-13y':4000,'14-18y':4000} },
+        { name: 'Magnesium',   unit: 'mg',  vals: {'0-6mo':30,'7-12mo':75,'1-3y':80,'4-8y':130,'9-13y':240,'14-18y':[410,360]},                  ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':65,'4-8y':110,'9-13y':350,'14-18y':350} },
+        { name: 'Iodine',      unit: 'µg',  vals: {'0-6mo':110,'7-12mo':130,'1-3y':90,'4-8y':90,'9-13y':120,'14-18y':150},                       ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':200,'4-8y':300,'9-13y':600,'14-18y':900} },
+        { name: 'Selenium',    unit: 'µg',  vals: {'0-6mo':15,'7-12mo':20,'1-3y':20,'4-8y':30,'9-13y':40,'14-18y':55},                           ai: {'0-6mo':true,'7-12mo':true}, ul: {'0-6mo':45,'7-12mo':60,'1-3y':90,'4-8y':150,'9-13y':280,'14-18y':400} },
+        { name: 'Copper',      unit: 'µg',  vals: {'0-6mo':200,'7-12mo':220,'1-3y':340,'4-8y':440,'9-13y':700,'14-18y':890},                     ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':1000,'4-8y':3000,'9-13y':5000,'14-18y':8000} },
+        { name: 'Manganese',   unit: 'mg',  vals: {'0-6mo':0.003,'7-12mo':0.6,'1-3y':1.2,'4-8y':1.5,'9-13y':1.9,'14-18y':[2.2,1.6]},            ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true}, ul: {'1-3y':2,'4-8y':3,'9-13y':6,'14-18y':9} },
+        { name: 'Chromium',    unit: 'µg',  vals: {'0-6mo':0.2,'7-12mo':5.5,'1-3y':11,'4-8y':15,'9-13y':25,'14-18y':[35,24]},                    ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true} },
+        { name: 'Molybdenum',  unit: 'µg',  vals: {'0-6mo':2,'7-12mo':3,'1-3y':17,'4-8y':22,'9-13y':34,'14-18y':43},                             ai: {'0-6mo':true,'7-12mo':true}, ul: {'1-3y':300,'4-8y':600,'9-13y':1100,'14-18y':1700} },
+        { name: 'Fluoride',    unit: 'mg',  vals: {'0-6mo':0.01,'7-12mo':0.5,'1-3y':0.7,'4-8y':1,'9-13y':2,'14-18y':3},                          ai: {'0-6mo':true,'7-12mo':true,'1-3y':true,'4-8y':true,'9-13y':true,'14-18y':true}, ul: {'0-6mo':0.7,'7-12mo':0.9,'1-3y':1.3,'4-8y':2.2,'9-13y':10,'14-18y':10} },
+    ];
+
+    function renderDRI() {
+        const ageGroup = document.getElementById('driAgeGroup').value;
+        const gender = getGender();
+        const output = document.getElementById('driOutput');
+        const note = document.getElementById('driGenderNote');
+
+        if (!ageGroup) {
+            output.innerHTML = '';
+            note.textContent = '';
+            return;
+        }
+
+        const needsGender = (ageGroup === '9-13y' || ageGroup === '14-18y');
+        if (needsGender && !gender) {
+            note.textContent = 'Select gender above for age-specific values.';
+            output.innerHTML = '';
+            return;
+        }
+        note.textContent = '';
+
+        const isMale = gender === 'male';
+        const genderIdx = isMale ? 0 : 1;
+        const labels = {'0-6mo':'0 - 6 months','7-12mo':'7 - 12 months','1-3y':'1 - 3 years','4-8y':'4 - 8 years','9-13y':'9 - 13 years','14-18y':'14 - 18 years'};
+        const gLabel = needsGender ? (isMale ? ' · Male' : ' · Female') : '';
+
+        function getVal(item, ageGroup) {
+            const raw = item.vals[ageGroup];
+            if (Array.isArray(raw)) return raw[genderIdx];
+            return raw;
+        }
+
+        function fmtVal(v) {
+            if (v === undefined || v === null) return '-';
+            if (v >= 1000) return v.toLocaleString();
+            if (v < 0.01) return v.toString();
+            if (v < 1 && v !== 0) return v.toString();
+            if (Number.isInteger(v)) return v.toString();
+            return v.toString();
+        }
+
+        function isAI(item, ageGroup) {
+            return item.ai && item.ai[ageGroup];
+        }
+
+        function renderSection(title, items, isFirst) {
+            let html = `<div class="dri-section-label${isFirst ? ' first' : ''}">${title}</div>`;
+            for (const item of items) {
+                const val = getVal(item, ageGroup);
+                const ai = isAI(item, ageGroup);
+                const ulVal = item.ul ? item.ul[ageGroup] : null;
+                html += `<div class="dri-row">
+                    <div class="dri-name">${item.name} <span class="dri-unit">${item.unit}</span></div>
+                    <div class="dri-rda${ai ? ' dri-ai' : ''}">${fmtVal(val)}${ai ? '*' : ''}</div>
+                    <div class="dri-ul">${ulVal ? fmtVal(ulVal) : '-'}</div>
+                </div>`;
+            }
+            return html;
+        }
+
+        let html = `<div class="card" style="animation: fadeIn var(--zds-duration-normal) var(--zds-ease-out);">`;
+        html += `<div class="dri-age-badge"><strong>${labels[ageGroup]}</strong>${gLabel}</div>`;
+        html += `<div class="dri-header">
+            <span style="flex:1;">Nutrient</span>
+            <span class="dri-h-rda">RDA/AI</span>
+            <span class="dri-h-ul">UL</span>
+        </div>`;
+        html += renderSection('Vitamins', DRI_VITAMINS, true);
+        html += renderSection('Minerals', DRI_MINERALS, false);
+        html += `<div class="dri-legend">
+            <span><span class="dri-legend-dot rda"></span>RDA</span>
+            <span><span class="dri-legend-dot ai"></span>AI*</span>
+            <span style="margin-left: auto; font-style: italic;">UL = upper limit</span>
+        </div>`;
+        html += `</div>`;
+        output.innerHTML = html;
+    }
+
+    // Auto-select DRI age group when gender changes
+    document.querySelectorAll('input[name="gender"]').forEach(r => {
+        r.addEventListener('change', () => {
+            if (document.getElementById('driAgeGroup').value) renderDRI();
+        });
+    });
+
+    </script>
+</body>
+</html>
