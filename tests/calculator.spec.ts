@@ -279,8 +279,9 @@ test('phone date controls remain separate and keep entered dates when resized an
   await page.getByRole('button', { name: 'Use dates', exact: true }).click();
   await page.locator('#dob').fill('2019-12-31');
   await page.locator('#measurement-date').fill('2026-02-11');
-  for (const width of [320, 360, 390, 430]) {
-    await page.setViewportSize({ width, height: 720 });
+  // Rotate through portrait/landscape and both responsive boundaries.
+  for (const [width, height] of [[320, 720], [360, 720], [390, 844], [844, 390], [430, 932], [932, 430], [767, 430], [768, 430], [1023, 430], [1024, 430], [390, 844]]) {
+    await page.setViewportSize({ width, height });
     for (const id of ['dob', 'measurement-date']) {
       const field = page.locator(`#${id}`);
       await field.focus();
@@ -299,7 +300,8 @@ test('phone date controls remain separate and keep entered dates when resized an
     }
     const birth = (await page.locator('#dob').boundingBox())!;
     const measurement = (await page.locator('#measurement-date').boundingBox())!;
-    expect(birth.y + birth.height).toBeLessThanOrEqual(measurement.y);
+    const gap = width < 768 ? measurement.y - (birth.y + birth.height) : measurement.x - (birth.x + birth.width);
+    expect(gap).toBeGreaterThanOrEqual(16);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await expect(page.locator('#dob')).toHaveValue('2019-12-31');
     await expect(page.locator('#measurement-date')).toHaveValue('2026-02-11');
