@@ -1,0 +1,3449 @@
+{
+  "retrievedAt": "2026-09-05T23:26:41.450269+00:00",
+  "groupOrder": [
+    "infant-young",
+    "infant-older",
+    "child-1-3",
+    "child-4-8",
+    "male-9-13",
+    "male-14-18",
+    "female-9-13",
+    "female-14-18"
+  ],
+  "sources": [
+    {
+      "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-vitamins.html",
+      "sha256": "951ac2a75130b1df66ca515cde2abafc722f16c459c4da75d445879b2db0135d",
+      "tables": [
+        {
+          "id": "tbl1",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0–6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": true
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,333",
+                "ai": true
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": true
+              },
+              {
+                "text": "25",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": true
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2.0",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7–12 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "500",
+                "ai": true
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,667",
+                "ai": true
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": true
+              },
+              {
+                "text": "38",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": true
+              },
+              {
+                "text": "1,500",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2.5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1–3 y",
+                "ai": false
+              },
+              {
+                "text": "210",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "700",
+                "ai": false
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "63",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "2,500",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4–8 y",
+                "ai": false
+              },
+              {
+                "text": "275",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "900",
+                "ai": false
+              },
+              {
+                "text": "917",
+                "ai": false
+              },
+              {
+                "text": "1,333",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "75",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "7",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "55",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "445",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "1,700",
+                "ai": false
+              },
+              {
+                "text": "1,483",
+                "ai": false
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              },
+              {
+                "text": "5,667",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "100",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "60",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "630",
+                "ai": false
+              },
+              {
+                "text": "900",
+                "ai": false
+              },
+              {
+                "text": "2,800",
+                "ai": false
+              },
+              {
+                "text": "2,100",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "9,333",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "100",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": false
+              },
+              {
+                "text": "75",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "420",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "1,700",
+                "ai": false
+              },
+              {
+                "text": "1,400",
+                "ai": false
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              },
+              {
+                "text": "5,667",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "100",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "60",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "485",
+                "ai": false
+              },
+              {
+                "text": "700",
+                "ai": false
+              },
+              {
+                "text": "2,800",
+                "ai": false
+              },
+              {
+                "text": "1,617",
+                "ai": false
+              },
+              {
+                "text": "2,333",
+                "ai": false
+              },
+              {
+                "text": "9,333",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "100",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": false
+              },
+              {
+                "text": "75",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "tbl2",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0–6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.2",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.3",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.1",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7–12 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "50",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.3",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.3",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1–3 y",
+                "ai": false
+              },
+              {
+                "text": "13",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "0.4",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.4",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "0.4",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4–8 y",
+                "ai": false
+              },
+              {
+                "text": "22",
+                "ai": false
+              },
+              {
+                "text": "25",
+                "ai": false
+              },
+              {
+                "text": "650",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "39",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "1,200",
+                "ai": false
+              },
+              {
+                "text": "0.7",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.8",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": false
+              },
+              {
+                "text": "0.8",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "60",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "63",
+                "ai": false
+              },
+              {
+                "text": "75",
+                "ai": false
+              },
+              {
+                "text": "1,800",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "1.2",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1.1",
+                "ai": false
+              },
+              {
+                "text": "1.3",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "16",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": false
+              },
+              {
+                "text": "1.1",
+                "ai": false
+              },
+              {
+                "text": "1.3",
+                "ai": false
+              },
+              {
+                "text": "80",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "39",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "1,200",
+                "ai": false
+              },
+              {
+                "text": "0.7",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.8",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": false
+              },
+              {
+                "text": "0.8",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "60",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "56",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": false
+              },
+              {
+                "text": "1,800",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "14",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "1.2",
+                "ai": false
+              },
+              {
+                "text": "80",
+                "ai": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "tbl3",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0–6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1.7",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "125",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7–12 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "80",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1.8",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "150",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1–3 y",
+                "ai": false
+              },
+              {
+                "text": "120",
+                "ai": false
+              },
+              {
+                "text": "150",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "0.7",
+                "ai": false
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": true
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4–8 y",
+                "ai": false
+              },
+              {
+                "text": "160",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "1.0",
+                "ai": false
+              },
+              {
+                "text": "1.2",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "250",
+                "ai": true
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "250",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "1.5",
+                "ai": false
+              },
+              {
+                "text": "1.8",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "375",
+                "ai": true
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "330",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": false
+              },
+              {
+                "text": "2.0",
+                "ai": false
+              },
+              {
+                "text": "2.4",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "25",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "550",
+                "ai": true
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9–13 y",
+                "ai": false
+              },
+              {
+                "text": "250",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "1.5",
+                "ai": false
+              },
+              {
+                "text": "1.8",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "4",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "375",
+                "ai": true
+              },
+              {
+                "text": "2,000",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14–18 y",
+                "ai": false
+              },
+              {
+                "text": "330",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": false
+              },
+              {
+                "text": "2.0",
+                "ai": false
+              },
+              {
+                "text": "2.4",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "25",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": true
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-elements.html",
+      "sha256": "a7f82fa4ca230a371c249c72c426ec8d9ce466b510caaaba2a9162d2dd1f8700",
+      "tables": [
+        {
+          "id": "tbl1",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0-6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": true
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              },
+              {
+                "text": "0.2",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.01",
+                "ai": true
+              },
+              {
+                "text": "0.7",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "110",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7-12 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "260",
+                "ai": true
+              },
+              {
+                "text": "1,500",
+                "ai": false
+              },
+              {
+                "text": "5.5",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "220",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.5",
+                "ai": true
+              },
+              {
+                "text": "0.9",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "130",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1-3 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": false
+              },
+              {
+                "text": "500",
+                "ai": false
+              },
+              {
+                "text": "700",
+                "ai": false
+              },
+              {
+                "text": "2,500",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "260",
+                "ai": false
+              },
+              {
+                "text": "340",
+                "ai": false
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              },
+              {
+                "text": "0.7",
+                "ai": true
+              },
+              {
+                "text": "1.3",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": false
+              },
+              {
+                "text": "90",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4-8 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": false
+              },
+              {
+                "text": "1,000",
+                "ai": false
+              },
+              {
+                "text": "2,500",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "340",
+                "ai": false
+              },
+              {
+                "text": "440",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "1",
+                "ai": true
+              },
+              {
+                "text": "2.2",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": false
+              },
+              {
+                "text": "90",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "1,300",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "25",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "540",
+                "ai": false
+              },
+              {
+                "text": "700",
+                "ai": false
+              },
+              {
+                "text": "5,000",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "73",
+                "ai": false
+              },
+              {
+                "text": "120",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "17",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "1,300",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "35",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "685",
+                "ai": false
+              },
+              {
+                "text": "890",
+                "ai": false
+              },
+              {
+                "text": "8,000",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": true
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "95",
+                "ai": false
+              },
+              {
+                "text": "150",
+                "ai": false
+              },
+              {
+                "text": "900",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "1,300",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "21",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "540",
+                "ai": false
+              },
+              {
+                "text": "700",
+                "ai": false
+              },
+              {
+                "text": "5,000",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "73",
+                "ai": false
+              },
+              {
+                "text": "120",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "17",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "1,300",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              },
+              {
+                "text": "24",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "685",
+                "ai": false
+              },
+              {
+                "text": "890",
+                "ai": false
+              },
+              {
+                "text": "8,000",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": true
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "95",
+                "ai": false
+              },
+              {
+                "text": "150",
+                "ai": false
+              },
+              {
+                "text": "900",
+                "ai": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "tbl2",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0-6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.27",
+                "ai": true
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.003",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "100",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7-12 mo",
+                "ai": false
+              },
+              {
+                "text": "6.9",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "75",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "275",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1-3 y",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": false
+              },
+              {
+                "text": "7",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": false
+              },
+              {
+                "text": "80",
+                "ai": false
+              },
+              {
+                "text": "65",
+                "ai": false
+              },
+              {
+                "text": "1.2",
+                "ai": true
+              },
+              {
+                "text": "2",
+                "ai": false
+              },
+              {
+                "text": "13",
+                "ai": false
+              },
+              {
+                "text": "17",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.2",
+                "ai": false
+              },
+              {
+                "text": "380",
+                "ai": false
+              },
+              {
+                "text": "460",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4-8 y",
+                "ai": false
+              },
+              {
+                "text": "4.1",
+                "ai": false
+              },
+              {
+                "text": "10",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "110",
+                "ai": false
+              },
+              {
+                "text": "130",
+                "ai": false
+              },
+              {
+                "text": "110",
+                "ai": false
+              },
+              {
+                "text": "1.5",
+                "ai": true
+              },
+              {
+                "text": "3",
+                "ai": false
+              },
+              {
+                "text": "17",
+                "ai": false
+              },
+              {
+                "text": "22",
+                "ai": false
+              },
+              {
+                "text": "600",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.3",
+                "ai": false
+              },
+              {
+                "text": "405",
+                "ai": false
+              },
+              {
+                "text": "500",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "5.9",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": false
+              },
+              {
+                "text": "240",
+                "ai": false
+              },
+              {
+                "text": "350",
+                "ai": false
+              },
+              {
+                "text": "1.9",
+                "ai": true
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "26",
+                "ai": false
+              },
+              {
+                "text": "34",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": false
+              },
+              {
+                "text": "1,055",
+                "ai": false
+              },
+              {
+                "text": "1,250",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "7.7",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "340",
+                "ai": false
+              },
+              {
+                "text": "410",
+                "ai": false
+              },
+              {
+                "text": "350",
+                "ai": false
+              },
+              {
+                "text": "2.2",
+                "ai": true
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "33",
+                "ai": false
+              },
+              {
+                "text": "43",
+                "ai": false
+              },
+              {
+                "text": "1,700",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1",
+                "ai": false
+              },
+              {
+                "text": "1,055",
+                "ai": false
+              },
+              {
+                "text": "1,250",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "5.7",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "200",
+                "ai": false
+              },
+              {
+                "text": "240",
+                "ai": false
+              },
+              {
+                "text": "350",
+                "ai": false
+              },
+              {
+                "text": "1.6",
+                "ai": true
+              },
+              {
+                "text": "6",
+                "ai": false
+              },
+              {
+                "text": "26",
+                "ai": false
+              },
+              {
+                "text": "34",
+                "ai": false
+              },
+              {
+                "text": "1,100",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "0.6",
+                "ai": false
+              },
+              {
+                "text": "1,055",
+                "ai": false
+              },
+              {
+                "text": "1,250",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "7.9",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "300",
+                "ai": false
+              },
+              {
+                "text": "360",
+                "ai": false
+              },
+              {
+                "text": "350",
+                "ai": false
+              },
+              {
+                "text": "1.6",
+                "ai": true
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "33",
+                "ai": false
+              },
+              {
+                "text": "43",
+                "ai": false
+              },
+              {
+                "text": "1,700",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1",
+                "ai": false
+              },
+              {
+                "text": "1,055",
+                "ai": false
+              },
+              {
+                "text": "1,250",
+                "ai": false
+              },
+              {
+                "text": "4,000",
+                "ai": false
+              }
+            ]
+          }
+        },
+        {
+          "id": "tbl3",
+          "rows": {
+            "infant-young": [
+              {
+                "text": "0-6 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "15",
+                "ai": true
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2",
+                "ai": true
+              },
+              {
+                "text": "4",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "110",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "180",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "infant-older": [
+              {
+                "text": "7-12 mo",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": true
+              },
+              {
+                "text": "60",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2.5",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": false
+              },
+              {
+                "text": "860",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "370",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "570",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-1-3": [
+              {
+                "text": "1-3 y",
+                "ai": false
+              },
+              {
+                "text": "17",
+                "ai": false
+              },
+              {
+                "text": "20",
+                "ai": false
+              },
+              {
+                "text": "90",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2.5",
+                "ai": false
+              },
+              {
+                "text": "3",
+                "ai": false
+              },
+              {
+                "text": "7",
+                "ai": false
+              },
+              {
+                "text": "2,000",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "800",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,200",
+                "ai": false
+              },
+              {
+                "text": "1,500",
+                "ai": true
+              },
+              {
+                "text": "2,300",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "child-4-8": [
+              {
+                "text": "4-8 y",
+                "ai": false
+              },
+              {
+                "text": "23",
+                "ai": false
+              },
+              {
+                "text": "30",
+                "ai": false
+              },
+              {
+                "text": "150",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "4",
+                "ai": false
+              },
+              {
+                "text": "5",
+                "ai": false
+              },
+              {
+                "text": "12",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,000",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,500",
+                "ai": false
+              },
+              {
+                "text": "1,900",
+                "ai": true
+              },
+              {
+                "text": "2,900",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "male-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "35",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "280",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "7",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": false
+              },
+              {
+                "text": "23",
+                "ai": false
+              },
+              {
+                "text": "2,500",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,200",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,800",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "3,400",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "male-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "55",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "8.5",
+                "ai": false
+              },
+              {
+                "text": "11",
+                "ai": false
+              },
+              {
+                "text": "34",
+                "ai": false
+              },
+              {
+                "text": "3,000",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,500",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "3,600",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "female-9-13": [
+              {
+                "text": "9-13 y",
+                "ai": false
+              },
+              {
+                "text": "35",
+                "ai": false
+              },
+              {
+                "text": "40",
+                "ai": false
+              },
+              {
+                "text": "280",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "7",
+                "ai": false
+              },
+              {
+                "text": "8",
+                "ai": false
+              },
+              {
+                "text": "23",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,200",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,800",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "3,400",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ],
+            "female-14-18": [
+              {
+                "text": "14-18 y",
+                "ai": false
+              },
+              {
+                "text": "45",
+                "ai": false
+              },
+              {
+                "text": "55",
+                "ai": false
+              },
+              {
+                "text": "400",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "7.3",
+                "ai": false
+              },
+              {
+                "text": "9",
+                "ai": false
+              },
+              {
+                "text": "34",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "1,500",
+                "ai": true
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": false
+              },
+              {
+                "text": "2,300",
+                "ai": true
+              },
+              {
+                "text": "3,600",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              },
+              {
+                "text": "ND",
+                "ai": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
