@@ -102,4 +102,4 @@ The chart plots the present measurement against the same sex, age and reference 
 
 No prematurity correction, preterm growth reference, longitudinal patient record or clinical diagnosis is inferred. Exact chronological age is explicit. There is no patient-data persistence in this module.
 
-The remaining clinical review is a comparison with Crystal's actual discrepant AnthroCalc cases, including its version, selected growth reference, date inputs, posture, any age correction and displayed units. Automated numerical agreement is strong evidence for the implemented WHO methods; it does not substitute for that workflow check.
+Crystal's supplied fifth-birthday comparison is documented above, and Pat subsequently reported that Crystal says the app is working well and accepted this phase as settled. AnthroCalc's exact internal method remains unconfirmed. Any future discrepancy should record its version, selected reference, dates, posture, age correction and units before changing a verified calculation. Automated numerical agreement establishes the stated WHO reference checks, not agreement with every clinical workflow.

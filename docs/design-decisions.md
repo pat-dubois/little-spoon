@@ -28,8 +28,8 @@ Growth charts plot source curves and the entered measurement. A dotted curve fol
 
 ## Responsive and accessible behavior
 
-The desktop measurement tray uses four columns and becomes two on phones. Date fields and multi-column analysis sections become a single column below 768px. Controls are at least 44px high. Chart labels and table headings remain readable, and wide reference tables scroll inside their own region. Focus rings, error messages and selected tabs remain visible in both themes. All color-coded chart distinctions have text labels or line-pattern equivalents.
+The desktop measurement tray uses four columns. On phones, weight and height share a row while sex and age have room below. Date fields and multi-column analysis sections become a single column below 768px. Controls are at least 44px high. Nutrient references use stacked phone cards with complete daily and upper-limit units; desktop and print retain the semantic table. Focus rings, error messages and selected tabs remain visible in both themes. All color-coded chart distinctions have text labels or line-pattern equivalents.
 
 ## Verification
 
-Implementation and browser verification are recorded by the coordinating agent in NEXT.md. Clinical source research and test evidence belong in the clinical documentation, not in promotional interface claims.
+Current project state and work are recorded in [Pulse](../pulse.html). Browser verification is recorded in [the verification report](verification.md). Clinical source research and test evidence belong in the clinical documentation, not in promotional interface claims.

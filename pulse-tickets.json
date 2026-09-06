@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "project": "little-spoon",
+  "generated_at": "2026-09-06T00:21:02.865Z",
+  "source": {
+    "provider": "github",
+    "project_id": "pat-dubois/little-spoon"
+  },
+  "status": "current",
+  "tickets": [
+    {
+      "closedAt": "2026-09-06T00:21:01Z",
+      "number": 4,
+      "state": "CLOSED",
+      "title": "Settle the rebuild and add the project Pulse board",
+      "url": "https://github.com/pat-dubois/little-spoon/issues/4"
+    },
+    {
+      "closedAt": "2026-09-06T00:15:12Z",
+      "number": 3,
+      "state": "CLOSED",
+      "title": "Add vitamin A and D dual units and verify growth display precision",
+      "url": "https://github.com/pat-dubois/little-spoon/issues/3"
+    },
+    {
+      "closedAt": "2026-09-06T00:14:33Z",
+      "number": 1,
+      "state": "CLOSED",
+      "title": "Rebuild clinical calculators with verified sources and tests",
+      "url": "https://github.com/pat-dubois/little-spoon/issues/1"
+    }
+  ],
+  "pull_requests": [
+    {
+      "closedAt": "2026-09-06T00:14:32Z",
+      "mergedAt": "2026-09-06T00:14:32Z",
+      "number": 2,
+      "state": "MERGED",
+      "title": "Rebuild Little Spoon with verified clinical calculations and offline support",
+      "url": "https://github.com/pat-dubois/little-spoon/pull/2"
+    }
+  ]
+}

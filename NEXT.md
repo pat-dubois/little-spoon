@@ -1,4 +1,6 @@
-# Little Spoon session state
+# Little Spoon historical session state
+
+Retired as the current handoff on September 5, 2026 at Pat's request. Start with [Pulse](pulse.html) and [README](README.md). The record below is preserved as written; its changing status and temporary preview links describe earlier points in the session.
 
 Updated: 2026-09-05. Coordinating agent: tili. Host: pdhome.
 
