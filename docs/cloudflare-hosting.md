@@ -6,7 +6,7 @@ Browser HTTP Basic authentication uses username `Crystal` (case sensitive) and C
 
 ## Account and deployment
 
-Pat confirmed the connected login `pat.dubois@saskatoonmedia.ca` is his work account and explicitly authorized deploying here. Account ID: `e162d36042b08a9b53cd44f6f0435b7f`. Worker: `little-spoon`. Current version: `bc256f8d-3c7c-41b3-9f77-749646bebd13`.
+Pat confirmed the connected login `pat.dubois@saskatoonmedia.ca` is his work account and explicitly authorized deploying here. Account ID: `e162d36042b08a9b53cd44f6f0435b7f`. Worker: `little-spoon`. Current version: `874497f1-dec0-4074-9d83-cb2991dd6f69`.
 
 The login's domain queries return no zones. Personal domains likely require another login, but their ownership has not been verified. The Workers address works without them. Pat's preferred future custom address was `little-spoon.patdubois.com`, with `pat.do` also acceptable.
 
@@ -24,9 +24,13 @@ Alternatively, use `wrangler secret put PASSWORD` with the password provided dir
 
 Run `node scripts/prepare-cloudflare.mjs`, `node --test cloudflare/worker.test.mjs`, then `wrangler deploy`. The staging script includes only `dist/index.html` and `dist/little-spoon.html`; never deploy all of `dist`, which also holds the private review sheet. The existing deployment secret is retained across normal Worker deployments.
 
-Both accepted HTML files have SHA-256 `9dc3f2c1db4613231d79e180575045aafbb793466bb7ebe224a32812f3cd41f9`. The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. Calculator code, clinical references and qualifications are unchanged.
+Both accepted HTML files have SHA-256 `554b30291e4a0c7c010ec83550e0b05321908ad2894b96985be81e919f58f74f`. The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. The current app adds the visible BMI value and removes the Labs footer. Clinical equations, references, measurement controls and qualifications are unchanged.
 
 ## Verification
+
+The September 17 BMI/footer update passed all 232 calculation/input checks, the production build and 54 browser checks across desktop Chromium, Android-sized Chromium and iPhone-sized WebKit. Twelve new live HTTP checks verified authentication, excluded files and both HTML checksums. Standing/lying controls remain unchanged while Pat asks Crystal about the proposed age-based default and optional override.
+
+Original hosting verification follows:
 
 22 authentication unit checks pass. Fifteen live HTTPS checks pass across root, both HTML paths, review sheet and Pulse: no/wrong credentials return 401, valid credentials return the exact accepted HTML checksum, and excluded files return 404. The checks used the deployed temporary password without recording its value.
 

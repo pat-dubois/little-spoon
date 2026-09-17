@@ -406,6 +406,8 @@ test('fifth-birthday growth example keeps WHO daily precision through display ro
   const bmi = page.locator('.growth-metric').filter({ hasText: 'BMI for age' });
   await expect(height).toContainText('2.23');
   await expect(height).toContainText('98.7');
+  await expect(bmi.locator('.growth-bmi-value')).toHaveText('BMI 17.36 kg/m²');
+  await expect(page.locator('footer')).not.toContainText('Labs');
   await expect(bmi).toContainText('1.26');
   await expect(bmi).toContainText('89.6');
 });

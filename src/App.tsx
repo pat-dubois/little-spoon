@@ -131,7 +131,7 @@ export default function App() {
       </form>
       <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
     </main>
-    <footer className="app-footer"><div className="privacy-note"><ShieldCheckIcon size={17} weight="light" aria-hidden="true" /><span>Patient details stay on this device and clear when the page closes.</span></div><div className="footer-actions">{window.location.protocol !== 'file:' && <a href="./little-spoon.html" download><DownloadSimpleIcon size={16} aria-hidden="true" />Offline copy</a>}<span className="labs-credit">Labs</span></div></footer>
+    <footer className="app-footer"><div className="privacy-note"><ShieldCheckIcon size={17} weight="light" aria-hidden="true" /><span>Patient details stay on this device and clear when the page closes.</span></div><div className="footer-actions">{window.location.protocol !== 'file:' && <a href="./little-spoon.html" download><DownloadSimpleIcon size={16} aria-hidden="true" />Offline copy</a>}</div></footer>
     <SoftwareNotices />
   </div>
 }

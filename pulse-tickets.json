@@ -1,13 +1,20 @@
 {
   "schema_version": 1,
   "project": "little-spoon",
-  "generated_at": "2026-09-17T20:15:27.893Z",
+  "generated_at": "2026-09-17T20:25:01.801Z",
   "source": {
     "provider": "github",
     "project_id": "pat-dubois/little-spoon"
   },
   "status": "current",
   "tickets": [
+    {
+      "closedAt": null,
+      "number": 6,
+      "state": "OPEN",
+      "title": "Show BMI and simplify growth measurement controls",
+      "url": "https://github.com/pat-dubois/little-spoon/issues/6"
+    },
     {
       "closedAt": "2026-09-17T20:15:26Z",
       "number": 5,

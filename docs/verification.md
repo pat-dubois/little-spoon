@@ -77,3 +77,12 @@ The 232-test coverage run and production build passed. The full 54-browser-test 
 An independent interface agent passed 40 A/D display, source and layout cases across both engines, both themes and widths 320/360/390/430/1280px, plus 18 rounded-UL and print-media checks. No horizontal page overflow or page errors were reported. Reports and reviewed screenshots are retained in `artifacts/vitamin-units/interface-qa/`. The T3 browser independently confirmed the five-year vitamin A/D paired references and the exact-date height 2.23 / BMI percentile 89.6 displays against the local production build. Observations are retained in `artifacts/vitamin-units/t3-production-check.json`.
 
 The new growth regression follows unmodified WHO R output. No growth algorithm or reference table was changed. The height rounding comparison and the still-unconfirmed AnthroCalc BMI percentile are documented in [growth validation](growth-validation.md).
+
+
+## September 17, 2026: visible BMI and footer cleanup
+
+The Z-score BMI card now shows its existing calculated BMI value in kg/m², rounded to at most two decimal places, alongside the existing z-score and percentile. It uses the successful BMI metric result directly and does not recalculate or bypass unavailable/oedema states. The Labs footer credit and unused style were removed at Pat’s request. No clinical formula, data, or measurement-selection behavior changed.
+
+All 232 calculation/input tests, the TypeScript/production build, and all 54 browser checks passed. The fifth-birthday case now explicitly checks BMI 17.36 kg/m² and absence of Labs while retaining the established height z-score and BMI percentile assertions in all three browser projects. Browser evidence: `artifacts/e2e/2026-09-17T20-23-03-658Z/report.json`. Twelve live HTTP checks verified both deployed HTML hashes, password protection and exclusion of private artifacts.
+
+Crystal also asked about removing standing/lying choices. Pat is asking her about an age-based default with an optional override. That change is pending and was not deployed. WHO uses distinct length/height conventions and a 0.7 cm conversion when required; see the [WHO AnthroPlus manual](https://www.who.int/docs/default-source/child-growth/growth-reference-5-19-years/who-anthroplus-manual.pdf). The source review did not change existing calculations.
