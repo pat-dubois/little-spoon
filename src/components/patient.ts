@@ -21,6 +21,16 @@ export function blankPatient(): Patient {
   return { weight: '', height: '', sex: '', years: '', months: '', dateOfBirth: '', measurementDate: localToday(), ageMode: 'manual', measurementType: '' }
 }
 
+// Match the existing WHO engine's day boundary; calendar birthdays can differ.
+// Keep the inferred default out of state so edits to dates update it immediately.
+export function growthMeasurementType(patient: Patient): 'length' | 'height' | undefined {
+  if (patient.measurementType) return patient.measurementType
+  if (patient.ageMode !== 'dates' || !patient.dateOfBirth || !patient.measurementDate) return undefined
+  try {
+    return calculateAge(patient.dateOfBirth, patient.measurementDate).days < 731 ? 'length' : 'height'
+  } catch { return undefined }
+}
+
 export function readNumber(value: string): number | undefined {
   if (value.trim() === '') return undefined
   const result = Number(value)

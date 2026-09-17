@@ -175,7 +175,7 @@ test('tabs work with a keyboard', async ({ page }) => {
   await expect(nutrition).toBeFocused();
 });
 
-test('growth requires an explicit posture and oedema withholds only weight-related metrics', async ({ page }) => {
+test('growth defaults to age convention and oedema withholds only weight-related metrics', async ({ page }) => {
   await enterChild(page);
   await page.getByRole('tab', { name: /Z.score/i }).click();
   await page.locator('#dob').fill('2019-02-11');
@@ -184,9 +184,10 @@ test('growth requires an explicit posture and oedema withholds only weight-relat
   await calculate(page);
   const height = page.locator('.growth-metric').filter({ hasText: 'Height for age' });
   const weight = page.locator('.growth-metric').filter({ hasText: 'Weight for age' });
-  await expect(height).toContainText('Choose how height or length was measured');
+  await expect(page.locator('#measurement-type')).not.toBeVisible();
+  await expect(page.locator('.measurement-convention')).toContainText('Using height for this age');
+  await expect(height.getByRole('button')).toBeVisible();
   await expect(weight.getByRole('button')).toBeVisible();
-  await page.locator('#measurement-type').selectOption('height');
   await expect(height.getByRole('button')).toBeVisible();
   const originalHeight = (await height.textContent())!;
   const originalWeight = (await weight.textContent())!;
@@ -228,7 +229,6 @@ test('growth charts remain accessible in both themes without page overflow', asy
   await page.locator('#weight').fill('5');
   await page.locator('#height').fill('60');
   await page.locator('#head-circumference').fill('39');
-  await page.locator('#measurement-type').selectOption('length');
   await page.getByRole('radio', { name: 'Male', exact: true }).check();
   await calculate(page);
   for (const dark of [false, true]) {
@@ -260,7 +260,6 @@ test('downloaded HTML starts with networking blocked, calculates in all tabs, an
   await page.getByRole('tab', { name: /Z.score/i }).click();
   await page.locator('#dob').fill('2019-02-11');
   await page.locator('#measurement-date').fill('2026-02-11');
-  await page.locator('#measurement-type').selectOption('height');
   await calculate(page);
   await expect(page.getByRole('img', { name: /Weight for age growth/ })).toBeVisible();
   await page.getByText('Software licences', { exact: true }).click();
@@ -399,7 +398,6 @@ test('fifth-birthday growth example keeps WHO daily precision through display ro
   await page.locator('#measurement-date').fill('2026-09-05');
   await page.locator('#weight').fill('25');
   await page.locator('#height').fill('120');
-  await page.locator('#measurement-type').selectOption('height');
   await page.getByRole('radio', { name: 'Female', exact: true }).check();
   await calculate(page);
   const height = page.locator('.growth-metric').filter({ hasText: 'Height for age' });
@@ -410,4 +408,44 @@ test('fifth-birthday growth example keeps WHO daily precision through display ro
   await expect(page.locator('footer')).not.toContainText('Labs');
   await expect(bmi).toContainText('1.26');
   await expect(bmi).toContainText('89.6');
+});
+
+test('automatic growth convention follows date edits and optional overrides preserve corrections', async ({ page }) => {
+  await page.getByRole('tab', { name: /Z.score/i }).click();
+  await page.locator('#dob').fill('2024-01-01');
+  await page.locator('#measurement-date').fill('2025-12-31');
+  await page.locator('#weight').fill('12');
+  await page.locator('#height').fill('85');
+  await page.getByRole('radio', { name: 'Female', exact: true }).check();
+  await calculate(page);
+  await expect(page.locator('.measurement-convention')).toContainText('Using length for this age');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.61 kg/m²');
+  await page.locator('#measurement-date').fill('2026-01-01');
+  await expect(page.locator('.measurement-convention')).toContainText('Using height for this age');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.61 kg/m²');
+  const summary = page.getByText('Additional measurement information', { exact: true });
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#measurement-type')).toBeVisible();
+  await page.locator('#measurement-type').selectOption('length');
+  await expect(page.locator('.measurement-convention')).toContainText('Using length from your override');
+  await expect(page.locator('.growth-panel')).toContainText('subtract 0.7 cm');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.89 kg/m²');
+  await page.locator('#measurement-date').fill('2025-12-31');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.61 kg/m²');
+  await page.locator('#measurement-type').selectOption('height');
+  await expect(page.locator('.growth-panel')).toContainText('add 0.7 cm');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.34 kg/m²');
+  await page.locator('#measurement-type').selectOption('');
+  await expect(page.locator('.growth-bmi-value')).toHaveText('BMI 16.61 kg/m²');
+  await page.locator('#dob').fill('2025-10-01');
+  await page.locator('#measurement-type').selectOption('height');
+  await expect(page.locator('.growth-panel')).toContainText('Standing height is not appropriate below 9 months');
+  await expect(page.locator('.growth-bmi-value')).toHaveCount(0);
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
+  await page.getByRole('button', { name: 'Reset all', exact: true }).click();
+  await page.getByRole('tab', { name: /Z.score/i }).click();
+  await expect(page.locator('#measurement-type')).toHaveValue('');
+  await expect(page.locator('.measurement-convention')).toHaveCount(0);
 });

@@ -200,7 +200,10 @@
   .notice-title { font-weight: 650; margin-bottom: 4px; }
   .notice ul { padding-left: 17px; margin: 6px 0 0; line-height: 1.7; }
   .inline-button { padding: 0; text-align: left; color: var(--berry); text-decoration: underline; text-underline-offset: 3px; }
-  .growth-controls { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr) auto; gap: 22px; align-items: end; margin: 24px 0 14px; }
+  .growth-controls { display: grid; grid-template-columns: minmax(0,280px) auto; justify-content: start; gap: 22px; align-items: end; margin: 24px 0 14px; }
+  .measurement-convention { color: var(--muted); font-size: 12px; }
+  .measurement-override { max-width: 440px; margin: 10px 0 18px; }
+  .measurement-override p { font-size: 12px; line-height: 1.6; margin-top: 8px; }
   .optional { font-weight: 400; color: var(--muted); font-size: 11px; margin-left: 4px; }
   .growth-panel > .notice { margin-top: 20px; }
   .advanced-inputs { color: var(--muted); font-size: 12px; margin: 14px 0 25px; }

@@ -8,7 +8,7 @@ Design variance 3, motion intensity 2, visual density 5. Clinical legibility and
 
 ## Structure
 
-The shared patient tray precedes Nutrition, Z-score and DRI / RDA tabs. Nutrition opens first. Tabs follow the arrow-key navigation pattern; inputs have visible labels and independent validation. Age can come from entered whole years/months or exact dates. Growth requires dates and identifies the measurement convention explicitly. Results are recalculated from the current entries after the first calculation, so edited fields cannot leave old results on screen.
+The shared patient tray precedes Nutrition, Z-score and DRI / RDA tabs. Nutrition opens first. Tabs follow the arrow-key navigation pattern; inputs have visible labels and independent validation. Age can come from entered whole years/months or exact dates. Growth requires dates and displays the age-based measurement convention. Additional measurement information contains an optional override; the main form does not require a posture choice. Results are recalculated from the current entries after the first calculation, so edited fields cannot leave old results on screen.
 
 Use of sex is labeled as a property of the source reference, without inferring gender identity. No identifiers are collected. Patient entries stay only in React memory and are cleared together by Reset all. There is no patient persistence or transmission.
 

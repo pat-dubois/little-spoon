@@ -6,7 +6,7 @@ Browser HTTP Basic authentication uses username `Crystal` (case sensitive) and C
 
 ## Account and deployment
 
-Pat confirmed the connected login `pat.dubois@saskatoonmedia.ca` is his work account and explicitly authorized deploying here. Account ID: `e162d36042b08a9b53cd44f6f0435b7f`. Worker: `little-spoon`. Current version: `874497f1-dec0-4074-9d83-cb2991dd6f69`.
+Pat confirmed the connected login `pat.dubois@saskatoonmedia.ca` is his work account and explicitly authorized deploying here. Account ID: `e162d36042b08a9b53cd44f6f0435b7f`. Worker: `little-spoon`. Current version: `4898a6b5-4e84-4391-a691-3f831b14eb26`.
 
 The login's domain queries return no zones. Personal domains likely require another login, but their ownership has not been verified. The Workers address works without them. Pat's preferred future custom address was `little-spoon.patdubois.com`, with `pat.do` also acceptable.
 
@@ -24,9 +24,11 @@ Alternatively, use `wrangler secret put PASSWORD` with the password provided dir
 
 Run `node scripts/prepare-cloudflare.mjs`, `node --test cloudflare/worker.test.mjs`, then `wrangler deploy`. The staging script includes only `dist/index.html` and `dist/little-spoon.html`; never deploy all of `dist`, which also holds the private review sheet. The existing deployment secret is retained across normal Worker deployments.
 
-Both accepted HTML files have SHA-256 `554b30291e4a0c7c010ec83550e0b05321908ad2894b96985be81e919f58f74f`. The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. The current app adds the visible BMI value and removes the Labs footer. Clinical equations, references, measurement controls and qualifications are unchanged.
+Both accepted HTML files have SHA-256 `6d8d61b55abeff8c1f76548ec032a3a0e10b27994b4562f54effbb9e7f05a5b2`. The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. The current app adds the visible BMI value and removes the Labs footer. The approved age-based measurement default and optional override are now deployed. Clinical equations, references and qualifications are unchanged.
 
 ## Verification
+
+Latest update: Crystal approved the optional measurement override. Age-based convention and override passed 235 unit/input tests and 57 browser checks, with 12 live HTTP checks confirming the deployed app/download hashes and password protection. The decision described as pending in the earlier update below is now resolved.
 
 The September 17 BMI/footer update passed all 232 calculation/input checks, the production build and 54 browser checks across desktop Chromium, Android-sized Chromium and iPhone-sized WebKit. Twelve new live HTTP checks verified authentication, excluded files and both HTML checksums. Standing/lying controls remain unchanged while Pat asks Crystal about the proposed age-based default and optional override.
 

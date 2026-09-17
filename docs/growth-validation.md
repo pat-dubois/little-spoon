@@ -103,3 +103,8 @@ The chart plots the present measurement against the same sex, age and reference 
 No prematurity correction, preterm growth reference, longitudinal patient record or clinical diagnosis is inferred. Exact chronological age is explicit. There is no patient-data persistence in this module.
 
 Crystal's supplied fifth-birthday comparison is documented above, and Pat subsequently reported that Crystal says the app is working well and accepted this phase as settled. AnthroCalc's exact internal method remains unconfirmed. Any future discrepancy should record its version, selected reference, dates, posture, age correction and units before changing a verified calculation. Automated numerical agreement establishes the stated WHO reference checks, not agreement with every clinical workflow.
+
+
+### September 17 UI default and override
+
+Crystal approved using the usual measurement convention automatically, with an optional override. The UI adapter derives length below 731 elapsed days and height from 731 days, matching the existing WHO engine boundary. The assumption is displayed. An override remains available under Additional measurement information and retains both 0.7 cm conversions and the below-nine-month standing validation. The calculation engine still requires explicit measurement type; its equations and pinned reference data did not change. The UI supplies the default when no override is chosen.

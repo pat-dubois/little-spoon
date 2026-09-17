@@ -8,7 +8,7 @@ import { NutritionPanel } from './components/NutritionPanel'
 import { GrowthPanel } from './components/GrowthPanel'
 import { DriPanel } from './components/DriPanel'
 import { SoftwareNotices } from './SoftwareNotices'
-import { blankPatient, localToday, patientAge, readNumber, type Patient } from './components/patient'
+import { blankPatient, growthMeasurementType, localToday, patientAge, readNumber, type Patient } from './components/patient'
 
 type Tab = 'nutrition' | 'growth' | 'dri'
 const tabs = [
@@ -74,7 +74,7 @@ export default function App() {
     const inputErrors = getInputErrors(patient, 'growth', activity, head)
     if (inputErrors.errors.length) return { errors: inputErrors.errors }
     try {
-      return { result: calculateGrowth({ sex: patient.sex as 'female' | 'male', dateOfBirth: patient.dateOfBirth, measurementDate: patient.measurementDate, weightKg: readNumber(patient.weight), heightCm: readNumber(patient.height), measurementType: patient.measurementType || undefined, headCircumferenceCm: readNumber(head), oedema }) }
+      return { result: calculateGrowth({ sex: patient.sex as 'female' | 'male', dateOfBirth: patient.dateOfBirth, measurementDate: patient.measurementDate, weightKg: readNumber(patient.weight), heightCm: readNumber(patient.height), measurementType: growthMeasurementType(patient), headCircumferenceCm: readNumber(head), oedema }) }
     } catch (error) { return { errors: [error instanceof Error ? error.message : 'Check the patient details.'] } }
   }, [patient, head, oedema, attempted.growth, activity])
 

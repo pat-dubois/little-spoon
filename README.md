@@ -26,7 +26,7 @@ WHO growth calculations are checked against the organization's R implementation 
 - [Interface decisions](docs/design-decisions.md)
 - [Project state and work log](pulse.html)
 
-The published app passed 232 calculation/input tests, 54 browser checks and 58 additional vitamin-unit phone/desktop/print checks. Both GitHub verification runs for the final rebuild branch passed before merge. The reports preserve the precise evidence and its limits.
+The current published app passed 235 calculation/input tests and 57 browser checks. The earlier vitamin-unit release also passed 58 additional phone/desktop/print checks. Both GitHub verification runs for the final rebuild branch passed before merge. The reports preserve the precise evidence and its limits.
 
 ## Develop and verify
 

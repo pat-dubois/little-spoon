@@ -86,3 +86,12 @@ The Z-score BMI card now shows its existing calculated BMI value in kg/m², roun
 All 232 calculation/input tests, the TypeScript/production build, and all 54 browser checks passed. The fifth-birthday case now explicitly checks BMI 17.36 kg/m² and absence of Labs while retaining the established height z-score and BMI percentile assertions in all three browser projects. Browser evidence: `artifacts/e2e/2026-09-17T20-23-03-658Z/report.json`. Twelve live HTTP checks verified both deployed HTML hashes, password protection and exclusion of private artifacts.
 
 Crystal also asked about removing standing/lying choices. Pat is asking her about an age-based default with an optional override. That change is pending and was not deployed. WHO uses distinct length/height conventions and a 0.7 cm conversion when required; see the [WHO AnthroPlus manual](https://www.who.int/docs/default-source/child-growth/growth-reference-5-19-years/who-anthroplus-manual.pdf). The source review did not change existing calculations.
+
+
+## September 17, 2026: approved age-based measurement convention
+
+Pat relayed Crystal’s approval of the optional override. Growth now supplies the usual WHO measurement convention from exact elapsed days: length below 731 days, height from 731 days. The UI labels the assumption and recalculates it when dates change. The choice is derived, not stored as a patient measurement. An explicit override under Additional measurement information takes precedence and reset returns it to Automatic for age. The clinical engine and its posture validation, 0.7 cm corrections, infant validation, oedema rules and reference data are unchanged. Earlier explicit-selection workflow evidence above describes the previous interface.
+
+All 235 calculation/input tests and 57 browser checks passed, plus TypeScript and the offline production build. New tests cover days 730/731, date edits in both directions, missing/invalid dates, automatic mode, both override corrections and their displayed BMI values, keyboard access to the disclosure, reset, oedema, infant standing validation and accessibility. Browser evidence: `artifacts/e2e/2026-09-17T20-34-39-723Z/report.json`. All three browser projects passed with no retries.
+
+The implementation follows the same pinned WHO convention as the existing clinical engine. This is a user-approved UI assumption about the usual measurement, not evidence of the posture actually used; the visible convention and optional override preserve that distinction. Existing infant-age and AnthroCalc qualifications remain.
