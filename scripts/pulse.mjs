@@ -11,7 +11,7 @@ const ticketsPath = join(root, 'pulse-tickets.json');
 const boardPath = join(root, 'pulse.html');
 const project = 'little-spoon';
 const repository = 'pat-dubois/little-spoon';
-const allowedHosts = new Set(['github.com', 'little-spoon.patdubois.chatgpt.site']);
+const allowedHosts = new Set(['github.com', 'little-spoon.patdubois.chatgpt.site', 'little-spoon.smgyxe.workers.dev']);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);

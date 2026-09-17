@@ -1,34 +1,43 @@
 # Cloudflare hosting
 
-Prepared September 17, 2026 for GitHub issue #5. **Not deployed yet.**
+Live September 17, 2026: https://little-spoon.smgyxe.workers.dev
 
-Pat selected Workers with a browser HTTP Basic login, username `Crystal` (case sensitive). The password is in the `Little Spoon` item in the user-named `Tilly` 1Password vault. The item and vault spelling have not yet been verified because the desktop CLI authorization timed out while Pat was at work. Do not print or write the password into project files or logs.
+Browser HTTP Basic authentication uses username `Crystal` (case sensitive) and Cloudflare secret `PASSWORD`. Pat supplied a temporary password for immediate use and plans to change it tonight. The value is not in project files or receipts. The original `Little Spoon` item in the user-named `Tilly` 1Password vault remains unread because desktop authorization is unavailable while Pat is at work; it may not match the temporary password.
 
-The intended address is `little-spoon.patdubois.com`; Pat also permitted a subdomain of `pat.do`. The existing Wrangler OAuth session can list Workers in account `e162d36042b08a9b53cd44f6f0435b7f`, but its zone queries return no domains, including a query for `patdubois.com`. Whether this is the wrong account or a credential scope restriction is unknown. T3's Cloudflare dashboard tab requires sign-in. No other 1Password or Cloudflare connector was found in the plugin search.
+## Account and deployment
 
-## Prepared implementation
+Pat confirmed the connected login `pat.dubois@saskatoonmedia.ca` is his work account and explicitly authorized deploying here. Account ID: `e162d36042b08a9b53cd44f6f0435b7f`. Worker: `little-spoon`. Current version: `bc256f8d-3c7c-41b3-9f77-749646bebd13`.
 
-`cloudflare/worker.mjs` checks credentials before calling the asset binding. `run_worker_first: true` applies this to every URL, including direct HTML downloads. A missing password returns 503 and never serves the calculator. Invalid credentials return 401 with the browser login challenge. Responses prohibit shared/browser caching and request no indexing. Request credentials are removed before calling the asset binding. Worker observability and alternate Workers/preview addresses are disabled in configuration.
+The login's domain queries return no zones. Personal domains likely require another login, but their ownership has not been verified. The Workers address works without them. Pat's preferred future custom address was `little-spoon.patdubois.com`, with `pat.do` also acceptable.
 
-`scripts/prepare-cloudflare.mjs` copies only `dist/index.html` and `dist/little-spoon.html` to the deployment directory. The existing `dist` also contains a private review sheet and other assets, so never deploy that entire directory. Both accepted HTML files have SHA-256 `9dc3f2c1db4613231d79e180575045aafbb793466bb7ebe224a32812f3cd41f9`.
+Pat authorized brief public access while credentials were unavailable. The app was briefly published that way, then immediately password-protected after he supplied a temporary password. The final code and configuration contain no public-access bypass or expiry variable.
 
-## Resume
+## Change the password
 
-1. Restore authorized 1Password CLI access and Cloudflare access to the intended domain. Verify the account and existing hostname before deploying; update the account ID if needed.
-2. Run `node scripts/prepare-cloudflare.mjs`, `node --test cloudflare/worker.test.mjs`, and `wrangler deploy --dry-run`.
-3. Deploy the Worker. It fails closed until its `PASSWORD` secret is provisioned. Transfer the authorized 1Password field directly through a subprocess pipe into `wrangler secret put PASSWORD`, without printing it, passing it as a command-line argument, or writing a secret file. Alternatively Pat can enter it in the Cloudflare dashboard as an encrypted secret named `PASSWORD`.
-4. Verify the live site denies absent/wrong credentials, authenticates `Crystal`, serves the accepted checksum, excludes the review sheet, and works in desktop/phone browsers. Update the login item's URL if authorized access is available.
-5. Update README, AGENTS hosting map, issue #5, and append a deployment receipt to Pulse with the real URL and version. Keep the prior Sites deployment unless Pat requests its removal.
+Open the [Worker settings](https://dash.cloudflare.com/e162d36042b08a9b53cd44f6f0435b7f/workers/services/view/little-spoon/production/settings). Under Variables and Secrets, replace the encrypted secret named `PASSWORD`, then deploy/save the change. Keep the login in 1Password up to date. Username remains `Crystal`.
 
-## Checks completed
+Alternatively, use `wrangler secret put PASSWORD` with the password provided directly through standard input. Never include it in command-line arguments, source files, logs, or receipts. Once authorized vault access works, transfer the field directly from 1Password through a subprocess pipe.
 
-22 authentication unit checks pass. Wrangler deployment dry run passes. Fifteen HTTP checks against the local Workers runtime pass: no/wrong/correct credentials across the root, both HTML paths, the excluded review sheet, and Pulse. Authorized calculator responses match the accepted checksum byte for byte; excluded files return 404. Local verification used a throwaway test password, not Crystal's password. Live deployment, Crystal's actual credential, and hosted browser use remain unverified.
+## Implementation and updates
 
-The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. No app code, calculations, reference data, or clinical qualifications changed. The original calculator checks remain historical evidence, not new test runs in this session.
+`cloudflare/worker.mjs` authenticates every request before calling the static asset binding. `run_worker_first: true` includes direct HTML URLs. Missing secrets return 503; invalid credentials return 401 with the browser prompt. Credentials are stripped before calling the binding. Responses use `private, no-store` and request no indexing. Worker observability and preview URLs are disabled.
+
+Run `node scripts/prepare-cloudflare.mjs`, `node --test cloudflare/worker.test.mjs`, then `wrangler deploy`. The staging script includes only `dist/index.html` and `dist/little-spoon.html`; never deploy all of `dist`, which also holds the private review sheet. The existing deployment secret is retained across normal Worker deployments.
+
+Both accepted HTML files have SHA-256 `9dc3f2c1db4613231d79e180575045aafbb793466bb7ebe224a32812f3cd41f9`. The compatibility date is pinned to `2026-02-05`, supported by the installed local runtime. Calculator code, clinical references and qualifications are unchanged.
+
+## Verification
+
+22 authentication unit checks pass. Fifteen live HTTPS checks pass across root, both HTML paths, review sheet and Pulse: no/wrong credentials return 401, valid credentials return the exact accepted HTML checksum, and excluded files return 404. The checks used the deployed temporary password without recording its value.
+
+T3 loaded the live app during the brief public window and exercised a synthetic nutrition calculation at desktop width, then switched Growth and DRI tabs at 390 pixels with no horizontal overflow. Keyboard focus was exercised. Browser password-dialog entry was not automated; actual authentication was verified by the live HTTP checks. Crystal's own device login is still awaiting her use.
+
+A Python HTTP client initially received a 403. Curl subsequently verified all 15 cases, and the T3 browser loaded the app. An attempted in-page fetch was blocked by the app's intended `connect-src none` policy; no policy was weakened. Original clinical tests remain prior-session evidence.
 
 ## Sources
 
 - [Cloudflare HTTP Basic example](https://developers.cloudflare.com/workers/examples/basic-auth/)
 - [Run the Worker before static assets](https://developers.cloudflare.com/workers/static-assets/routing/worker-script/)
+- [Workers default addresses](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/)
 
-Basic authentication uses a persistent password, not a timed email login. Browser credential retention varies, so do not promise a specific remembered-login duration. Downloaded offline copies still work without authentication.
+Basic authentication uses a persistent password. Browser credential retention varies, so do not promise a specific remembered-login duration. Downloaded offline copies work without authentication. Preserve the existing Sites deployment unless Pat requests its removal.
