@@ -1,13 +1,20 @@
 {
   "schema_version": 1,
   "project": "little-spoon",
-  "generated_at": "2026-09-06T00:21:02.865Z",
+  "generated_at": "2026-09-17T20:09:42.156Z",
   "source": {
     "provider": "github",
     "project_id": "pat-dubois/little-spoon"
   },
   "status": "current",
   "tickets": [
+    {
+      "closedAt": null,
+      "number": 5,
+      "state": "OPEN",
+      "title": "Host Little Spoon on Cloudflare with Crystal password access",
+      "url": "https://github.com/pat-dubois/little-spoon/issues/5"
+    },
     {
       "closedAt": "2026-09-06T00:21:01Z",
       "number": 4,
